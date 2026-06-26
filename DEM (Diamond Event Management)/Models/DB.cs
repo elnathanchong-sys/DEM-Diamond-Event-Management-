@@ -35,7 +35,7 @@ public class Customer
 
 public class Event
 {
-    // Column
+    // Column testing one
     [Key, MaxLength(4)]
     public string EventID { get; set; }
     [MaxLength(100)]
