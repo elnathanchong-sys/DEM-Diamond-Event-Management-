@@ -112,8 +112,7 @@ public class Society
     [MaxLength(100)]
     public string StaffID { get; set; }
 
-    //ForeignKey
-    [MaxLength(4)]
+    [ForeignKey("StaffID")]
     public Staff Staff { get; set; }
 
 
