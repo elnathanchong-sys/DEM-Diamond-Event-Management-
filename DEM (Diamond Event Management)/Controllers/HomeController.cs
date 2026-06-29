@@ -1,4 +1,4 @@
-﻿using DEM.Models;
+﻿using DEM__Diamond_Event_Management_.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +12,13 @@ public class HomeController(DB db) : Controller
     {
         return View();
     }
+
+    [Authorize]
+    public IActionResult Both()
+    {
+        return View();
+    }
+
     [Authorize(Roles = "Member")]
     public IActionResult Member()
     {

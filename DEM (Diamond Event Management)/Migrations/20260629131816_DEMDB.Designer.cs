@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20260629012352_DEMDB")]
+    [Migration("20260629131816_DEMDB")]
     partial class DEMDB
     {
         /// <inheritdoc />
