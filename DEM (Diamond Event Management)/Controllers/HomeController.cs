@@ -1,4 +1,5 @@
 ﻿using DEM.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,27 +8,19 @@ namespace DEM.Controllers;
 // TODO
 public class HomeController(DB db) : Controller
 {
-    // GET: Home/Index
     public IActionResult Index()
     {
-        var m = db.Registrations
-                .Include(s => s.Customer);
-
-        return View(m);
+        return View();
+    }
+    [Authorize(Roles = "Member")]
+    public IActionResult Member()
+    {
+        return View();
     }
 
-    // GET: Home/Detail
-    public IActionResult Detail(string? id)
+    [Authorize(Roles = "Admin")]
+    public IActionResult Admin()
     {
-        var m = db.Registrations
-                .Include(s => s.Event)
-                .FirstOrDefault(s => s.RegID == id);
-
-        if (m == null)
-        {
-            return RedirectToAction("Index");
-        }
-
-        return View(m);
+        return View();
     }
 }
