@@ -279,7 +279,7 @@ label > * {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 900vh;
+    min-height: 120vh;
 }
 .box {
     width: 300px;
