@@ -79,14 +79,14 @@ public class Registration
     [MaxLength(20)]
     public string Status { get; set; }
     // Foreign Keys
-    [MaxLength(4)]
-    public string CustID { get; set; }
+    [MaxLength(100)]
+    public string Email { get; set; }
 
     [MaxLength(4)]
     public string EventID { get; set; }
 
-    [ForeignKey("CustID")]
-    public Customer Customer { get; set; }
+    [ForeignKey("Email")]
+    public Customer Customers { get; set; }
     [ForeignKey("EventID")]
     public Event Event { get; set; }
 }

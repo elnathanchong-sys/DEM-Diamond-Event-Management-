@@ -27,17 +27,16 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserID = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    HashedPassword = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserID);
+                    table.PrimaryKey("PK_Users", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,9 +68,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     RegID = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     RegDate = table.Column<DateOnly>(type: "DATE", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    CustID = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     EventID = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    StaffUserID = table.Column<string>(type: "nvarchar(4)", nullable: true)
+                    StaffEmail = table.Column<string>(type: "nvarchar(100)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,16 +82,16 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         principalColumn: "EventID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Registrations_Users_CustID",
-                        column: x => x.CustID,
+                        name: "FK_Registrations_Users_Email",
+                        column: x => x.Email,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Registrations_Users_StaffUserID",
-                        column: x => x.StaffUserID,
+                        name: "FK_Registrations_Users_StaffEmail",
+                        column: x => x.StaffEmail,
                         principalTable: "Users",
-                        principalColumn: "UserID");
+                        principalColumn: "Email");
                 });
 
             migrationBuilder.CreateIndex(
@@ -101,9 +100,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Registrations_CustID",
+                name: "IX_Registrations_Email",
                 table: "Registrations",
-                column: "CustID");
+                column: "Email");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Registrations_EventID",
@@ -111,9 +110,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 column: "EventID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Registrations_StaffUserID",
+                name: "IX_Registrations_StaffEmail",
                 table: "Registrations",
-                column: "StaffUserID");
+                column: "StaffEmail");
         }
 
         /// <inheritdoc />
