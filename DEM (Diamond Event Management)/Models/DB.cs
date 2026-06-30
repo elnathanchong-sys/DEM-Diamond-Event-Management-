@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DEM.Models;
+namespace DEM__Diamond_Event_Management_.Controllers;
 
 #nullable disable warnings
 
@@ -19,14 +19,12 @@ public class DB(DbContextOptions options) : DbContext(options)
 public class User
 {
     // Column
-    [Key, MaxLength(4)]
-    public string UserID { get; set; }
+    [Key, MaxLength(100)]
+    public string Email { get; set; }
     [MaxLength(100)]
     public string Name { get; set; }
     [MaxLength(100)]
-    public string Email { get; set; }
-    [MaxLength(100)]
-    public string Password { get; set; }
+    public string HashedPassword { get; set; }
     [MaxLength(100)]
     public string Phone { get; set; }
     [MaxLength(1)]
@@ -81,14 +79,14 @@ public class Registration
     [MaxLength(20)]
     public string Status { get; set; }
     // Foreign Keys
-    [MaxLength(4)]
-    public string CustID { get; set; }
+    [MaxLength(100)]
+    public string Email { get; set; }
 
     [MaxLength(4)]
     public string EventID { get; set; }
 
-    [ForeignKey("CustID")]
-    public Customer Customer { get; set; }
+    [ForeignKey("Email")]
+    public Customer Customers { get; set; }
     [ForeignKey("EventID")]
     public Event Event { get; set; }
 }
