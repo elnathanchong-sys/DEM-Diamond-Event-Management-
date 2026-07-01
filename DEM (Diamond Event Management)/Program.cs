@@ -1,5 +1,6 @@
 global using DEM__Diamond_Event_Management_.Controllers;
 using DEM__Diamond_Event_Management_;
+using DEM__Diamond_Event_Management_.Models;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DEM__Diamond_Event_Management_.Models;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DEM__Diamond_Event_Management_.Controllers;
+namespace DEM__Diamond_Event_Management_.Models;
 
 #nullable disable warnings
 

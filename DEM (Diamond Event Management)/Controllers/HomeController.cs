@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DEM.Controllers;
 
 // TODO
-public class HomeController(DB db) : Controller
+public class HomeController : Controller
 {
     public IActionResult Index()
     {
@@ -28,6 +28,6 @@ public class HomeController(DB db) : Controller
     [Authorize(Roles = "Admin")]
     public IActionResult Admin()
     {
-        return Index();
+        return View();
     }
 }

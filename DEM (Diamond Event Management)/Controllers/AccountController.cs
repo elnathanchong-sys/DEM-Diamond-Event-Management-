@@ -1,70 +1,70 @@
 ﻿using DEM__Diamond_Event_Management_.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DEM__Diamond_Event_Management_.Controllers
+namespace DEM__Diamond_Event_Management_.Controllers;
+
+public class AccountController(DB db, Helper hp) : Controller
 {
-    public class AccountController(DB db, Helper hp) : Controller
+    // GET: /Account/Login
+    
+    [HttpGet]
+    public IActionResult Login()
     {
-        // GET: /Account/Login
-        
-        [HttpGet]
-        public IActionResult Login()
+        return View();
+    }
+
+    // POST: /Account/Login
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken] 
+    public IActionResult Login(LoginViewModel model, string? returnURL)
+    {
+        //Get user (admin or member) record based on email (PK)
+        var u = db.Users.Find(model.Email);
+
+        //Custom validation -> verify password
+        if (u == null || !hp.VerifyPassword(u.HashedPassword, model.Password))
         {
-            return View();
+            ModelState.AddModelError("", "Login failed. Please check your email and password.");
         }
 
-        // POST: /Account/Login
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken] 
-        public IActionResult Login(LoginViewModel model, string? returnURL)
+        if (ModelState.IsValid)
         {
-            //Get user (admin or member) record based on email (PK)
-            var u = db.Users.Find(model.Email);
+            TempData["Info"] = "Login successful!";
 
-            //Custom validation -> verify password
-            if (u == null || !hp.VerifyPassword(u.HashedPassword, model.Password))
+            //Sign In
+            hp.SignIn(u!.Email, u.Role, model.RememberMe);
+
+            //Redirect to Home Screen after sign in successful
+            if (string.IsNullOrEmpty(returnURL))
             {
-                ModelState.AddModelError("", "Login failed. Please check your email and password.");
+                return RedirectToAction("Index", "Home");
             }
-            if (ModelState.IsValid)
-            {
-                TempData["Info"] = "Login successful!";
+            // No database implement yetttttttttt
+            //if (model.Email == "admin@test.com" && model.Password == "password123")
+            //{
 
-                //Sign In
-                hp.SignIn(u!.Email, u.Role, model.RememberMe);
-
-                //Redirect to Home Screen after sign in successful
-                if (string.IsNullOrEmpty(returnURL))
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                // No database implement yetttttttttt
-                //if (model.Email == "admin@test.com" && model.Password == "password123")
-                //{
-
-                // Add an error message if wrong credentials 
-                // Changed since practical uses another method instead of just another line of code under the login method
-                //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            }
-
-            return View(model);
+            // Add an error message if wrong credentials 
+            // Changed since practical uses another method instead of just another line of code under the login method
+            //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         }
 
-        public IActionResult Logout(string? returnURL)
-        {
-            TempData["Info"] = "Logout successful!";
+        return View(model);
+    }
 
-            //Sign out
-            hp.SignOut();
+    public IActionResult Logout(string? returnURL)
+    {
+        TempData["Info"] = "Logout successful!";
 
-            return RedirectToAction("Index", "Home");
-        }
+        //Sign out
+        hp.SignOut();
 
-        //this is where the error message will be shown
-        public IActionResult AccessDenied(string? returnURL)
-        {
-            return View();
-        }
+        return RedirectToAction("Index", "Home");
+    }
+
+    //this is where the error message will be shown
+    public IActionResult AccessDenied(string? returnURL)
+    {
+        return View();
     }
 }
