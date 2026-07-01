@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20260630032812_DEMDB")]
+    [Migration("20260701125349_DEMDB")]
     partial class DEMDB
     {
         /// <inheritdoc />
@@ -38,7 +38,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Controllers.Event", b =>

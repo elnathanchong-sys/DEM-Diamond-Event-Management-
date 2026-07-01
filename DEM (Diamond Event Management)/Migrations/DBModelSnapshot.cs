@@ -35,7 +35,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Controllers.Event", b =>

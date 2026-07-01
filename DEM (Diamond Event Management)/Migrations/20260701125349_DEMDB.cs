@@ -12,7 +12,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "Category",
                 columns: table => new
                 {
                     CategoryID = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
@@ -20,7 +20,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryID);
+                    table.PrimaryKey("PK_Category", x => x.CategoryID);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,9 +54,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 {
                     table.PrimaryKey("PK_Events", x => x.EventID);
                     table.ForeignKey(
-                        name: "FK_Events_Categories_CategoryID",
+                        name: "FK_Events_Category_CategoryID",
                         column: x => x.CategoryID,
-                        principalTable: "Categories",
+                        principalTable: "Category",
                         principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -128,7 +128,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Category");
         }
     }
 }

@@ -28,6 +28,6 @@ public class HomeController(DB db) : Controller
     [Authorize(Roles = "Admin")]
     public IActionResult Admin()
     {
-        return View();
+        return Index();
     }
 }

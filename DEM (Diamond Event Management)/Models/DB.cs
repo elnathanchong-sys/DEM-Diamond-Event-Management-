@@ -13,7 +13,7 @@ public class DB(DbContextOptions options) : DbContext(options)
     public DbSet<Event> Events { get; set; }
     public DbSet<Registration> Registrations { get; set; }
     public DbSet<Staff> Staff { get; set; }
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Category { get; set; }
 }
 
 public class User

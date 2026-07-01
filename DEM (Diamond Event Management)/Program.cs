@@ -11,9 +11,12 @@ builder.Services.AddSqlServer<DB>($@"
     Trusted_Connection=True;
     TrustServerCertificate=True;
 ");
-
+// Used to enable cookies-based authentication service
 builder.Services.AddAuthentication().AddCookie();
+
+// Allow our helper class to access to HTTP context later
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<Helper>();
 var app = builder.Build();
 //Added to properly route request
