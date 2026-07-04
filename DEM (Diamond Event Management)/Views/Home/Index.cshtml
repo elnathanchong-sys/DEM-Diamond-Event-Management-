@@ -1,1 +1,77 @@
-﻿
+﻿@{
+    // Set the page title
+    ViewData["Title"] = "Home";
+}
+
+    <!-- Link the homepage to the CSS stylesheet -->
+<link rel="stylesheet" href="~/css/home.css" />
+
+<!-- Main Hero Section -->
+<header class="hero">
+
+    <nav class="navbar">
+
+        <!-- Website Logo -->
+        <div class="logo">
+            💎 Diamond Event Management
+        </div>
+
+        <!-- Navigation Menu -->
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Guests</a></li>
+            <li><a href="#">Schedules</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+
+        <!-- Login Button -->
+        <a class="login-btn"
+           asp-controller="Account"
+           asp-action="Login">
+            Login
+        </a>
+
+    </nav>
+
+    <!-- Homepage Content -->
+    <div class="hero-content">
+
+        <!-- Left Section -->
+        <div class="left">
+
+            <h5>WELCOME TO</h5>
+
+            <h1>
+                Diamond Event <br />
+                Management
+            </h1>
+
+            <p>
+                Manage your diamond events with elegance and precision.
+                Plan, organize and create unforgettable experiences.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="buttons">
+
+                <a href="#" class="btn-primary">
+                    View Events
+                </a>
+
+                <a href="#" class="btn-secondary">
+                    Manage Guests
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Right Section -->
+        <div class="right">
+            <img src="~/images/diamond.png" alt="Diamond">
+        </div>
+
+    </div>
+
+</header>
