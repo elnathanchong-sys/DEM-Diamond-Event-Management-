@@ -1,6 +1,7 @@
 global using DEM__Diamond_Event_Management_.Controllers;
 using DEM__Diamond_Event_Management_;
 using DEM__Diamond_Event_Management_.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ builder.Services.AddSqlServer<DB>($@"
     TrustServerCertificate=True;
 ");
 // Used to enable cookies-based authentication service
-builder.Services.AddAuthentication().AddCookie();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 // Allow our helper class to access to HTTP context later
 builder.Services.AddHttpContextAccessor();

@@ -17,7 +17,7 @@ public class AccountController(DB db, Helper hp) : Controller
     
     [HttpPost]
     [ValidateAntiForgeryToken] 
-    public IActionResult Login(LoginViewModel model, string? returnURL)
+    public async Task <IActionResult> Login(LoginViewModel model, string? returnURL)
     {
         //Get user (admin or member) record based on email (PK)
         var u = db.Users.Find(model.Email);
@@ -33,12 +33,16 @@ public class AccountController(DB db, Helper hp) : Controller
             TempData["Info"] = "Login successful!";
 
             //Sign In
-            hp.SignIn(u!.Email, u.Role, model.RememberMe);
+            await hp.SignIn(u!.Email, u.Role, model.RememberMe);
 
             //Redirect to Home Screen after sign in successful
             if (string.IsNullOrEmpty(returnURL))
             {
                 return RedirectToAction("Index", "Home");
+            }
+            else if (Url.IsLocalUrl(returnURL))
+            {
+                return Redirect(returnURL);
             }
             // No database implement yetttttttttt
             //if (model.Email == "admin@test.com" && model.Password == "password123")
@@ -52,12 +56,12 @@ public class AccountController(DB db, Helper hp) : Controller
         return View(model);
     }
 
-    public IActionResult Logout(string? returnURL)
+    public async Task<IActionResult> Logout(string? returnURL)
     {
         TempData["Info"] = "Logout successful!";
 
         //Sign out
-        hp.SignOut();
+        await hp.SignOut();
 
         return RedirectToAction("Index", "Home");
     }
@@ -66,5 +70,51 @@ public class AccountController(DB db, Helper hp) : Controller
     public IActionResult AccessDenied(string? returnURL)
     {
         return View();
+    }
+
+    //Account Register
+    public IActionResult CreateAccount()
+    {
+        return View();
+    }
+
+    // POST: Account/Register
+    [HttpPost]
+    public async Task<IActionResult> CreateAccount(CreateAccountViewModel model)
+    {
+        if (ModelState.IsValid("Email") &&
+            db.Users.Any(u => u.Email == model.Email))
+        {
+            ModelState.AddModelError("Email", "Duplicated Email.");
+        }
+
+        //if (ModelState.IsValid("Photo"))
+        //{
+            //var err = hp.ValidatePhoto(vm.Photo);
+            //if (err != "") ModelState.AddModelError("Photo", err);
+        //}
+
+        if (ModelState.IsValid)
+        {
+            db.Users.Add(new()
+            {
+                Email = model.Email,
+                HashedPassword = hp.HashPassword(model.Password),
+                Name = model.Name,
+                //PhotoURL = hp.SavePhoto(vm.Photo, "photo")
+            });
+
+            await db.SaveChangesAsync(); 
+
+            TempData["Info"] = "Register successfully. Please login.";
+            return RedirectToAction("Login");
+        }
+
+        return View(model);
+    }
+
+    public bool CheckEmail(string email)
+    {
+        return !db.Users.Any(u => u.Email == email);
     }
 }

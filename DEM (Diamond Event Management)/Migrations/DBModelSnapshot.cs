@@ -80,6 +80,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
+                    b.Property<string>("AdminEmail")
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -93,9 +96,6 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<DateOnly>("RegDate")
                         .HasColumnType("DATE");
 
-                    b.Property<string>("StaffEmail")
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -103,11 +103,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
                     b.HasKey("RegID");
 
+                    b.HasIndex("AdminEmail");
+
                     b.HasIndex("Email");
 
                     b.HasIndex("EventID");
-
-                    b.HasIndex("StaffEmail");
 
                     b.ToTable("Registrations");
                 });
@@ -152,18 +152,18 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Customer", b =>
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Admin", b =>
                 {
                     b.HasBaseType("DEM__Diamond_Event_Management_.Models.User");
 
-                    b.HasDiscriminator().HasValue("Customer");
+                    b.HasDiscriminator().HasValue("Admin");
                 });
 
-            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Staff", b =>
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Member", b =>
                 {
                     b.HasBaseType("DEM__Diamond_Event_Management_.Models.User");
 
-                    b.HasDiscriminator().HasValue("Staff");
+                    b.HasDiscriminator().HasValue("Member");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Event", b =>
@@ -179,7 +179,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Registration", b =>
                 {
-                    b.HasOne("DEM__Diamond_Event_Management_.Models.Customer", "Customers")
+                    b.HasOne("DEM__Diamond_Event_Management_.Models.Admin", null)
+                        .WithMany("Registrations")
+                        .HasForeignKey("AdminEmail");
+
+                    b.HasOne("DEM__Diamond_Event_Management_.Models.Member", "Members")
                         .WithMany("Registrations")
                         .HasForeignKey("Email")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -191,13 +195,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DEM__Diamond_Event_Management_.Models.Staff", null)
-                        .WithMany("Registrations")
-                        .HasForeignKey("StaffEmail");
-
-                    b.Navigation("Customers");
-
                     b.Navigation("Event");
+
+                    b.Navigation("Members");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Category", b =>
@@ -210,12 +210,12 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Navigation("Registrations");
                 });
 
-            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Customer", b =>
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Admin", b =>
                 {
                     b.Navigation("Registrations");
                 });
 
-            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Staff", b =>
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Member", b =>
                 {
                     b.Navigation("Registrations");
                 });

@@ -70,7 +70,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     EventID = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    StaffEmail = table.Column<string>(type: "nvarchar(100)", nullable: true)
+                    AdminEmail = table.Column<string>(type: "nvarchar(100)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,22 +82,27 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         principalColumn: "EventID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Registrations_Users_AdminEmail",
+                        column: x => x.AdminEmail,
+                        principalTable: "Users",
+                        principalColumn: "Email");
+                    table.ForeignKey(
                         name: "FK_Registrations_Users_Email",
                         column: x => x.Email,
                         principalTable: "Users",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Registrations_Users_StaffEmail",
-                        column: x => x.StaffEmail,
-                        principalTable: "Users",
-                        principalColumn: "Email");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_CategoryID",
                 table: "Events",
                 column: "CategoryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Registrations_AdminEmail",
+                table: "Registrations",
+                column: "AdminEmail");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Registrations_Email",
@@ -108,11 +113,6 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 name: "IX_Registrations_EventID",
                 table: "Registrations",
                 column: "EventID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Registrations_StaffEmail",
-                table: "Registrations",
-                column: "StaffEmail");
         }
 
         /// <inheritdoc />

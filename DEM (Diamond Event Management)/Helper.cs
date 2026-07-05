@@ -20,7 +20,7 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
                == PasswordVerificationResult.Success;
     }
 
-    public void SignIn(string email, string role, bool rememberMe)
+    public async Task SignIn(string email, string role, bool rememberMe)
     {   
         //Claim, identity and principal
         List<Claim> claims =
@@ -42,13 +42,13 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
         };
 
         //sign in
-        ct.HttpContext!.SignInAsync(principal, properties);
+        await ct.HttpContext!.SignInAsync(principal, properties);
     }
 
     //Sign out
-    public void SignOut()
+    public async Task SignOut()
     {
-        ct.HttpContext!.SignOutAsync();
+       await ct.HttpContext!.SignOutAsync();
     }
 
     public string RandomPassword()
