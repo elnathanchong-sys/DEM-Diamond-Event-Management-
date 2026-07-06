@@ -20,13 +20,13 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
                == PasswordVerificationResult.Success;
     }
 
-    public void SignIn(string email, string role, bool rememberMe)
+    public async Task SignIn(string email, string role, bool rememberMe)
     {   
         //Claim, identity and principal
         List<Claim> claims =
         [
-            new(ClaimTypes.Name, email),
-            new(ClaimTypes.Role, role),
+            new(ClaimTypes.Name, email), //Store user PK
+            new(ClaimTypes.Role, role), //Store user role (admin or member)
         ];
 
         ClaimsIdentity identity = new(claims, "Cookies");
@@ -38,17 +38,17 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
         {
             IsPersistent = rememberMe,
             //Interesting it was auto added when I tabbed it. This could be an additional feature if needed?
-            //ExpiresUtc = DateTime.UtcNow.AddDays(7),
+            //!!!!ExpiresUtc = DateTime.UtcNow.AddDays(7),
         };
 
         //sign in
-        ct.HttpContext!.SignInAsync(principal, properties);
+        await ct.HttpContext!.SignInAsync(principal, properties);
     }
 
     //Sign out
-    public void SignOut()
+    public async Task SignOut()
     {
-        ct.HttpContext!.SignOutAsync();
+       await ct.HttpContext!.SignOutAsync();
     }
 
     public string RandomPassword()

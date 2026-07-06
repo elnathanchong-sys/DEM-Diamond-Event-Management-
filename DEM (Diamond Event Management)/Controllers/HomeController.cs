@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DEM.Controllers;
 
 // TODO
-public class HomeController(DB db) : Controller
+public class HomeController : Controller
 {
     public IActionResult Index()
     {

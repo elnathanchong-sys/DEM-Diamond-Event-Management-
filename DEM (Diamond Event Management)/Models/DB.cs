@@ -1,19 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DEM__Diamond_Event_Management_.Models;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DEM__Diamond_Event_Management_.Controllers;
+namespace DEM__Diamond_Event_Management_.Models;
 
 #nullable disable warnings
 
 public class DB(DbContextOptions options) : DbContext(options)
 {
     public DbSet<User> Users{ get; set; }
-    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Member> Members { get; set; }
     public DbSet<Event> Events { get; set; }
     public DbSet<Registration> Registrations { get; set; }
-    public DbSet<Staff> Staff { get; set; }
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<Admin> Admin { get; set; }
+    public DbSet<Category> Category { get; set; }
 }
 
 public class User
@@ -35,12 +36,12 @@ public class User
     public List<Registration> Registrations { get; set; } = [];
 }
 
-public class Customer : User
+public class Member : User
 {
 
 }
 
-public class Staff : User
+public class Admin : User
 {
 
 }
@@ -86,7 +87,7 @@ public class Registration
     public string EventID { get; set; }
 
     [ForeignKey("Email")]
-    public Customer Customers { get; set; }
+    public Member Members { get; set; }
     [ForeignKey("EventID")]
     public Event Event { get; set; }
 }
