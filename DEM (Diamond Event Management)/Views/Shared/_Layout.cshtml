@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width" initial-scale="1.0">
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="/css/app.css">
-    @RenderSection("head", false)
+    @RenderSection("head", required: false)
 </head>
 <body>
-    <header>
-        <h1><a href="/">Reusable Layout</a></h1>
-    </header>
+    
     <main>
         @RenderBody()
     </main>
