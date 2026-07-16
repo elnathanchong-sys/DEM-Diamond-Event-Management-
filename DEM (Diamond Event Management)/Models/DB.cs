@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace DEM__Diamond_Event_Management_.Models;
 
@@ -9,12 +10,14 @@ namespace DEM__Diamond_Event_Management_.Models;
 
 public class DB(DbContextOptions options) : DbContext(options)
 {
-    public DbSet<User> Users{ get; set; }
-    public DbSet<Member> Members { get; set; }
-    public DbSet<Event> Events { get; set; }
-    public DbSet<Registration> Registrations { get; set; }
+    public DbSet<User> User{ get; set; }
+    public DbSet<Member> Member { get; set; }
     public DbSet<Admin> Admin { get; set; }
+    public DbSet<Event> Event { get; set; }
+    public DbSet<Registration> Registration { get; set; }
     public DbSet<Category> Category { get; set; }
+    public DbSet<Venue> Venue { get; set; }
+    public DbSet<Payment> Payment { get; set; }
 }
 
 public class User
@@ -30,7 +33,16 @@ public class User
     public string Phone { get; set; }
     [MaxLength(1)]
     public string Gender { get; set; }
+    [MaxLength(100)]
     public string Role => GetType().Name;
+    [MaxLength(100)]
+    public string UserImg { get; set; }
+    [Column(TypeName = "DATE")]
+    public DateOnly CreationDate { get; set; }
+    [MaxLength(100)]
+    public string OngoingEvent { get; set; }
+    [MaxLength(100)]
+    public string UpcomingEvent { get; set; }
 
     // Navigation
     public List<Registration> Registrations { get; set; } = [];
@@ -38,7 +50,19 @@ public class User
 
 public class Member : User
 {
+    [MaxLength(100)]
+    public string Country { get; set; }
+    [MaxLength(100)]
+    public string State { get; set; }
 
+    [MaxLength(100)]
+    public string City { get; set; }
+
+    [MaxLength(100)]
+    public string HouseNo { get; set; }
+
+    [MaxLength(100)]
+    public string Address { get; set; }
 }
 
 public class Admin : User
@@ -50,22 +74,37 @@ public class Event
 {
     // Column testing one
     [Key, MaxLength(4)]
-    public string EventID { get; set; }
+    public string Id { get; set; }
     [MaxLength(100)]
     public string EventName { get; set; }
-    [Column(TypeName = "DATE")]
-    public DateOnly EventDate { get; set; }
     [MaxLength(100)]
     public string Description { get; set; }
+    [Column(TypeName = "DATE")]
+    public DateOnly StartDate { get; set; }
+    [Column(TypeName = "DATE")]
+    public DateOnly EndDate { get; set; }
+    [Precision(4, 2)]
+    public decimal Price { get; set; }
     [MaxLength(100)]
-    public string Venue { get; set; }
+    public string PosterImg { get; set; }
+    [MaxLength(100)]
+    public string BannerImg { get; set; }
+
+    [MaxLength(100)]
+    public string Status { get; set; }
+
+    [MaxLength(100)]
+    public int TotalTickets { get; set; }
+
+    [MaxLength(100)]
+    public int TicketSold { get; set; }
+
 
     //Foreign Key
-    [MaxLength(4)]
-    public string CategoryID { get; set; }
-    [ForeignKey("CategoryID")]
+    public String CategoryId { get; set; }
+    public String VenueId { get; set; }
     public Category Category { get; set; }
-
+    public Venue Venue { get; set; }
     // Navigation
     public List<Registration> Registrations { get; set; } = [];
 }
@@ -74,32 +113,53 @@ public class Registration
 {
     // Column
     [Key, MaxLength(4)]
-    public string RegID { get; set; }
+    public string Id { get; set; }
     [Column(TypeName = "DATE")]
     public DateOnly RegDate { get; set; }
     [MaxLength(20)]
     public string Status { get; set; }
     // Foreign Keys
     [MaxLength(100)]
-    public string Email { get; set; }
+    public int Quantity { get; set; }
 
-    [MaxLength(4)]
-    public string EventID { get; set; }
-
-    [ForeignKey("Email")]
-    public Member Members { get; set; }
-    [ForeignKey("EventID")]
+    public string UserEmail { get; set; }
+    public string EventId { get; set; }
     public Event Event { get; set; }
+    public User User { get; set; }
 }
 
 public class Category
 {
     // Column
     [Key, MaxLength(4)]
-    public string CategoryID { get; set; }
+    public string Id { get; set; }
     [MaxLength(100)]
     public string CategoryName { get; set; }
 
     // Navigation
     public List<Event> Events { get; set; } = [];
+}
+
+public class Venue
+{
+    [Key, MaxLength(4)]
+    public string Id { get; set; }
+    [MaxLength(1000)]
+    public int VenueCapacity { get; set; }
+}
+
+public class Payment
+{
+    [Key, MaxLength(4)]
+    public string Id { get; set; }
+    [MaxLength(100)]
+    public string PaymentMethod { get; set; }
+    [Precision (4, 2)]
+    public decimal AmountPaid { get; set; }
+    [Column(TypeName = "DATE")]
+    public DateOnly PaymentDate { get; set; }
+
+    public string RegistrationId { get; set; }
+    public Registration Registration { get; set; }
+
 }
