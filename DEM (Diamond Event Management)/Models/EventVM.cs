@@ -10,10 +10,12 @@ namespace DEM__Diamond_Event_Management_.Models
 {
     public class EventVM
     {
-        [StringLength(10)]
-        public string EventName { get; set; }
+        [StringLength(6)]
+        public string Id { get; set; }
+        [StringLength(100)]
+        public string Name { get; set; }
         [Precision(4, 2)]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
         [MaxLength(100)]
         public string Description { get; set; }
         public DateOnly StartDate { get; set; }
@@ -28,6 +30,13 @@ namespace DEM__Diamond_Event_Management_.Models
         public string PosterImg { get; set; }
         [MaxLength(100)]
         public string BannerImg { get; set; }
+        [MaxLength(10)]
+        public string Status { get; set; }
+        [MaxLength(100)]
+        public int TotalTickets { get; set; }
+        [MaxLength(100)]
+        public int TicketSold { get; set; }
+
 
         public string VenueId { get; set; }
         public string CategoryId { get; set; }
