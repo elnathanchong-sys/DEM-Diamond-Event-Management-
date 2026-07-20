@@ -20,7 +20,7 @@ public class AccountController(DB db, Helper hp) : Controller
     public async Task <IActionResult> Login(LoginViewModel model, string? returnURL)
     {
         //Get user (admin or member) record based on email (PK)
-        var u = db.Users.Find(model.Email);
+        var u = db.User.Find(model.Email);
 
         //Custom validation -> verify password
         if (u == null || !hp.VerifyPassword(u.HashedPassword, model.Password))
@@ -83,7 +83,7 @@ public class AccountController(DB db, Helper hp) : Controller
     public async Task<IActionResult> CreateAccount(CreateAccountViewModel model)
     {
         if (ModelState.IsValid("Email") &&
-            db.Users.Any(u => u.Email == model.Email))
+            db.User.Any(u => u.Email == model.Email))
         {
             ModelState.AddModelError("Email", "Duplicated Email.");
         }
@@ -96,7 +96,7 @@ public class AccountController(DB db, Helper hp) : Controller
 
         if (ModelState.IsValid)
         {
-            db.Users.Add(new()
+            db.User.Add(new()
             {
                 Email = model.Email,
                 HashedPassword = hp.HashPassword(model.Password),
@@ -115,6 +115,6 @@ public class AccountController(DB db, Helper hp) : Controller
 
     public bool CheckEmail(string email)
     {
-        return !db.Users.Any(u => u.Email == email);
+        return !db.User.Any(u => u.Email == email);
     }
 }

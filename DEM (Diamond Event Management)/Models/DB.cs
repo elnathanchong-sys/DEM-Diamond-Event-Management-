@@ -83,6 +83,10 @@ public class Event
     public DateOnly StartDate { get; set; }
     [Column(TypeName = "DATE")]
     public DateOnly EndDate { get; set; }
+    [Column(TypeName = "TIME")]
+    public TimeOnly StartTime { get; set; }
+    [Column(TypeName = "TIME")]
+    public TimeOnly EndTime { get; set; }
     [Precision(4, 2)]
     public decimal Price { get; set; }
     [MaxLength(100)]

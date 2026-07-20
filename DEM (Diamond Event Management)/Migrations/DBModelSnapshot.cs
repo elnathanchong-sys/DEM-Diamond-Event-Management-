@@ -24,7 +24,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Category", b =>
                 {
-                    b.Property<string>("CategoryID")
+                    b.Property<string>("Id")
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
@@ -33,20 +33,24 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("CategoryID");
+                    b.HasKey("Id");
 
                     b.ToTable("Category");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Event", b =>
                 {
-                    b.Property<string>("EventID")
+                    b.Property<string>("Id")
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<string>("CategoryID")
+                    b.Property<string>("BannerImg")
                         .IsRequired()
-                        .HasMaxLength(4)
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(4)");
 
                     b.Property<string>("Description")
@@ -54,7 +58,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateOnly>("EventDate")
+                    b.Property<DateOnly>("EndDate")
                         .HasColumnType("DATE");
 
                     b.Property<string>("EventName")
@@ -62,36 +66,86 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Venue")
+                    b.Property<string>("PosterImg")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("EventID");
+                    b.Property<decimal>("Price")
+                        .HasPrecision(4, 2)
+                        .HasColumnType("decimal(4,2)");
 
-                    b.HasIndex("CategoryID");
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("DATE");
 
-                    b.ToTable("Events");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("TicketSold")
+                        .HasMaxLength(100)
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalTickets")
+                        .HasMaxLength(100)
+                        .HasColumnType("int");
+
+                    b.Property<string>("VenueId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(4)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("VenueId");
+
+                    b.ToTable("Event");
+                });
+
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Payment", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<decimal>("AmountPaid")
+                        .HasPrecision(4, 2)
+                        .HasColumnType("decimal(4,2)");
+
+                    b.Property<DateOnly>("PaymentDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("RegistrationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(4)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegistrationId");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Registration", b =>
                 {
-                    b.Property<string>("RegID")
+                    b.Property<string>("Id")
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<string>("AdminEmail")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Email")
+                    b.Property<string>("EventId")
                         .IsRequired()
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<int>("Quantity")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("EventID")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                        .HasColumnType("int");
 
                     b.Property<DateOnly>("RegDate")
                         .HasColumnType("DATE");
@@ -101,15 +155,17 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("RegID");
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
 
-                    b.HasIndex("AdminEmail");
+                    b.HasKey("Id");
 
-                    b.HasIndex("Email");
+                    b.HasIndex("EventId");
 
-                    b.HasIndex("EventID");
+                    b.HasIndex("UserEmail");
 
-                    b.ToTable("Registrations");
+                    b.ToTable("Registration");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.User", b =>
@@ -117,6 +173,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateOnly>("CreationDate")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -138,18 +197,48 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("OngoingEvent")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UpcomingEvent")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserImg")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Email");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Venue", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<int>("VenueCapacity")
+                        .HasMaxLength(1000)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Venue");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Admin", b =>
@@ -163,6 +252,31 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 {
                     b.HasBaseType("DEM__Diamond_Event_Management_.Models.User");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("HouseNo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasDiscriminator().HasValue("Member");
                 });
 
@@ -170,34 +284,49 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 {
                     b.HasOne("DEM__Diamond_Event_Management_.Models.Category", "Category")
                         .WithMany("Events")
-                        .HasForeignKey("CategoryID")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DEM__Diamond_Event_Management_.Models.Venue", "Venue")
+                        .WithMany()
+                        .HasForeignKey("VenueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Payment", b =>
+                {
+                    b.HasOne("DEM__Diamond_Event_Management_.Models.Registration", "Registration")
+                        .WithMany()
+                        .HasForeignKey("RegistrationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Registration");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Registration", b =>
                 {
-                    b.HasOne("DEM__Diamond_Event_Management_.Models.Admin", null)
+                    b.HasOne("DEM__Diamond_Event_Management_.Models.Event", "Event")
                         .WithMany("Registrations")
-                        .HasForeignKey("AdminEmail");
-
-                    b.HasOne("DEM__Diamond_Event_Management_.Models.Member", "Members")
-                        .WithMany("Registrations")
-                        .HasForeignKey("Email")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DEM__Diamond_Event_Management_.Models.Event", "Event")
+                    b.HasOne("DEM__Diamond_Event_Management_.Models.User", "User")
                         .WithMany("Registrations")
-                        .HasForeignKey("EventID")
+                        .HasForeignKey("UserEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Event");
 
-                    b.Navigation("Members");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Category", b =>
@@ -210,12 +339,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Navigation("Registrations");
                 });
 
-            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Admin", b =>
-                {
-                    b.Navigation("Registrations");
-                });
-
-            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Member", b =>
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.User", b =>
                 {
                     b.Navigation("Registrations");
                 });
