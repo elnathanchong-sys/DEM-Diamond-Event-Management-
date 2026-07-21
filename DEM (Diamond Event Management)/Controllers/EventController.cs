@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace DEM.Controllers;
+namespace DEM__Diamond_Event_Management_.Controllers;
 
 public class EventController(DB db, 
                             IWebHostEnvironment en) : Controller
 {
+    [HttpGet]
     public IActionResult EventCRUD()
     {
         return View();
@@ -206,13 +207,12 @@ public class EventController(DB db,
     }
 
     // GET: Home/Demo
-@*
-    public IActionResult Demo()
-    {
-        var model = db.Event;
-        return View(model);
-    }
-*@
+//    public IActionResult Demo()
+//    {
+//        var model = db.Event;
+//        return View(model);
+//    }
+
 
     // POST: Home/DeleteMany
     [HttpPost]
@@ -249,10 +249,10 @@ public class EventController(DB db,
                 Id = data[0],
                 Name = data[1],
                 Description = data[2],
-                StartDate = DateTime.Parse(data[3]),
-                EndDate = DateTime.Parse(data[4]),
-                StartTime = TimeSpan.Parse(data[5]),
-                EndTime = TimeSpan.Parse(data[6]),
+                StartDate = DateOnly.Parse(data[3]),
+                EndDate = DateOnly.Parse(data[4]),
+                StartTime = TimeOnly.Parse(data[5]),
+                EndTime = TimeOnly.Parse(data[6]),
                 Price = decimal.Parse(data[7]),
                 PosterImg = data[8],
                 BannerImg = data[9],
