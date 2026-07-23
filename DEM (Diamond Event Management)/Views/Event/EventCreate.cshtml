@@ -1,0 +1,73 @@
+﻿@model DEM__Diamond_Event_Management_.Models.EventVM
+
+@{
+    ViewBag.Title = "Events";
+    Layout = "_AdminLayout";
+}
+
+<div class="event-create-container">
+    <form method="post" class="form">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <label asp-for="Id"></label>
+        <input asp-for="Id" data-upper autofocus>
+        <span asp-validation-for="Id"></span>
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name" data-upper data-trim />
+        <span asp-validation-for="Name"></span>
+
+        <label asp-for="Description"></label>
+        <input asp-for="Description" data-upper data-trim />
+        <span asp-validation-for="Description"></span>
+
+        <label asp-for="StartDate"></label>
+        <input asp-for="StartDate" data-upper data-trim />
+        <span asp-validation-for="StartDate"></span>
+
+        <label asp-for="EndDate"></label>
+        <input asp-for="EndDate" data-upper data-trim />
+        <span asp-validation-for="EndDate"></span>
+
+        <label asp-for="StartTime"></label>
+        <input asp-for="StartTime" data-upper data-trim />
+        <span asp-validation-for="StartTime"></span>
+
+        <label asp-for="EndTime"></label>
+        <input asp-for="EndTime" data-upper data-trim />
+        <span asp-validation-for="EndTime"></span>
+
+        <label asp-for="Price"></label>
+        <input asp-for="Price" data-upper data-trim />
+        <span asp-validation-for="Price"></span>
+
+        <label asp-for="PosterImg"></label>
+        <input asp-for="PosterImg" data-upper data-trim />
+        <span asp-validation-for="PosterImg"></span>
+
+        <label asp-for="BannerImg"></label>
+        <input asp-for="BannerImg" data-upper data-trim />
+        <span asp-validation-for="BannerImg"></span>
+
+        <label asp-for="Status"></label>
+        <input asp-for="Status" data-upper data-trim />
+        <span asp-validation-for="Status"></span>
+
+        <label asp-for="VenueId"></label>
+        <select asp-for="VenueId" asp-items="ViewBag.VenueList">
+            <option value="">- Select One -</option>
+        </select>
+        <span asp-validation-for="VenueId"></span>
+
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" asp-items="ViewBag.CategoryList">
+            <option value="">- Select One -</option>
+        </select>
+        <span asp-validation-for="CategoryId"></span>
+
+        <section>
+            <button>Submit</button>
+            <button type="reset">Reset</button>
+        </section>
+    </form>
+</div>

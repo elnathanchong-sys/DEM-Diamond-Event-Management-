@@ -12,7 +12,26 @@ public class EventController(DB db,
     [HttpGet]
     public IActionResult EventRead()
     {
-        return View();
+        var model = db.Event.Select(e => new EventVM
+        {
+            Id = e.Id,
+            Name = e.Name,
+            Description = e.Description,
+            StartDate = e.StartDate,
+            EndDate = e.EndDate,
+            StartTime = e.StartTime,
+            EndTime = e.EndTime,
+            Price = e.Price,
+            PosterImg = e.PosterImg,
+            BannerImg = e.BannerImg,
+            Status = e.Status,
+            TotalTickets = e.TotalTickets,
+            TicketSold = e.TicketSold,
+            CategoryId = e.CategoryId,
+            VenueId = e.VenueId
+        }).ToList();
+
+        return View(model);
     }
 
     // GET: Home/Detail
@@ -259,6 +278,8 @@ public class EventController(DB db,
                 Status = data[10],
                 TotalTickets = int.Parse(data[11]),
                 TicketSold = int.Parse(data[12]),
+                CategoryId = data[13],
+                VenueId = data[14]
             });
         }
 

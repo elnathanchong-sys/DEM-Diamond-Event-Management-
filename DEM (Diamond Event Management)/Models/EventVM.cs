@@ -14,27 +14,27 @@ namespace DEM__Diamond_Event_Management_.Models
         public string Id { get; set; }
         [StringLength(100)]
         public string Name { get; set; }
-        [Precision(4, 2)]
-        public decimal Price { get; set; }
-        [MaxLength(100)]
+        [StringLength(100)]
         public string Description { get; set; }
+        [Column(TypeName = "DATE")]
         public DateOnly StartDate { get; set; }
         [Column(TypeName = "DATE")]
         public DateOnly EndDate { get; set; }
-        [Precision(4, 2)]
         [Column(TypeName = "TIME")]
         public TimeOnly StartTime { get; set; }
         [Column(TypeName = "TIME")]
         public TimeOnly EndTime { get; set; }
-        [MaxLength(100)]
+        [Precision(6, 2)]
+        public decimal Price { get; set; }
+        [StringLength(100)]
         public string PosterImg { get; set; }
-        [MaxLength(100)]
+        [StringLength(100)]
         public string BannerImg { get; set; }
-        [MaxLength(10)]
+        [StringLength(10)]
         public string Status { get; set; }
-        [MaxLength(100)]
+        [Range(0, 1000)]
         public int TotalTickets { get; set; }
-        [MaxLength(100)]
+        [Range(0, 1000)]
         public int TicketSold { get; set; }
 
 
