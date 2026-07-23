@@ -10,7 +10,7 @@ public class EventController(DB db,
                             IWebHostEnvironment en) : Controller
 {
     [HttpGet]
-    public IActionResult EventCRUD()
+    public IActionResult EventRead()
     {
         return View();
     }
@@ -99,7 +99,7 @@ public class EventController(DB db,
             });
             db.SaveChanges();
             TempData["Info"] = "Record inserted.";
-            return RedirectToAction("EventCRUD");
+            return RedirectToAction("EventRead");
         }
 
         ViewBag.EventList = new SelectList(db.Category, "Id", "Name");
@@ -113,7 +113,7 @@ public class EventController(DB db,
 
         if (e == null)
         {
-            return RedirectToAction("EventCRUD");
+            return RedirectToAction("EventRead");
         }
 
         var vm = new EventVM
@@ -147,7 +147,7 @@ public class EventController(DB db,
 
         if (e == null)
         {
-            return RedirectToAction("EventCRUD");
+            return RedirectToAction("EventRead");
         }
 
         if (ModelState.IsValid("CategoryId") &&
