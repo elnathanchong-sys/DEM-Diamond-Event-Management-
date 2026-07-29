@@ -66,8 +66,8 @@ public class EventController(DB db,
     }
 
 
-    // GET: Home/Insert
-    public IActionResult Insert()
+    // GET: Home/EventCreate
+    public IActionResult EventCreate()
     {
         ViewBag.EventList = new SelectList(db.Event, "Id", "Name");
         return View();
