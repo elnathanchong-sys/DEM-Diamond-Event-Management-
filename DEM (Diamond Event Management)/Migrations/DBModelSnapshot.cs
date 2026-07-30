@@ -64,7 +64,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<TimeOnly>("EndTime")
                         .HasColumnType("TIME");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("EventName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");

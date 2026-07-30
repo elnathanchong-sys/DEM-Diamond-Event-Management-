@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     /// <inheritdoc />
-    public partial class DEM_DB : Migration
+    public partial class DEMDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,7 +71,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     EndDate = table.Column<DateOnly>(type: "DATE", nullable: false),
                     StartTime = table.Column<TimeOnly>(type: "TIME", nullable: false),
                     EndTime = table.Column<TimeOnly>(type: "TIME", nullable: false),
+<<<<<<<< HEAD:DEM (Diamond Event Management)/Migrations/20260720130105_DEMDB.cs
+                    Price = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false),
+========
                     Price = table.Column<decimal>(type: "decimal(6,2)", precision: 6, scale: 2, nullable: false),
+>>>>>>>> 2abee93f5498537889c4caf85e3eddbe7b162340:DEM (Diamond Event Management)/Migrations/20260723132005_DEM_DB.cs
                     PosterImg = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     BannerImg = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Status = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
