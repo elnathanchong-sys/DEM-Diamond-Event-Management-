@@ -128,7 +128,7 @@ public class EventController(DB db,
     }
 
     // GET: Home/Update
-    public IActionResult Update(string? id)
+    public IActionResult EventUpdate(string? id)
     {
         var e = db.Event.Find(id);
 
@@ -156,13 +156,16 @@ public class EventController(DB db,
             VenueId = e.VenueId
         };
 
-        ViewBag.EventList = new SelectList(db.Category, "Id", "Name");
-        return View(vm); 
+        ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
+        ViewBag.CategoryList = new SelectList(db.Category, "Id", "CategoryName");
+        return View(vm);
+
     }
+
 
     // POST: Home/Update
     [HttpPost]
-    public IActionResult Update(EventVM vm)
+    public IActionResult EventUpdate(EventVM vm)
     {
         var e = db.Event.Find(vm.Id);
 
@@ -203,16 +206,17 @@ public class EventController(DB db,
             db.SaveChanges();
 
             TempData["Info"] = "Record updated.";
-            return RedirectToAction("Index");
+            return RedirectToAction("EventRead");
         }
 
-        ViewBag.ProgramList = new SelectList(db.Category, "Id", "Name");
+        ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
+        ViewBag.CategoryList = new SelectList(db.Category, "Id", "CategoryName");
         return View(vm);
     }
 
     // POST: Home/Delete
     [HttpPost]
-    public IActionResult Delete(string? id)
+    public IActionResult EventDelete(string? id)
     {
         var e = db.Event.Find(id);
 

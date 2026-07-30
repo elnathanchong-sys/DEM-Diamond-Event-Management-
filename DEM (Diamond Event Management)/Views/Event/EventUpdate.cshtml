@@ -1,6 +1,107 @@
-﻿namespace DEM__Diamond_Event_Management_.Views.Event
-{
-    public class EventUpdate
-    {
-    }
+﻿@model DEM__Diamond_Event_Management_.Models.EventVM
+
+@{
+    ViewBag.Title = "Events";
+    Layout = "_AdminLayout";
+    <link rel="stylesheet" href="/css/event.css">
 }
+
+<div class="event-update-container">
+    <h1 class="event-update-title">Add New Events</h1>
+    <div class="event-update-body">
+        <form method="post" class="form">
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <div class="event-update-body-row-one">
+                <div class="event-update-input-box">
+                    <label asp-for="Id"></label>
+                    <b>@Model?.Id</b>
+                    <br>
+                </div>
+                <div class="event-update-input-box">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" data-upper data-trim />
+                    <span asp-validation-for="Name"></span>
+                </div>
+                <div class="event-update-input-box">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" data-upper data-trim />
+                    <span asp-validation-for="Price"></span>
+                </div>
+            </div>
+
+            <div class="event-update-body-description">
+                <div class="event-update-input-box">
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description" data-upper data-trim />
+                    <span asp-validation-for="Description"></span>
+                </div>
+            </div>
+
+            <div class="event-update-body-row-two">
+                <div class="event-update-input-box">
+                    <label asp-for="StartDate"></label>
+                    <input asp-for="StartDate" data-upper data-trim />
+                    <span asp-validation-for="StartDate"></span>
+                </div>
+                <div class="event-update-input-box">
+                    <label asp-for="EndDate"></label>
+                    <input asp-for="EndDate" data-upper data-trim />
+                    <span asp-validation-for="EndDate"></span>
+                </div>
+                <div class="event-update-input-box">
+                    <label asp-for="StartTime"></label>
+                    <input asp-for="StartTime" data-upper data-trim />
+                    <span asp-validation-for="StartTime"></span>
+                </div>
+                <div class="event-update-input-box">
+                    <label asp-for="EndTime"></label>
+                    <input asp-for="EndTime" data-upper data-trim />
+                    <span asp-validation-for="EndTime"></span>
+                </div>
+            </div>
+
+            <div class="event-update-body-row-three">
+                <div class="event-update-input-box">
+                    <label asp-for="PosterImg"></label>
+                    <input asp-for="PosterImg" data-upper data-trim />
+                    <span asp-validation-for="PosterImg"></span>
+                </div>
+                <div class="event-update-input-box">
+                    <label asp-for="BannerImg"></label>
+                    <input asp-for="BannerImg" data-upper data-trim />
+                    <span asp-validation-for="BannerImg"></span>
+                </div>
+            </div>
+
+            <div class="event-update-body-row-four">
+                <div class="event-update-input-box">
+                    <label asp-for="Status"></label>
+                    <input asp-for="Status" data-upper data-trim />
+                    <span asp-validation-for="Status"></span>
+                </div>
+                <div class="event-update-input-box">
+                    <label asp-for="VenueId"></label>
+                    <select asp-for="VenueId" asp-items="ViewBag.VenueList">
+                        <option value="">- Select One -</option>
+                    </select>
+                    <span asp-validation-for="VenueId"></span>
+                </div>
+                <div class="event-update-input-box">
+                    <label asp-for="CategoryId"></label>
+                    <select asp-for="CategoryId" asp-items="ViewBag.CategoryList">
+                        <option value="">- Select One -</option>
+                    </select>
+                    <span asp-validation-for="CategoryId"></span>
+                </div>
+            </div>
+
+            <section>
+                <button class="event-update-btn-update">Submit</button>
+                <button type="reset" class="event-update-btn-reset">Reset</button>
+            </section>
+        </form>
+    </div>
+</div>
+
+<a href="/Event/EventRead" class="event-update-btn-return">Return</a>
