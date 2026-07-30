@@ -1,52 +1,53 @@
 ﻿/* Layout container */
 body {
-    display: flex;
-    min-height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
+display: flex;
+min-height: 100vh;
+margin: 0;
+font-family: Arial, sans-serif;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 200px; /* Reduce this value to make it to have smaller sidebar */
-    background-color: #1e1e2d;
-    color: #ffffff;
-    flex-shrink: 0; 
-    padding-top: 1rem;
+width: 200px; /* Reduce this value to make it to have smaller sidebar */
+background-color: #1e1e2d;
+color: #ffffff;
+flex-shrink: 0; 
+padding-top: 1rem;
 }
 
-    .sidebar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+.sidebar ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
 
-        .sidebar ul li a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 16px;
-            color: #a2a3b7;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: background 0.2s, color 0.2s;
-        }
+.sidebar ul li a {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 12px 16px;
+color: #a2a3b7;
+text-decoration: none;
+font-size: 0.9rem;
+transition: background 0.2s, color 0.2s;
+}
 
-            .sidebar ul li a:hover {
-                background-color: #2b2b40;
-                color: #ffffff;
-            }
+.sidebar ul li a:hover {
+background-color: #2b2b40;
+color: #ffffff;
+}
 
-    /* Icons */
-    .sidebar .icon {
-        width: 20px;
-        text-align: center;
-        font-size: 1.1rem;
-    }
+/* Icons */
+.sidebar .icon {
+width: 20px;
+text-align: center;
+font-size: 1.1rem;
+}
 
 /* Content Area */
 main {
-    flex-grow: 1;
-    padding: 2rem;
-    background-color: #f5f6fa;
+flex-grow: 1;
+padding: 2rem;
+background-color: #f5f6fa;
 }
+
