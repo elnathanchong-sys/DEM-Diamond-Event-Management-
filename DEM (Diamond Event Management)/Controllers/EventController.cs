@@ -69,13 +69,15 @@ public class EventController(DB db,
     // GET: Home/EventCreate
     public IActionResult EventCreate()
     {
-        ViewBag.EventList = new SelectList(db.Event, "Id", "Name");
+        ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
+        ViewBag.CategoryList = new SelectList(db.Category, "Id", "CategoryName");
         return View();
+
     }
 
-    // POST: Home/Insert
+    // POST: Home/EventCreate
     [HttpPost]
-    public IActionResult Insert(EventVM vm)
+    public IActionResult EventCreate(EventVM vm)
     {
         if (ModelState.IsValid("Id") &&
             db.Event.Any(e => e.Id == vm.Id))
@@ -121,10 +123,10 @@ public class EventController(DB db,
             return RedirectToAction("EventRead");
         }
 
-        ViewBag.EventList = new SelectList(db.Category, "Id", "Name");
+        ViewBag.CategoryList = new SelectList(db.Category, "Id");
         return View();
     }
-        
+
     // GET: Home/Update
     public IActionResult Update(string? id)
     {

@@ -121,68 +121,42 @@
 }
 
 .event-create-body-row-one {
-
-    
-    gap: 10px;
-
+    display: flex;
+    justify-content : space-between;
+    gap: 30px;
+    margin-bottom: 20px;
 }
 
+
 .event-create-body-description {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .event-create-body-row-two {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
 }
 
 .event-create-body-row-three {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
 }
 
 .event-create-body-row-four {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.event-create-body-row-five {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
 }
 
 .event-create-body-row-one input,
-.event-create-body-row-description input,
 .event-create-body-row-two input,
 .event-create-body-row-three input,
-.event-create-body-row-four input,
-.event-create-body-row-five input {
+.event-create-body-row-four input{
     position: relative;
     background-color: #333;
     color: #fff;
@@ -191,4 +165,48 @@
     padding: 10px 50px;
     width: 100%;
     box-sizing: border-box;
+}
+
+.event-create-body-description input {
+    position: relative;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 50px 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.event-create-body-row-four select {
+    position: relative;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 10px 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.event-create-btn-submit {
+    padding: 8px 12px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.event-create-btn-reset {
+    padding: 8px 12px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
 }

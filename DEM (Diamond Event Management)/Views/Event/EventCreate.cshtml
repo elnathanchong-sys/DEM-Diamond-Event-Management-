@@ -42,58 +42,65 @@
                     <label asp-for="StartDate"></label>
                     <input asp-for="StartDate" data-upper data-trim />
                     <span asp-validation-for="StartDate"></span>
-
+                </div>
+                <div class="event-create-input-box">
                     <label asp-for="EndDate"></label>
                     <input asp-for="EndDate" data-upper data-trim />
                     <span asp-validation-for="EndDate"></span>
-
+                </div>
+                <div class="event-create-input-box">
                     <label asp-for="StartTime"></label>
                     <input asp-for="StartTime" data-upper data-trim />
                     <span asp-validation-for="StartTime"></span>
-
+                </div>
+                <div class="event-create-input-box">
                     <label asp-for="EndTime"></label>
                     <input asp-for="EndTime" data-upper data-trim />
                     <span asp-validation-for="EndTime"></span>
                 </div>
             </div>
 
-            <div class="event-create-body-row-four">
+            <div class="event-create-body-row-three">
                 <div class="event-create-input-box">
                     <label asp-for="PosterImg"></label>
                     <input asp-for="PosterImg" data-upper data-trim />
                     <span asp-validation-for="PosterImg"></span>
-
+                </div>
+                <div class="event-create-input-box">
                     <label asp-for="BannerImg"></label>
                     <input asp-for="BannerImg" data-upper data-trim />
                     <span asp-validation-for="BannerImg"></span>
                 </div>
             </div>
 
-            <div class="event-create-body-row-five">
+            <div class="event-create-body-row-four">
                 <div class="event-create-input-box">
                     <label asp-for="Status"></label>
                     <input asp-for="Status" data-upper data-trim />
                     <span asp-validation-for="Status"></span>
-
+                </div>
+                <div class="event-create-input-box">
                     <label asp-for="VenueId"></label>
                     <select asp-for="VenueId" asp-items="ViewBag.VenueList">
                         <option value="">- Select One -</option>
                     </select>
                     <span asp-validation-for="VenueId"></span>
-
+                </div>
+                <div class="event-create-input-box">
                     <label asp-for="CategoryId"></label>
                     <select asp-for="CategoryId" asp-items="ViewBag.CategoryList">
                         <option value="">- Select One -</option>
                     </select>
                     <span asp-validation-for="CategoryId"></span>
-                </div<
+                </div>
             </div>
 
             <section>
-                <button>Submit</button>
-                <button type="reset">Reset</button>
+                <button class="event-create-btn-submit">Submit</button>
+                <button type="reset" class="event-create-btn-reset">Reset</button>
             </section>
         </form>
     </div>
-    <a href="/Event/EventRead" class="event-create-btn-return">Return</a>
 </div>
+
+<a href="/Event/EventRead" class="event-create-btn-return">Return</a>
