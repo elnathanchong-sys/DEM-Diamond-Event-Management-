@@ -41,8 +41,8 @@ namespace DEM__Diamond_Event_Management_.Migrations
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Event", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<string>("BannerImg")
                         .IsRequired()
@@ -75,8 +75,8 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(4, 2)
-                        .HasColumnType("decimal(4,2)");
+                        .HasPrecision(6, 2)
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("DATE");
@@ -86,15 +86,13 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("TicketSold")
-                        .HasMaxLength(100)
                         .HasColumnType("int");
 
                     b.Property<int>("TotalTickets")
-                        .HasMaxLength(100)
                         .HasColumnType("int");
 
                     b.Property<string>("VenueId")
@@ -147,7 +145,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
                     b.Property<string>("EventId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(4)");
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<int>("Quantity")
                         .HasMaxLength(100)
@@ -239,7 +237,6 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasColumnType("nvarchar(4)");
 
                     b.Property<int>("VenueCapacity")
-                        .HasMaxLength(1000)
                         .HasColumnType("int");
 
                     b.HasKey("Id");

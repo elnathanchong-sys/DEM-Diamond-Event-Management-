@@ -1,0 +1,6 @@
+C001	Gala & Socials
+C002	Technology & Gaming
+C003	Music & Entertainment
+C004	Food & Culinary
+C005	Art & Culture
+C006	Sports & Fitness

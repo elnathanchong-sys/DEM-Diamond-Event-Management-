@@ -73,10 +73,10 @@ public class Admin : User
 public class Event
 {
     // Column testing one
-    [Key, MaxLength(4)]
+    [Key, MaxLength(6)]
     public string Id { get; set; }
     [MaxLength(100)]
-    public string EventName { get; set; }
+    public string Name { get; set; }
     [MaxLength(100)]
     public string Description { get; set; }
     [Column(TypeName = "DATE")]
@@ -87,29 +87,26 @@ public class Event
     public TimeOnly StartTime { get; set; }
     [Column(TypeName = "TIME")]
     public TimeOnly EndTime { get; set; }
-    [Precision(4, 2)]
+    [Precision(6, 2)]
     public decimal Price { get; set; }
     [MaxLength(100)]
     public string PosterImg { get; set; }
     [MaxLength(100)]
     public string BannerImg { get; set; }
-
-    [MaxLength(100)]
+    [MaxLength(10)]
     public string Status { get; set; }
-
-    [MaxLength(100)]
+    [Range(0, 1000)]
     public int TotalTickets { get; set; }
-
-    [MaxLength(100)]
+    [Range(0, 1000)]
     public int TicketSold { get; set; }
 
 
     //Foreign Key
     public String CategoryId { get; set; }
     public String VenueId { get; set; }
+    // Navigation
     public Category Category { get; set; }
     public Venue Venue { get; set; }
-    // Navigation
     public List<Registration> Registrations { get; set; } = [];
 }
 
@@ -148,7 +145,7 @@ public class Venue
 {
     [Key, MaxLength(4)]
     public string Id { get; set; }
-    [MaxLength(1000)]
+    [Range(1, 100000, ErrorMessage = "Capacity must be between 1 and 100,000")]
     public int VenueCapacity { get; set; }
 }
 

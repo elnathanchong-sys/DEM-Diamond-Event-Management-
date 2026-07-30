@@ -53,7 +53,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    VenueCapacity = table.Column<int>(type: "int", maxLength: 1000, nullable: false)
+                    VenueCapacity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,19 +64,23 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 name: "Event",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    EventName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     StartDate = table.Column<DateOnly>(type: "DATE", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "DATE", nullable: false),
                     StartTime = table.Column<TimeOnly>(type: "TIME", nullable: false),
                     EndTime = table.Column<TimeOnly>(type: "TIME", nullable: false),
+<<<<<<<< HEAD:DEM (Diamond Event Management)/Migrations/20260720130105_DEMDB.cs
                     Price = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false),
+========
+                    Price = table.Column<decimal>(type: "decimal(6,2)", precision: 6, scale: 2, nullable: false),
+>>>>>>>> 2abee93f5498537889c4caf85e3eddbe7b162340:DEM (Diamond Event Management)/Migrations/20260723132005_DEM_DB.cs
                     PosterImg = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     BannerImg = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TotalTickets = table.Column<int>(type: "int", maxLength: 100, nullable: false),
-                    TicketSold = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    TotalTickets = table.Column<int>(type: "int", nullable: false),
+                    TicketSold = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(4)", nullable: false),
                     VenueId = table.Column<string>(type: "nvarchar(4)", nullable: false)
                 },
@@ -106,7 +110,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Quantity = table.Column<int>(type: "int", maxLength: 100, nullable: false),
                     UserEmail = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    EventId = table.Column<string>(type: "nvarchar(4)", nullable: false)
+                    EventId = table.Column<string>(type: "nvarchar(6)", nullable: false)
                 },
                 constraints: table =>
                 {

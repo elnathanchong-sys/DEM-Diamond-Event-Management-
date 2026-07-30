@@ -1,0 +1,42 @@
+﻿@*IEnumerable is used so that they can output list from the database*@
+@model IEnumerable<DEM__Diamond_Event_Management_.Models.EventVM>
+
+@{
+    ViewBag.Title = "Events";
+    Layout = "_AdminLayout";
+}
+
+<body>
+    <div class="event-container">
+            <div class="event-header">
+                <h1 class="event-title">Events</h1>
+                <div class="search-section">
+                    <form data-ajax="true"
+                        data-ajax-update="#target"
+                        data-ajax-loading="#loader">
+                        @Html.TextBox("name", "",
+                        new { @class = "search-input", type = "search", autofocus = "", data_trim = "" })
+                    </form>
+                </div>
+                <a href="/Event/EventCreate" class="create-new-btn">+ Create New Event</a>
+            </div>
+
+        <div class="event-list-container">
+
+            @foreach (var e in Model)
+                {
+                    <div class="event-info-row">
+                        <div class="event-info">
+                            <strong>@e.Id</strong> 
+                            @e.Name
+                        </div>
+
+                        <div class="event-action-btns">
+                            <a href="/Event/EventUpdate/@e.Id" class="btn-update">Update</a>
+                            <a href="/Event/EventDelete/@e.Id" class="btn-delete">Delete</a>
+                        </div>
+                    </div>
+                }
+        </div>
+    </div>
+</body>

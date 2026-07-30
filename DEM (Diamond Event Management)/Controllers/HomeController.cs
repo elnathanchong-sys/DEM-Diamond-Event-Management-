@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DEM.Controllers;
+namespace DEM__Diamond_Event_Management_.Controllers;
 
 // TODO
 public class HomeController : Controller
