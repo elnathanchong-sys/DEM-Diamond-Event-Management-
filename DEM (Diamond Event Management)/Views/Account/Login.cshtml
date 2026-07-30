@@ -1,43 +1,58 @@
 ﻿@model DEM__Diamond_Event_Management_.Models.LoginViewModel
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 @{
     Layout = "_LoginLayout";
 }
 
-<div class="box2">
-    <div class="box">
-        <div class="brand-logo text-center mb-4">Your logo</div>
+<div class="page-container">
+    <div class="login-card">
 
-        <h2 class="login-title mb-4">Login</h2>
+        
+        <!--Left side Login -->
+        
+        <div class="login-left">
+            <div class="brand-logo">Diamond Event Management</div>
 
-        <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Query["returnURL"]" method="post">
-            @Html.AntiForgeryToken()
+            <h1 class="login-title">Login</h1>
 
-            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+            <form class="login-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="username@gmail.com" required />
+                </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="Email" class="form-label">Email</label>
-                <input asp-for="Email" class="form-control" placeholder="username@gmail.com" autocomplete="on">
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Password" required />
+                </div>
 
-            <div class="form-group mb-2">
-                <label asp-for="Password" class="form-label">Password</label>
-                <input asp-for="Password" class="form-control" placeholder="Password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+                <div class="forgot-wrapper">
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
 
-            <div class="form-actions-row mb-4">
-                <a href="#" class="forgot-password-link">Forgot Password?</a>
-            </div>
+                <button type="submit" class="btn-signin">Sign in</button>
+            </form>
 
-            <div class="form-group mb-4">
-                <button type="submit" class="btn btn-login w-100">Sign in</button>
-            </div>
-        </form>
-
-        <div class="login-footer text-center">
-            <p>Don't have an account yet? <a href="/Account/CreateAccount">Register for free</a></p>
+            <p class="register-text">
+                Don't have an account yet? <a href="#" class="register-link">Register for free</a>
+            </p>
         </div>
+
+        
+        <!-- Right side pic  -->
+        
+        <div class="login-right">
+
+            
+            <img src="https://picsum.photos/id/1015/800/1000" alt="Login Banner" class="banner-image" />
+            
+            <div class="image-overlay">
+                <h2>Welcome Back!</h2>
+                <p>We are glad to see you again.</p>
+            </div>
+        </div>
+
     </div>
 </div>
