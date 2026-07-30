@@ -216,7 +216,7 @@ public class EventController(DB db,
 
     // POST: Home/Delete
     [HttpPost]
-    public IActionResult Delete(string? id)
+    public IActionResult EventDelete(string? id)
     {
         var e = db.Event.Find(id);
 
