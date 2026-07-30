@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20260719174134_DEM_DB")]
-    partial class DEM_DB
+    [Migration("20260720130105_DEMDB")]
+    partial class DEMDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<DateOnly>("EndDate")
                         .HasColumnType("DATE");
 
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("TIME");
+
                     b.Property<string>("EventName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -80,6 +83,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("DATE");
+
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("TIME");
 
                     b.Property<string>("Status")
                         .IsRequired()

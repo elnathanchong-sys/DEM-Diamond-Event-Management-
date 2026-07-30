@@ -1,4 +1,101 @@
-﻿@page
-@model DEM__Diamond_Event_Management_.Views.Shared._AdminLayoutModel
-@{
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li>
+                <a href="#" class="logo">
+                    <span class="icon">💎</span>
+                    <span class="text">DEM</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-house"></i></span>
+                    <span class="text">Home</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-user"></i></span>
+                    <span class="text">Dashbord</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-bell"></i></span>
+                    <span class="text">0ngoing events</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-heart"></i></span>
+                    <span class="text">Upcoming events</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-gear"></i></span>
+                    <span class="text">Schedule   </span>
+
+                </a>
+            </li>
+            
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span class="text">manage events</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span class="text">manage users</span>
+
+                </a>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">participants</span>
+
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">administrators</span>
+
+                    </a>
+                </li>
+            </li>
+                
+        </ul>
+    </div>
+    <main>
+        @RenderBody()
+    </main>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/jquery.validate.unobstrusive.min.js"></script>
+    <script src="/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/js/app.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
