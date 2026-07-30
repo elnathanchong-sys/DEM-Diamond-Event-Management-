@@ -210,3 +210,128 @@
     cursor: pointer;
     text-decoration: none;
 }
+
+/*----------------------------------------------------------------------------*/
+
+.event-update-container {
+    max-width: 100%;
+}
+
+.event-update-title {
+    color: white;
+    margin: 10px 35px;
+}
+
+.event-update-body {
+    display: flex;
+    background-color: #808080;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 0px 35px;
+    flex-direction: column;
+    gap: 15px;
+    height: auto;
+}
+
+.event-update-btn-return {
+    padding: 8px 12px;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 10px 35px;
+}
+
+.event-update-body-row-one {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+
+.event-update-body-description {
+    margin-bottom: 20px;
+}
+
+.event-update-body-row-two {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.event-update-body-row-three {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.event-update-body-row-four {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+    .event-update-body-row-one input,
+    .event-update-body-row-two input,
+    .event-update-body-row-three input,
+    .event-update-body-row-four input {
+        position: relative;
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #444;
+        border-radius: 10px;
+        padding: 10px 50px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+.event-update-body-description input {
+    position: relative;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 50px 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.event-update-body-row-four select {
+    position: relative;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 10px 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.event-update-btn-update {
+    padding: 8px 12px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.event-update-btn-reset {
+    padding: 8px 12px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+}
