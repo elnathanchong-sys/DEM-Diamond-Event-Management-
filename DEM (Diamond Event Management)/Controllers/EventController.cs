@@ -10,9 +10,17 @@ public class EventController(DB db,
                             IWebHostEnvironment en) : Controller
 {
     [HttpGet]
-    public IActionResult EventRead()
+    public IActionResult EventRead(string? name)
     {
-        var model = db.Event.Select(e => new EventVM
+        var query = db.Event.AsQueryable();
+
+        //search event name
+        if (!string.IsNullOrEmpty(name))
+        {
+            query = query.Where(e => e.Name != null && e.Name.Contains(name));
+        }
+
+        var model = query.Select(e => new EventVM
         {
             Id = e.Id,
             Name = e.Name,

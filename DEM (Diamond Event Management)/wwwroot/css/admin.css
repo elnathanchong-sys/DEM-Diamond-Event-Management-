@@ -1,53 +1,119 @@
 ﻿/* Layout container */
 body {
-display: flex;
-min-height: 100vh;
-margin: 0;
-font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
 /* Sidebar */
 .sidebar {
-width: 200px; /* Reduce this value to make it to have smaller sidebar */
-background-color: #1e1e2d;
-color: #ffffff;
-flex-shrink: 0; 
-padding-top: 1rem;
+    width: 200px; /* Reduce this value to make it to have smaller sidebar */
+    background-color: #1e1e2d;
+    color: #ffffff;
+    flex-shrink: 0;
+    padding-top: 1rem;
+    transition: width 0.4s ease;
+    z-index: 100;
+    overflow: hidden; /*Keep the text position fixed*/
+    white-space: nowrap; /*Keep the text position fixed*/
 }
 
 .sidebar ul {
-list-style: none;
-padding: 0;
-margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .sidebar ul li a {
-display: flex;
-align-items: center;
-gap: 10px;
-padding: 12px 16px;
-color: #a2a3b7;
-text-decoration: none;
-font-size: 0.9rem;
-transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: #a2a3b7;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s, color 0.2s;
 }
 
 .sidebar ul li a:hover {
-background-color: #2b2b40;
-color: #ffffff;
+    background-color: #2b2b40;
+    color: #ffffff;
 }
+
+.sidebar ul li a span {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
 
 /* Icons */
 .sidebar .icon {
-width: 20px;
-text-align: center;
-font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
 }
 
-/* Content Area */
+/* Content Area */ 
 main {
-flex-grow: 1;
-padding: 2rem;
-background-color: #f5f6fa;
+    flex-grow: 1;
+    padding: 2rem;
+
 }
 
+.sidebar.close {
+    width: 60px;
+}
+
+/* Hide the text when collapsed */
+.sidebar.close .text {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+/* Center the icons */
+.sidebar.close a {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.menu-button {
+    position: fixed;
+    top: 11px;
+    left: 220px; /* Outside the sidebar */
+
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 8px;
+    background: #1e1e2d;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: left 0.4s ease;
+    z-index: 9999;
+}
+
+.menu-button.move {
+    left: 80px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px;
+}
+
+.text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.text {
+    font-family: "Bree Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+}

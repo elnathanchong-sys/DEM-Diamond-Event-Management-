@@ -12,12 +12,13 @@
             <div class="event-header">
                 <h1 class="event-title">Events</h1>
                 <div class="search-section">
-                    <form data-ajax="true"
-                        data-ajax-update="#target"
-                        data-ajax-loading="#loader">
-                        @Html.TextBox("name", "",
-                        new { @class = "search-input", type = "search", autofocus = "", data_trim = "" })
-                    </form>
+                <form method="get" action="/Event/EventRead">
+                    <input type="search"
+                           name="name"
+                           class="search-input"
+                           placeholder="Search event..."
+                           value="@Context.Request.Query["name"]" />
+                </form>
                 </div>
                 <a href="/Event/EventCreate" class="create-new-btn">+ Create New Event</a>
             </div>
