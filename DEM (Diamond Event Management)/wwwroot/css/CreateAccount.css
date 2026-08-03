@@ -1,0 +1,111 @@
+﻿body {
+    background-color: #212529;
+    color: #DEE2E6;
+    min-height: 100vh;
+}
+
+/* Register Card Container */
+.card-register {
+    background-color: #343A40;
+    border: 1px solid #495057;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+    /* Card Header */
+    .card-register .card-header {
+        background-color: #495057;
+        border-bottom: 1px solid #6C757D;
+        padding: 24px 16px;
+    }
+
+        .card-register .card-header h3 {
+            color: #F8F9FA;
+            font-weight: 600;
+        }
+
+/* Form Labels */
+.form-label {
+    color: #E9ECEF;
+    font-size: 14px;
+}
+
+/* Input Fields */
+.form-control {
+    background-color: #212529;
+    border: 1px solid #6C757D;
+    color: #CED4DA;
+    border-radius: 6px;
+    padding: 12px 16px;
+    transition: all 0.2s ease-in-out;
+}
+
+    /* Input Placeholder Text */
+    .form-control::placeholder {
+        color: #ADB5BD;
+        opacity: 0.7;
+    }
+
+    
+    .form-control:focus {
+        background-color: #343A40;
+        color: #F8F9FA;
+        border-color: #ADB5BD;
+        box-shadow: 0 0 0 4px rgba(173, 181, 189, 0.2);
+    }
+
+/* Submit Button */
+.btn-submit {
+    background-color: #6C757D;
+    border: 1px solid #ADB5BD;
+    color: #F8F9FA;
+    border-radius: 6px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+    .btn-submit:hover {
+        background-color: #ADB5BD;
+        border-color: #CED4DA;
+        color: #212529;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-submit:active {
+        background-color: #DEE2E6;
+        color: #212529;
+    }
+
+
+.input-validation-error {
+    border-color: #ea868f !important;
+    background-color: #2c1517 !important;
+}
+
+    .input-validation-error:focus {
+        box-shadow: 0 0 0 4px rgba(234, 134, 143, 0.25) !important;
+    }
+
+.field-validation-error {
+    color: #ea868f;
+    font-size: 13px;
+    margin-top: 6px;
+    display: block;
+    font-weight: 500;
+}
+
+.validation-summary-errors {
+    color: #ea868f;
+    background-color: #2c1517;
+    border: 1px solid #842029;
+    padding: 12px 16px;
+    border-radius: 6px;
+}
+
+    .validation-summary-errors ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }

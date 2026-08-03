@@ -4,12 +4,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 @{
     Layout = "_LoginLayout";
+    ViewBag.Title = "Login";
 }
 
 <div class="page-container">
     <div class="login-card">
 
-        
         <!--Left side Login -->
         
         <div class="login-left">
@@ -17,26 +17,38 @@
 
             <h1 class="login-title">Login</h1>
 
-            <form class="login-form" onsubmit="event.preventDefault();">
+            <div asp-validation-summary="All" class="error-message"></div>
+            <form class="login-form" method="post" asp-action="Login">
+                @Html.AntiForgeryToken()
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="username@gmail.com" required />
+                    <input type="email" asp-for="Email" placeholder="username@gmail.com" required />
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Password" required />
+                    <input type="password" asp-for="Password" placeholder="Password" required />
                 </div>
 
                 <div class="forgot-wrapper">
                     <a href="#" class="forgot-link">Forgot Password?</a>
                 </div>
 
-                <button type="submit" class="btn-signin">Sign in</button>
+                <button type="submit" class="btn-signin">
+                    Sign in
+                </button>
+
+                @if (ViewBag.Error != null)
+                {
+                    <p class="error-message">
+                        @ViewBag.Error
+                    </p>
+                }
+
             </form>
 
             <p class="register-text">
-                Don't have an account yet? <a href="#" class="register-link">Register for free</a>
+                Don't have an account yet? <a href="/Account/CreateAccount" class="register-link">Register for free</a>
             </p>
         </div>
 

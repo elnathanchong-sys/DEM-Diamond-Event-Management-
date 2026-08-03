@@ -1,9 +1,12 @@
-﻿@model DEM__Diamond_Event_Management_.Models.CreateAccountViewModel
-@*@{
-     Layout = "_LoginLayout";
-}*@
+﻿@model DEM__Diamond_Event_Management_.Models.CreateAccountVM;
+@{
+    ViewBag.Title = "Create Account";
+    
+}
+<link rel="stylesheet" href="~/css/CreateAccount.css" asp-append-version="true" />
 
 <form class="form" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
     <div asp-validation-summary="ModelOnly"></div>
 
     <label asp-for="Email"></label>
@@ -11,16 +14,24 @@
     <span asp-validation-for="Email"></span>
 
     <label asp-for="Password"></label>
-    <input asp-for="Password">
+    <input asp-for="Password" type="password">
     <span asp-validation-for="Password"></span>
 
     <label asp-for="Confirm"></label>
-    <input asp-for="Confirm">
+    <input asp-for="Confirm" type="password">
     <span asp-validation-for="Confirm"></span>
 
     <label asp-for="Name"></label>
     <input asp-for="Name">
     <span asp-validation-for="Name"></span>
+
+    <label asp-for="Gender"></label>
+    <select asp-for="Gender">
+        <option value="">-- Select Gender --</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+    </select>
+    <span asp-validation-for="Gender"></span>
 
     @*<label asp-for="Photo"></label>
     <label class="upload">
@@ -37,6 +48,9 @@
 </form>
 
 @section foot {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $.validator.setDefaults({ ignore: '' });
     </script>
