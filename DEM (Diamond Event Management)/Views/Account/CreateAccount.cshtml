@@ -25,6 +25,14 @@
     <input asp-for="Name">
     <span asp-validation-for="Name"></span>
 
+    <label asp-for="Gender"></label>
+    <select asp-for="Gender">
+        <option value="">-- Select Gender --</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+    </select>
+    <span asp-validation-for="Gender"></span>
+
     @*<label asp-for="Photo"></label>
     <label class="upload">
         <small>Select Photo...</small>

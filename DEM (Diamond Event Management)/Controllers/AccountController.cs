@@ -96,12 +96,25 @@ public class AccountController(DB db, Helper hp) : Controller
 
         if (ModelState.IsValid)
         {
-            db.User.Add(new()
+            db.User.Add(new Member
             {
                 Email = model.Email,
                 HashedPassword = hp.HashPassword(model.Password),
                 Name = model.Name,
-                //PhotoURL = hp.SavePhoto(vm.Photo, "photo")
+                Gender = model.Gender,
+
+                CreationDate = DateOnly.FromDateTime(DateTime.Now),
+
+                Phone = "",
+                UserImg = "",
+                OngoingEvent = "",
+                UpcomingEvent = "",
+
+                Country = "",
+                State = "",
+                City = "",
+                HouseNo = "",
+                Address = ""
             });
 
             await db.SaveChangesAsync(); 
