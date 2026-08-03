@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-#nullable disable warnings
+#nullable disable
 
 namespace DEM__Diamond_Event_Management_.Models
 {
@@ -13,7 +14,7 @@ namespace DEM__Diamond_Event_Management_.Models
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
 
-        [StringLength(100, MinimumLength =5)]
+        [StringLength(100, MinimumLength = 5)]
         //[Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -22,7 +23,7 @@ namespace DEM__Diamond_Event_Management_.Models
         public bool RememberMe { get; set; }
     }
 
-    public class CreateAccountViewModel
+    public class CreateAccountVM
     {
         [StringLength(100)]
         [EmailAddress]
@@ -45,3 +46,4 @@ namespace DEM__Diamond_Event_Management_.Models
         public IFormFile Photo { get; set; }
     }
 }
+

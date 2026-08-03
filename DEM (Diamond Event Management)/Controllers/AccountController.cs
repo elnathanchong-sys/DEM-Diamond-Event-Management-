@@ -80,7 +80,7 @@ public class AccountController(DB db, Helper hp) : Controller
 
     // POST: Account/Register
     [HttpPost]
-    public async Task<IActionResult> CreateAccount(CreateAccountViewModel model)
+    public async Task<IActionResult> CreateAccount(CreateAccountVM model)
     {
         if (ModelState.IsValid("Email") &&
             db.User.Any(u => u.Email == model.Email))
