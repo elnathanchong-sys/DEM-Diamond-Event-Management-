@@ -5,42 +5,41 @@
 
 }
 
-@section head {
-    <link rel="stylesheet" href="~/css/home.css" />
-}
+<body>
+    <div class="banner-img-carousel-container">
+        <div class="banner-img-carousel-wrapper">
+            <div class="banner-img-carousel-slider">
+                <img id="banner-img-1" src="~/images/banner/cs2.png" alt="Banner Image 1" />
+                <img id="banner-img-2" src="~/images/banner/valorant.png" alt="Banner Image 2" />
+                <img id="banner-img-3" src="~/images/banner/lol.png"S alt="Banner Image 3" />
+            </div>
+            <div class="banner-img-carousel-nav">
+                <a href="#banner-img-1" class="slider-dot"></a>
+                <a href="#banner-img-2" class="slider-dot"></a>
+                <a href="#banner-img-3" class="slider-dot"></a>
+            </div>
+        </div>
+    </div>
 
-<header class="hero">
+    <div class="index-events">
+        <h1>Ongoing Events</h1>
 
-    <!-- Hero Content -->
-    <div class="hero-content">
+        <div class="ongoing-event-grid">
 
-        <!-- Text -->
-        <div class="hero-text">
+            <div class="ongoing-event-card">
+                <a href=""><img src="/images/poster/falcon-poster.jpg"></a>
+            </div>
 
-            <h5>WELCOME TO</h5>
+            <div class="ongoing-event-card">
+                <a href=""><img src="/images/poster/lols-poster.jpg"></a>
 
-            <h1>
-                Diamond Event<br />
-                Management
-            </h1>
+            </div>
 
-            <p>
-                Manage your diamond events with elegance and precision.
-                Plan, organize and create unforgettable experiences.
-            </p>
+            <div class="ongoing-event-card">
+                <a href=""><img src="/images/poster/valorants-poster.jpg"></a>
 
-            <div class="buttons">
-                <a href="#" class="btn-primary">View Events</a>
-                <a href="#" class="btn-secondary">Manage Guests</a>
             </div>
 
         </div>
-
-        <!-- Image -->
-        <div class="right">
-            <img src="~/images/diamond.png" alt="Diamond">
-        </div>
-
     </div>
-
-</header>
+</body>
