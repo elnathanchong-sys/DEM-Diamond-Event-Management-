@@ -6,6 +6,9 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="~/css/home.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
     @RenderSection("head", required: false)
 </head>
 <body>
@@ -36,8 +39,8 @@
                 </div>
             </div>
     *@
-            <a href="/page/cart.php">
-                <img src="/images/icon/shopping-cart.png" width="20" alt="Cart">
+            <a href="/page/cart.php" class="index-cart">
+                <img src="/images/icon/shopping-cart.png" alt="Cart">
             </a>
 
         </nav>
