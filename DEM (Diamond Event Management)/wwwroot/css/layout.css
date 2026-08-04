@@ -1,7 +1,7 @@
 ﻿header {
     display: flex;
     padding: 30px 50px;
-    background: ##212529;
+    background: #212529;
     align-items: center;
     color: #ffffff;
     justify-content: space-between;
@@ -53,6 +53,3 @@ nav a {
     width: 1.5rem;
 }
 
-nav {
-    display: contents;
-}
