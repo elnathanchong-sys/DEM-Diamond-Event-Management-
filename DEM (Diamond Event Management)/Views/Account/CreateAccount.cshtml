@@ -1,57 +1,102 @@
 ﻿@model DEM__Diamond_Event_Management_.Models.CreateAccountVM;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 @{
+    Layout = "_LoginLayout";
     ViewBag.Title = "Create Account";
-    
 }
+
 <link rel="stylesheet" href="~/css/CreateAccount.css" asp-append-version="true" />
 
-<form class="form" method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken()
-    <div asp-validation-summary="ModelOnly"></div>
+<div class="page-container">
+    <div class="login-card">
 
-    <label asp-for="Email"></label>
-    <input asp-for="Email" autofocus>
-    <span asp-validation-for="Email"></span>
+        <!--Left side Login -->
 
-    <label asp-for="Password"></label>
-    <input asp-for="Password" type="password">
-    <span asp-validation-for="Password"></span>
+        <div class="login-left">
+            <div class="brand-logo">Diamond Event Management</div>
 
-    <label asp-for="Confirm"></label>
-    <input asp-for="Confirm" type="password">
-    <span asp-validation-for="Confirm"></span>
+            <h1 class="login-title">Create Account</h1>
 
-    <label asp-for="Name"></label>
-    <input asp-for="Name">
-    <span asp-validation-for="Name"></span>
+                <form class="form" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" autofocus>
+                    <span asp-validation-for="Email"></span>
+                </div>
 
-    <label asp-for="Gender"></label>
-    <select asp-for="Gender">
-        <option value="">-- Select Gender --</option>
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-    </select>
-    <span asp-validation-for="Gender"></span>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" type="password">
+                    <span asp-validation-for="Password"></span>
+                </div>
 
-    @*<label asp-for="Photo"></label>
-    <label class="upload">
-        <small>Select Photo...</small>
-        <input asp-for="Photo" accept="image/jpeg,image/png" hidden>
-        <img src="/images/photo.jpg">
-    </label>
-    <span asp-validation-for="Photo"></span>
-    *@
-    <section>
-        <button>Register</button>
-        <button type="reset">Reset</button>
-    </section>
-</form>
+                <div class="form-group">
+                    <label asp-for="Confirm"></label>
+                    <input asp-for="Confirm" type="password">
+                    <span asp-validation-for="Confirm"></span>
+                </div>
 
-@section foot {
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name">
+                    <span asp-validation-for="Name"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Gender"></label>
+                    <select asp-for="Gender">
+                        <option value="">-- Select Gender --</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                    <span asp-validation-for="Gender"></span>
+                </div>
+
+                @*<label asp-for="Photo"></label>
+                <label class="upload">
+                    <small>Select Photo...</small>
+                    <input asp-for="Photo" accept="image/jpeg,image/png" hidden>
+                    <img src="/images/photo.jpg">
+                </label>
+                <span asp-validation-for="Photo"></span>
+                *@
+
+                <section>
+                    <button>Register</button>
+                    <button type="reset">Reset</button>
+                </section>
+
+            </form>
+
+        </div>
+
+        
+        <!-- Right side pic  -->
+
+        <div class="login-right">
+
+            
+            <img src="https://picsum.photos/id/1015/800/1000" alt="Login Banner" class="banner-image" />
+
+            <div class="image-overlay">
+                <h2>Welcome Back!</h2>
+                <p>We are glad to see you again.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section foot {  
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $.validator.setDefaults({ ignore: '' });
     </script>
+
 }
