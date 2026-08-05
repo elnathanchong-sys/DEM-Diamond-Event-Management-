@@ -1,11 +1,13 @@
-﻿// Initiate GET request (AJAX-supported)
+﻿// ==========================================
+// JQUERY UTILITIES
+// ==========================================
+
 $(document).on('click', '[data-get]', e => {
     e.preventDefault();
     const url = e.target.dataset.get;
     location = url || location;
 });
 
-// Initiate POST request (AJAX-supported)
 $(document).on('click', '[data-post]', e => {
     e.preventDefault();
     const url = e.target.dataset.post;
@@ -15,12 +17,10 @@ $(document).on('click', '[data-post]', e => {
     f.submit();
 });
 
-// Trim input
 $('[data-trim]').on('change', e => {
     e.target.value = e.target.value.trim();
 });
 
-// Auto uppercase
 $('[data-upper]').on('input', e => {
     const a = e.target.selectionStart;
     const b = e.target.selectionEnd;
@@ -28,51 +28,121 @@ $('[data-upper]').on('input', e => {
     e.target.setSelectionRange(a, b);
 });
 
-// RESET form
 $('[type=reset]').on('click', e => {
     e.preventDefault();
     location = location;
 });
 
-// Check all checkboxes
 $('[data-check]').on('click', e => {
     e.preventDefault();
     const name = e.target.dataset.check;
     $(`[name=${name}]`).prop('checked', true);
 });
 
-// Uncheck all checkboxes
 $('[data-uncheck]').on('click', e => {
     e.preventDefault();
     const name = e.target.dataset.uncheck;
     $(`[name=${name}]`).prop('checked', false);
 });
 
-// Row checkable (AJAX-supported)
 $(document).on('click', '[data-checkable]', e => {
     if ($(e.target).is(':input,a')) return;
-
-    $(e.currentTarget)
-        .find(':checkbox')
-        .prop('checked', (i, v) => !v);
+    $(e.currentTarget).find(':checkbox').prop('checked', (i, v) => !v);
 });
 
-// Photo preview
 $('.upload input').on('change', e => {
     const f = e.target.files[0];
     const img = $(e.target).siblings('img')[0];
+    if (!img) return;
 
     img.dataset.src ??= img.src;
 
     if (f && f.type.startsWith('image/')) {
         img.onload = e => URL.revokeObjectURL(img.src);
         img.src = URL.createObjectURL(f);
-    }
-    else {
+    } else {
         img.src = img.dataset.src;
         e.target.value = '';
     }
 
-    // Trigger input validation
     $(e.target).valid();
+});
+
+//index image slider
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.querySelector('.banner-img-carousel-slider');
+    const sliderImages = document.querySelectorAll('.banner-img-carousel-slider img');
+    const next = document.querySelector('.next');
+    const prev = document.querySelector('.prev');
+    const dots = document.querySelectorAll('.banner-img-carousel-nav a');
+    const sliderWrapper = document.querySelector('.banner-img-carousel-wrapper');
+
+    if (!slider || sliderImages.length === 0) return;
+
+    let counter = 0;
+    let autoSlideTimer; // Variable to store the interval timer reference
+
+    function goToSlide(index) {
+        counter = index;
+        const slideWidth = slider.clientWidth;
+
+        // Scroll container horizontally
+        slider.scrollTo({
+            left: slideWidth * counter,
+            behavior: 'smooth'
+        });
+
+        updateDots();
+    }
+
+    function updateDots() {
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === counter);
+        });
+    }
+
+    // starts or resets the 5 second automatic sliding
+    function startAutoSlide() {
+        clearInterval(autoSlideTimer);
+        autoSlideTimer = setInterval(() => {
+            let nextIndex = (counter + 1) % sliderImages.length;
+            goToSlide(nextIndex);
+        }, 5000); // 5000ms = 5 seconds
+    }
+
+    // start auto-sliding when the page loads
+    startAutoSlide();
+
+    // pause auto-slide on hover, resume when mouse leaves
+    if (sliderWrapper) {
+        sliderWrapper.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+        sliderWrapper.addEventListener('mouseleave', startAutoSlide);
+    }
+
+    // Next Button Click
+    if (next) {
+        next.addEventListener('click', () => {
+            let nextIndex = (counter + 1) % sliderImages.length;
+            goToSlide(nextIndex);
+            startAutoSlide(); // Reset timer so it waits a full 5s after a click
+        });
+    }
+
+    // Prev Button Click
+    if (prev) {
+        prev.addEventListener('click', () => {
+            let prevIndex = (counter - 1 + sliderImages.length) % sliderImages.length;
+            goToSlide(prevIndex);
+            startAutoSlide(); // Reset timer
+        });
+    }
+
+    // Dot Clicks
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToSlide(index);
+            startAutoSlide(); // Reset timer
+        });
+    });
 });
