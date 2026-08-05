@@ -78,10 +78,32 @@
         color: #212529;
     }
 
+.btn-Reg {
+    width: 49%;
+    background-color: #2563eb;
+    border: 1px solid #ADB5BD;
+    color: #F8F9FA;
+    border-radius: 6px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+    .btn-Reg:hover {
+        background-color: #1d4ed8;
+        border-color: #CED4DA;
+        color: #F8F9FA;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-Reg:active {
+        background-color: #2563eb;
+        color: #212529;
+    }
 
 .input-validation-error {
     border-color: #ea868f !important;
-    background-color: #2c1517 !important;
+    background-color: #ff0000 !important;
 }
 
     .input-validation-error:focus {
