@@ -68,7 +68,7 @@ $('.upload input').on('change', e => {
     $(e.target).valid();
 });
 
-//index image slider
+// Index image slider
 document.addEventListener("DOMContentLoaded", function () {
     const slider = document.querySelector('.banner-img-carousel-slider');
     const sliderImages = document.querySelectorAll('.banner-img-carousel-slider img');
