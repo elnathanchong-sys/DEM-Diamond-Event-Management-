@@ -27,9 +27,9 @@ namespace DEM__Diamond_Event_Management_.Models
         [Precision(6, 2)]
         public decimal Price { get; set; }
         [StringLength(100)]
-        public string PosterImg { get; set; }
+        public string? PosterImg { get; set; }
         [StringLength(100)]
-        public string BannerImg { get; set; }
+        public string? BannerImg { get; set; }
         [StringLength(10)]
         public string Status { get; set; }
         [Range(0, 1000)]

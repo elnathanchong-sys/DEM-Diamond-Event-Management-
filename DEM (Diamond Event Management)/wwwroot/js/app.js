@@ -50,7 +50,7 @@ $(document).on('click', '[data-checkable]', e => {
     $(e.currentTarget).find(':checkbox').prop('checked', (i, v) => !v);
 });
 
-$('.upload input').on('change', e => {
+$(document).on('change', '.upload input[type=file]', e => {
     const f = e.target.files[0];
     const img = $(e.target).siblings('img')[0];
     if (!img) return;
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sliderWrapper.addEventListener('mouseleave', startAutoSlide);
     }
 
-    // Next Button Click
+    // next Button Click
     if (next) {
         next.addEventListener('click', () => {
             let nextIndex = (counter + 1) % sliderImages.length;

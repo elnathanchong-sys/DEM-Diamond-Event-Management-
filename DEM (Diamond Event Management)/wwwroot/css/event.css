@@ -87,8 +87,9 @@
     cursor: pointer;
     text-decoration: none;
 }
+/*-------------------------------------Events End----------------------------------*/
 
-/*---------------------------------------------------------------------------------*/
+/*-------------------------------------Event Create----------------------------------*/
 .event-create-container {
     max-width: 100%;
 }
@@ -142,10 +143,31 @@
 
 .event-create-body-row-three {
     display: flex;
-    justify-content: space-between;
     gap: 30px;
     margin-bottom: 20px;
 }
+
+.event-create-poster-upload img {
+    display: block;
+    border: 1px solid #333;
+    width: 100%;
+    max-width: 18.75rem;
+    aspect-ratio: 1 / 1.42;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.event-create-banner-upload img {
+    display: block;
+    border: 1px solid #333;
+    width: 960px;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
 
 .event-create-body-row-four {
     display: flex;
@@ -156,7 +178,6 @@
 
 .event-create-body-row-one input,
 .event-create-body-row-two input,
-.event-create-body-row-three input,
 .event-create-body-row-four input{
     position: relative;
     background-color: #333;
@@ -211,8 +232,9 @@
     cursor: pointer;
     text-decoration: none;
 }
+/*-------------------------------------Event Create End----------------------------------*/
 
-/*----------------------------------------------------------------------------*/
+/*------------------------------------Event Update---------------------------*/
 
 .event-update-container {
     max-width: 100%;
@@ -279,19 +301,18 @@
     margin-bottom: 20px;
 }
 
-    .event-update-body-row-one input,
-    .event-update-body-row-two input,
-    .event-update-body-row-three input,
-    .event-update-body-row-four input {
-        position: relative;
-        background-color: #333;
-        color: #fff;
-        border: 1px solid #444;
-        border-radius: 10px;
-        padding: 10px 50px;
-        width: 100%;
-        box-sizing: border-box;
-    }
+.event-update-body-row-one input,
+.event-update-body-row-two input,
+.event-update-body-row-four input {
+    position: relative;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 10px 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
 
 .event-update-body-description input {
     position: relative;
