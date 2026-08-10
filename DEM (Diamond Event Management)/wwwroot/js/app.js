@@ -60,6 +60,11 @@ $(document).on('change', '.upload input[type=file]', e => {
     if (f && f.type.startsWith('image/')) {
         img.onload = e => URL.revokeObjectURL(img.src);
         img.src = URL.createObjectURL(f);
+
+        $(`[data-valmsg-for="${e.target.name}"]`)
+            .text('')
+            .removeClass('field-validation-error')
+            .addClass('field-validation-valid')
     } else {
         img.src = img.dataset.src;
         e.target.value = '';
