@@ -15,7 +15,9 @@
     <header>
         <nav>
             <div class="left-icon">
-                <a href="/index.php"><img src="/images/logo.png" width="100" alt="DEM Logo"></a>
+                <a href="/index.php"><img src="/images/icon/logo.png" alt="DEM Logo"></a>
+                <a href="/Event/EventRead" class="no-underlined"> Diamond Event Management</a>
+
             </div>
 
             <div class="navigation-bar">
@@ -39,8 +41,19 @@
                 </div>
             </div>
     *@
-            <a href="/page/cart.php" class="index-cart">
-                <img src="/images/icon/shopping-cart.png" alt="Cart">
+            <a href="/page/cart.php" class="right-icon">
+                <div class="search-section">
+                    <form method="get" action="/Event/EventRead">
+                        <input type="search"
+                               name="name"
+                               class="search-input"
+                               placeholder="Search event..."
+                               value="@Context.Request.Query["name"]" />
+                    </form>
+                </div>
+                <i class="bx bx-cart" />
+                <i class="bx bx-user" />
+
             </a>
 
         </nav>
