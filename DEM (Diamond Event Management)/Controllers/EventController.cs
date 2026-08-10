@@ -122,8 +122,8 @@ public class EventController(DB db,
 
         if (ModelState.IsValid)
         {
-            string posterFilename = hp.SavePhoto(PosterImg, "uploads", 600, 850);
-            string bannerFilename = hp.SavePhoto(BannerImg, "uploads", 1200, 400);
+            string posterFilename = hp.SavePhoto(PosterImg, "uploads", 300, 425);
+            string bannerFilename = hp.SavePhoto(BannerImg, "uploads", 7680, 2400);
 
             db.Event.Add(new()
             {
