@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace DEM__Diamond_Event_Management_.Controllers;
 
 public class EventController(DB db, 
-                            IWebHostEnvironment en) : Controller
+                            IWebHostEnvironment en,
+                            Helper hp) : Controller
 {
     [HttpGet]
     public IActionResult EventRead(string? name)
@@ -73,6 +74,7 @@ public class EventController(DB db,
         return db.Venue.Any(v => v.Id == venueId);
     }
 
+//-----------------------------EventCreate---------------------------------------------
 
     // GET: Home/EventCreate
     public IActionResult EventCreate()
@@ -85,7 +87,7 @@ public class EventController(DB db,
 
     // POST: Home/EventCreate
     [HttpPost]
-    public IActionResult EventCreate(EventVM vm)
+    public IActionResult EventCreate(EventVM vm, IFormFile PosterImg, IFormFile BannerImg)
     {
         if (ModelState.IsValid("Id") &&
             db.Event.Any(e => e.Id == vm.Id))
@@ -93,21 +95,36 @@ public class EventController(DB db,
             ModelState.AddModelError("Id", "Duplicated Id");
         }
 
-        if (ModelState.IsValid("CategoryId") &&
-            db.Event.Any(c => c.Id == vm.CategoryId))
+        if (ModelState.IsValid("PosterImg"))
         {
-            ModelState.AddModelError("CategoryId", "Invalid Id");
+            var p = hp.ValidatePhoto(PosterImg);
+            if (p != "") ModelState.AddModelError("PosterImg", p);
+        }
+
+        if (ModelState.IsValid("BannerImg"))
+        {
+            var b = hp.ValidatePhoto(BannerImg);
+            if (b != "") ModelState.AddModelError("BannerImg", b);
+        }
+
+        if (ModelState.IsValid("CategoryId") &&
+            !db.Category.Any(c => c.Id == vm.CategoryId))
+        {
+            ModelState.AddModelError("CategoryId", "Invalid Category ID");
         }
 
         if (ModelState.IsValid("VenueId") &&
-            db.Event.Any(v => v.Id == vm.VenueId))
+            !db.Venue.Any(v => v.Id == vm.VenueId))
         {
-            ModelState.AddModelError("VenueId", "Invalid Id");
+            ModelState.AddModelError("VenueId", "Invalid Venue ID");
         }
 
 
         if (ModelState.IsValid)
         {
+            string posterFilename = hp.SavePhoto(PosterImg, "uploads", 300, 425);
+            string bannerFilename = hp.SavePhoto(BannerImg, "uploads", 7680, 2400);
+
             db.Event.Add(new()
             {
                 Id = vm.Id.Trim().ToUpper(),
@@ -118,8 +135,8 @@ public class EventController(DB db,
                 StartTime = vm.StartTime,
                 EndTime = vm.EndTime,
                 Price = vm.Price,
-                PosterImg = vm.PosterImg,
-                BannerImg = vm.BannerImg,
+                PosterImg = posterFilename,
+                BannerImg = bannerFilename,
                 Status = "Active",
                 TotalTickets = 0,
                 TicketSold = 0,
@@ -131,10 +148,11 @@ public class EventController(DB db,
             return RedirectToAction("EventRead");
         }
 
-        ViewBag.CategoryList = new SelectList(db.Category, "Id");
-        return View();
+        ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id", vm.VenueId);
+        ViewBag.CategoryList = new SelectList(db.Category, "Id", "CategoryName", vm.CategoryId);
+        return View(vm);
     }
-
+    //----------------------------End Event Create---------------------------------------------
     // GET: Home/Update
     public IActionResult EventUpdate(string? id)
     {

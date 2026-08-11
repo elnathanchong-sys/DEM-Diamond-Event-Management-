@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
@@ -7,6 +11,52 @@ namespace DEM__Diamond_Event_Management_;
 
 public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
 {
+
+    public string ValidatePhoto(IFormFile f)
+    {
+        if (f == null || f.Length == 0) return "Please select a photo.";
+
+        var reType = new Regex(@"^image\/(jpeg|jpg|png)$", RegexOptions.IgnoreCase);
+        var reName = new Regex(@"^.+\.(jpeg|jpg|png)$", RegexOptions.IgnoreCase);
+
+        if (!reType.IsMatch(f.ContentType) || !reName.IsMatch(f.FileName))
+        {
+            return "Only JPG, JPEG, and PNG photo is allowed.";
+        }
+        else if (f.Length > 100 * 1024 * 1024)
+        {
+            return "Photo size cannot more than 100MB.";
+        }
+
+        return "";
+    }
+
+    public string SavePhoto(IFormFile f, string folder, int width = 200, int height = 200)
+    {
+        var file = Guid.NewGuid().ToString("n") + ".jpg";
+        var path = Path.Combine(en.WebRootPath, folder, file);
+
+        var options = new ResizeOptions
+        {
+            Size = new(width, height),
+            Mode = ResizeMode.Crop,
+        };
+
+        using var stream = f.OpenReadStream();
+        using var img = Image.Load(stream);
+        img.Mutate(x => x.Resize(options));
+        img.Save(path);
+
+        return file;
+    }
+
+    public void DeletePhoto(string file, string folder)
+    {
+        file = Path.GetFileName(file);
+        var path = Path.Combine(en.WebRootPath, folder, file);
+        File.Delete(path);
+    }
+
     // Password Hasher
     private readonly PasswordHasher<object> ph = new();
     public string HashPassword(string password)
@@ -65,4 +115,7 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
 
         return password;
     }
-}
+
+
+}   
+

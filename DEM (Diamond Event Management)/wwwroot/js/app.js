@@ -50,7 +50,7 @@ $(document).on('click', '[data-checkable]', e => {
     $(e.currentTarget).find(':checkbox').prop('checked', (i, v) => !v);
 });
 
-$('.upload input').on('change', e => {
+$(document).on('change', '.upload input[type=file]', e => {
     const f = e.target.files[0];
     const img = $(e.target).siblings('img')[0];
     if (!img) return;
@@ -60,6 +60,11 @@ $('.upload input').on('change', e => {
     if (f && f.type.startsWith('image/')) {
         img.onload = e => URL.revokeObjectURL(img.src);
         img.src = URL.createObjectURL(f);
+
+        $(`[data-valmsg-for="${e.target.name}"]`)
+            .text('')
+            .removeClass('field-validation-error')
+            .addClass('field-validation-valid')
     } else {
         img.src = img.dataset.src;
         e.target.value = '';
@@ -119,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sliderWrapper.addEventListener('mouseleave', startAutoSlide);
     }
 
-    // Next Button Click
+    // next Button Click
     if (next) {
         next.addEventListener('click', () => {
             let nextIndex = (counter + 1) % sliderImages.length;

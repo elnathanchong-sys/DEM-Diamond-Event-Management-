@@ -9,23 +9,23 @@
 <div class="event-update-container">
     <h1 class="event-update-title">Add New Events</h1>
     <div class="event-update-body">
-        <form method="post" class="form">
+        <form method="post" class="form" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly"></div>
 
             <div class="event-update-body-row-one">
                 <div class="event-update-input-box">
                     <label asp-for="Id"></label>
-                    <b>@Model?.Id</b>
-                    <br>
+                    <input asp-for="Id" data-upper autofocus>
+                    <span asp-validation-for="Id"></span>
                 </div>
                 <div class="event-update-input-box">
                     <label asp-for="Name"></label>
-                    <input asp-for="Name" data-upper data-trim />
+                    <input asp-for="Name" data-trim />
                     <span asp-validation-for="Name"></span>
                 </div>
                 <div class="event-update-input-box">
                     <label asp-for="Price"></label>
-                    <input asp-for="Price" data-upper data-trim />
+                    <input asp-for="Price"  data-trim />
                     <span asp-validation-for="Price"></span>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="event-update-body-description">
                 <div class="event-update-input-box">
                     <label asp-for="Description"></label>
-                    <input asp-for="Description" data-upper data-trim />
+                    <textarea asp-for="Description" data-trim></textarea>
                     <span asp-validation-for="Description"></span>
                 </div>
             </div>
@@ -41,43 +41,49 @@
             <div class="event-update-body-row-two">
                 <div class="event-update-input-box">
                     <label asp-for="StartDate"></label>
-                    <input asp-for="StartDate" data-upper data-trim />
+                    <input asp-for="StartDate" data-trim />
                     <span asp-validation-for="StartDate"></span>
                 </div>
                 <div class="event-update-input-box">
                     <label asp-for="EndDate"></label>
-                    <input asp-for="EndDate" data-upper data-trim />
+                    <input asp-for="EndDate" data-trim />
                     <span asp-validation-for="EndDate"></span>
                 </div>
                 <div class="event-update-input-box">
                     <label asp-for="StartTime"></label>
-                    <input asp-for="StartTime" data-upper data-trim />
+                    <input asp-for="StartTime" data-trim />
                     <span asp-validation-for="StartTime"></span>
                 </div>
                 <div class="event-update-input-box">
                     <label asp-for="EndTime"></label>
-                    <input asp-for="EndTime" data-upper data-trim />
+                    <input asp-for="EndTime" data-trim />
                     <span asp-validation-for="EndTime"></span>
                 </div>
             </div>
 
             <div class="event-update-body-row-three">
                 <div class="event-update-input-box">
-                    <label asp-for="PosterImg"></label>
-                    <input asp-for="PosterImg" data-upper data-trim />
-                    <span asp-validation-for="PosterImg"></span>
+                    <label>Photo</label>
+                    <label class="event-update-poster-upload upload">
+                        <input type="file" name="PosterImg" accept="image/jpeg,image/png,image/jpg" hidden>
+                        <img src="/images/icon/upload-image.png">
+                    </label>
+                    @Html.ValidationMessage("PosterImg")
                 </div>
                 <div class="event-update-input-box">
-                    <label asp-for="BannerImg"></label>
-                    <input asp-for="BannerImg" data-upper data-trim />
-                    <span asp-validation-for="BannerImg"></span>
+                    <label>Banner</label>
+                    <label class="event-update-banner-upload upload">
+                        <input type="file" name="BannerImg" accept="image/jpeg,image/png,image/jpg" hidden>
+                        <img src="/images/icon/upload-image.png">
+                    </label>
+                    @Html.ValidationMessage("BannerImg")
                 </div>
             </div>
 
             <div class="event-update-body-row-four">
                 <div class="event-update-input-box">
                     <label asp-for="Status"></label>
-                    <input asp-for="Status" data-upper data-trim />
+                    <input asp-for="Status" data-trim />
                     <span asp-validation-for="Status"></span>
                 </div>
                 <div class="event-update-input-box">
@@ -97,11 +103,12 @@
             </div>
 
             <section>
-                <button class="event-update-btn-update">Submit</button>
+                <button class="event-update-btn-submit">Submit</button>
                 <button type="reset" class="event-update-btn-reset">Reset</button>
             </section>
         </form>
     </div>
 </div>
+<br />
 
 <a href="/Event/EventRead" class="event-update-btn-return">Return</a>
