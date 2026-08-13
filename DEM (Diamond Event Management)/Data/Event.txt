@@ -1,20 +1,12 @@
-E001	DIAMOND GALA NIGHT	An exclusive evening of luxury networking and orchestra.	2026-08-15	2026-08-15	19:00	23:00	150.00	gala_p.jpg	gala_b.jpg	Active	500	120	C001	V001
-E002	GLOBAL TECH SUMMIT	Explore breakthroughs in AI and cybersecurity.	2026-09-10	2026-09-12	09:00	17:00	299.99	tech_p.jpg	tech_b.jpg	Active	1000	450	C002	V002
-E003	NEON BEAT FESTIVAL	A 2-day outdoor electronic music festival.	2026-10-02	2026-10-03	16:00	02:00	85.00	music_p.jpg	music_b.jpg	Active	3000	1850	C003	V003
-E004	CULINARY FAIR 2026	Taste delicacies from over 30 countries.	2026-11-05	2026-11-07	11:00	21:00	25.00	food_p.jpg	food_b.jpg	Active	1500	600	C004	V001
-E005	MODERN ART EXPO	Showcasing contemporary paintings and sculptures.	2026-08-20	2026-08-30	10:00	18:00	15.00	art_p.jpg	art_b.jpg	Active	800	310	C005	V004
-E006	INDIE GAME SHOWCASE	Play unreleased indie games and meet developers.	2026-12-01	2026-12-02	10:00	19:00	40.00	game_p.jpg	game_b.jpg	Upcoming	1200	200	C002	V002
-E007	LEADERSHIP FORUM	Keynote speeches and corporate workshops.	2026-09-25	2026-09-25	08:30	16:30	180.00	biz_p.jpg	biz_b.jpg	Active	400	280	C001	V001
-E008	WELLNESS EXPO	Fitness workouts and nutrition seminars.	2026-10-15	2026-10-17	08:00	18:00	30.00	fit_p.jpg	fit_b.jpg	Active	2000	940	C006	V003
-E009	ESPORTS FINALS	Top teams compete live in tactical FPS games.	2026-11-20	2026-11-22	12:00	22:00	50.00	esport_p.jpg	esport_b.jpg	Active	2500	1700	C002	V002
-E010	COUNTDOWN CONCERT	Ring in the new year with live performances.	2026-12-31	2027-01-01	20:00	01:00	120.00	nye_p.jpg	nye_b.jpg	Upcoming	5000	1100	C003	V003
-E011	ANIME CONVENTION 2026	Cosplay contests, voice actor meetups, and merchandise stalls.	2026-09-01	2026-09-03	10:00	20:00	45.00	anime_p.jpg	anime_b.jpg	Active	1200	850	C002	V002
-E012	INTERNATIONAL FILM FESTIVAL	Screening independent films and hosting red carpet premieres.	2026-10-10	2026-10-15	14:00	22:30	60.00	film_p.jpg	film_b.jpg	Active	800	320	C005	V004
-E013	CITY MARATHON EXPO	Annual 42km city marathon and sports gear fitness expo.	2026-11-01	2026-11-01	06:00	12:00	35.00	run_p.jpg	run_b.jpg	Active	5000	3400	C006	V003
-E014	WINE & CHEESE TASTING	Exclusive tasting session of vintage wines and artisanal cheese.	2026-08-28	2026-08-28	18:30	22:00	95.00	wine_p.jpg	wine_b.jpg	Active	500	210	C004	V001
-E015	STARTUP PITCH NIGHT	Early-stage founders pitch innovative ideas to venture capitalists.	2026-09-18	2026-09-18	17:00	21:00	20.00	pitch_p.jpg	pitch_b.jpg	Active	500	180	C001	V001
-E016	JAZZ UNDER THE STARS	Live outdoor jazz session featuring world-renowned saxophonists.	2026-10-24	2026-10-24	19:30	23:00	70.00	jazz_p.jpg	jazz_b.jpg	Active	1200	720	C003	V002
-E017	AI & ROBOTICS EXPO	Hands-on experience with modern robotics and generative AI.	2026-11-12	2026-11-14	09:30	17:30	110.00	ai_p.jpg	ai_b.jpg	Active	1200	600	C002	V002
-E018	COMEDY ROAST NIGHT	Top stand-up comedians perform live set routines and roasts.	2026-12-05	2026-12-05	20:00	22:30	40.00	comedy_p.jpg	comedy_b.jpg	Upcoming	800	410	C003	V004
-E019	STREET FOOD FESTIVAL	Local food trucks, craft drinks, and live street buskers.	2026-09-04	2026-09-06	12:00	23:00	10.00	streetfood_p.jpg	streetfood_b.jpg	Active	5000	2900	C004	V003
-E020	CHARITY AUCTION GALA	High-end art auction supporting children's healthcare.	2026-12-18	2026-12-18	18:00	22:00	200.00	charity_p.jpg	charity_b.jpg	Upcoming	500	95	C001	V001
+E466	DOTA 2 TOURNAMENT	Just a Dota 2 Tournament	9/29/2026	9/30/2026	19:30:00	19:31:00	150.00	785568d472444fc99153981bb97dad08.jpg	be4d20276e4a4641958c740914df285f.jpg	Upcoming	0	0	C001	V001
+E467	COUNTER STRIKE BLAST PREMIER	Just a counter strike tournament	9/12/2026	9/13/2026	19:30:00	19:31:00	150.00	311f63dacf794657a310b2cb04fe2ae0.jpg	2bb9d9f7a3a24399aec568b26337e5ed.jpg	Upcoming	0	0	C001	V001
+E468	LEAGUE OF LEGENDS WORLDS	Just a league of legends tournament	9/12/2026	9/13/2026	19:30:00	19:32:00	150.00	ca5706732d3446e1844dbfc9b8f9bd08.jpg	65de280491d045e183054386c5350c03.jpg	Upcoming	0	0	C002	V002
+E469	VCT CHAMPIONS	Just a valorant tournament	9/12/2026	9/13/2026	19:30:00	19:32:00	150.00	8d3bcb15dce24fde8e979f24dae7b05d.jpg	13c47b8f3fb947118ca87f029e2b0698.jpg	Upcoming	0	0	C001	V001
+E476	DOTA 2 TOURNAMENT	Just a Dota 2 Tournament	9/29/2026	9/30/2026	19:30:00	19:31:00	150.00	785568d472444fc99153981bb97dad08.jpg	be4d20276e4a4641958c740914df285f.jpg	Completed	0	0	C001	V001
+E477	COUNTER STRIKE BLAST PREMIER	Just a counter strike tournament	9/12/2026	9/13/2026	19:30:00	19:31:00	150.00	311f63dacf794657a310b2cb04fe2ae0.jpg	2bb9d9f7a3a24399aec568b26337e5ed.jpg	Completed	0	0	C001	V001
+E478	LEAGUE OF LEGENDS WORLDS	Just a league of legends tournament	9/12/2026	9/13/2026	19:30:00	19:32:00	150.00	ca5706732d3446e1844dbfc9b8f9bd08.jpg	65de280491d045e183054386c5350c03.jpg	Completed	0	0	C002	V002
+E479	VCT CHAMPIONS	Just a valorant tournament	9/12/2026	9/13/2026	19:30:00	19:32:00	150.00	8d3bcb15dce24fde8e979f24dae7b05d.jpg	13c47b8f3fb947118ca87f029e2b0698.jpg	Completed	0	0	C001	V001
+E486	DOTA 2 TOURNAMENT	Just a Dota 2 Tournament	9/29/2026	9/30/2026	19:30:00	19:31:00	150.00	785568d472444fc99153981bb97dad08.jpg	be4d20276e4a4641958c740914df285f.jpg	Hidden	0	0	C001	V001
+E487	COUNTER STRIKE BLAST PREMIER	Just a counter strike tournament	9/12/2026	9/13/2026	19:30:00	19:31:00	150.00	311f63dacf794657a310b2cb04fe2ae0.jpg	2bb9d9f7a3a24399aec568b26337e5ed.jpg	Hidden	0	0	C001	V001
+E488	LEAGUE OF LEGENDS WORLDS	Just a league of legends tournament	9/12/2026	9/13/2026	19:30:00	19:32:00	150.00	ca5706732d3446e1844dbfc9b8f9bd08.jpg	65de280491d045e183054386c5350c03.jpg	Hidden	0	0	C002	V002
+E489	VCT CHAMPIONS	Just a valorant tournament	9/12/2026	9/13/2026	19:30:00	19:32:00	150.00	8d3bcb15dce24fde8e979f24dae7b05d.jpg	13c47b8f3fb947118ca87f029e2b0698.jpg	Hidden	0	0	C001	V001

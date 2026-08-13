@@ -6,9 +6,10 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="~/css/home.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> @*Google Fonts*@
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> @*Google Fonts*@
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet"> @*Bree Serif Font*@
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"> @*boxicons*@
     @RenderSection("head", required: false)
 </head>
 <body>
@@ -49,11 +50,10 @@
                                class="search-input"
                                placeholder="Search event..."
                                value="@Context.Request.Query["name"]" />
-                    </form>
+                    </form> @*copied from HO's eventcreate search bar function not added yet*@
                 </div>
-                <i class="bx bx-cart" />
-                <i class="bx bx-user" />
-
+                <i class="bx bx-cart"></i>
+                <i class="bx bx-user"></i>
             </a>
 
         </nav>

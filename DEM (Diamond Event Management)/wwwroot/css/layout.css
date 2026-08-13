@@ -48,6 +48,11 @@ nav {
     align-items: center;
 }
 
+.bx{
+    font-size: 30px;
+    margin-top: 5px;
+}
+
 .search-input {
     border-radius: 10px;
     position: relative;

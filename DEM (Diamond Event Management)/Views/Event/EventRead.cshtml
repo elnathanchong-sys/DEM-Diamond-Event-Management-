@@ -26,6 +26,10 @@
                 <a href="/Event/EventCreate" class="create-new-btn">+ Create New Event</a>
             </div>
 
+        <div class="event-record-amount">
+            <p>@Model.Count() record(s)</p>
+        </div>
+
         <div class="event-list-container">
 
             @foreach (var e in Model)
