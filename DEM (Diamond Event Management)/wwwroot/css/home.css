@@ -207,3 +207,41 @@ span.prev{
     transform: translateY(0px);
 }
 
+/*------------------------------------------------------------------------------------------*/
+.index-info-carousel{
+    margin: 100px auto;
+    width: 87%;
+    max-width: 87rem;
+    border: 5px solid red;
+    display: flex;
+    overflow-x: auto;
+}
+
+.index-info-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.index-info-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    animation: spin 5s infinite linear;
+    padding-right: 1em;
+}
+
+.info-card{
+    flex: 0 0 5em;
+    height: 5rem;
+    padding: 1rem;
+    background: white;
+    font-size: 3rem;
+    border-radius: .2em;
+    text-align: center;
+    align-content: center
+}
+
+@keyframes spin {
+    from {translate: 0;} /*---from animation IN index-info-group---*/
+    to {translate: -100%;}
+}
