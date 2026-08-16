@@ -6,6 +6,26 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.small{
+    font-size: 0.75rem;
+}
+
+.text-muted{
+    color : #ffffff;
+}
+
+.profile-photo {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto 14rem;
+}
+
 /* Sidebar */
 .sidebar {
     width: 200px; /* Reduce this value to make it to have smaller sidebar */
@@ -55,11 +75,12 @@ body {
     font-size: 1.1rem;
 }
 
-/* Content Area */ 
+/* Content Area */
 main {
     flex-grow: 1;
     padding: 2rem;
-
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .sidebar.close {
@@ -252,43 +273,136 @@ main .recent_tournament {
     margin-top: 2rem;
 }
 
-    main .recent_tournament h2 {
-        color: #000000;
-    }
+main .recent_tournament h2 {
+    color: #000000;
+}
 
-    main .recent_tournament table {
-        background-color: #ffffff;
-        width: 100%;
-        border-radius: 2rem;
-        padding: 1.8rem;
-        text-align: center;
-        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
-        transition: all .3s ease;
-        color: #000000;
-    }
+main .recent_tournament table {
+    background-color: #ffffff;
+    width: 100%;
+    border-radius: 2rem;
+    padding: 1.8rem;
+    text-align: center;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    transition: all .3s ease;
+    color: #000000;
+}
 
-        main .recent_tournament table:hover {
-            transform: translateY(-5px);
-            box-shadow: none;
-        }
+main .recent_tournament table:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+}
 
-    main table tbody tr {
-        height: 3.8rem;
-        border-bottom: 1px solid #FFFFFF;
-        color: #677483;
-    }
+main table tbody tr {
+    height: 3.8rem;
+    border-bottom: 1px solid #FFFFFF;
+    color: #677483;
+}
 
-    main table tbody td {
-        height: 3.8rem;
-        border-bottom: 1px solid #FFFFFF;
-    }
+main table tbody td {
+    height: 3.8rem;
+    border-bottom: 1px solid #FFFFFF;
+}
 
-    main table tbody tr:last-child td{
-        border: none;
-    }
+main table tbody tr:last-child td{
+    border: none;
+}
 
-    main .recent_tournament a {
-        text-align: center;
-        display: block;
-        margin: 1.0rem;
-    }
+main .recent_tournament a {
+    text-align: center;
+    display: block;
+    margin: 1.0rem;
+}
+
+/*right*/
+
+.right {
+    margin-top: 1.4rem;
+}
+
+.right h2{
+    color: #ffffff;
+}
+
+.right .top {
+    display: flex;
+    gap: 2rem;
+    justify-content: start;
+
+}
+
+.right .top button{
+    display:none;
+}
+
+.right .theme-toggler {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    height: 1.6rem;
+    width: 4.2rem;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+.right .theme-toggler span {
+    font-size: 1.2rem;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right .theme-toggler span.active {
+    background-color: #a2a3b7;
+    color: #ffffff;
+}
+
+.right .top .profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.right .info h3 {
+    color: #ffffff;
+    margin: 0;
+}
+
+.right .item h3 {
+    color: #ffffff;
+}
+
+/*recent updates*/
+
+.right .recent-updates {
+    margin-top: 1rem;
+    margin-left: -20px;
+}
+
+.right .recent_updates .updates {
+    background-color: #ffffff;
+    padding: 1.8rem;
+    border-radius: 2rem;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    transition: all .3s ease;
+}
+
+.right .recent_updates .updates:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+}
+
+.right .recent_updates .update {
+    display: grid;
+    grid-template-columns: 0rem auto;
+    gap: 3rem;
+    margin-top: 1rem;
+    
+}
+
+.right .recent_updates .update .profile-photo {
+    margin-top: 1rem;
+    
+}
