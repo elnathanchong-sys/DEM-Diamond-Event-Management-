@@ -150,4 +150,13 @@ document.addEventListener("DOMContentLoaded", function () {
             startAutoSlide(); // Reset timer
         });
     });
+
+    // Simple hover/change animation for index events status
+    $(document).on('click', '.status-tab', function () {
+        // Remove status active class from all tabs
+        $('.status-tab').removeClass('active');
+
+        // Add status active class to the clicked tab
+        $(this).addClass('active');
+    });
 });

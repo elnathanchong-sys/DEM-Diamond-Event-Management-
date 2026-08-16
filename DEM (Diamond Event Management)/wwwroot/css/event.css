@@ -15,7 +15,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 35px;
+    margin: 10px 35px 0px;
+}
+
+.event-left-header{
+    display: flex;
+    flex-direction: row;
 }
 
 .search-input {
@@ -33,6 +38,11 @@
     font-size: 16px;
     cursor: pointer;
     text-decoration: none;
+}
+
+.event-record-amount {
+    color: white;
+    margin: 0px 35px;
 }
 
 .event-list-container {

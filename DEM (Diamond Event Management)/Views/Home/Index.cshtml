@@ -2,7 +2,6 @@
     // Set the page title
     ViewData["Title"] = "Home";
     Layout = "_Layout";
-
 }
 
 
@@ -27,73 +26,42 @@
 </div>
 
 <div class="index-events">
-    <div class="index-events-title">
-        <h1>Ongoing Events</h1>
+    <div class="index-events-nav">
+        <div class="index-events-title">
+            <h1>Events</h1>
+        </div>
+
+        <div class="index-events-status">
+            <p>
+                @foreach (var s in ViewBag.Status) // Reminder to self : ViewBag can be found in the controller
+                {
+                    if (s == ViewBag.CurrentStatus)
+                    {
+                        // Tab when selected by user (active)
+                        <a data-ajax="true"
+                           data-ajax-update="#index-event-target"
+                           class="status-tab active"
+                           href="?Status=@s">@s</a>
+                    }
+                    else
+                    {
+                        // Inactive tab when not selected by user
+                        <a data-ajax="true"
+                           data-ajax-update="#index-event-target"
+                           class="status-tab"
+                           href="?Status=@s">@s</a>
+                    }
+                    <text> </text>
+                }
+
+            </p>
+        </div>
     </div>
 
-    <div class="ongoing-event-grid">
-        <div class="ongoing-event-container">
-            <div class="ongoing-event-wrapper">
-                <ul class="ongoing-event-card-list">
-                    <li class="ongoing-event-card-item">
-                        <a href="#" class="ongoing-event-card-link">
-                            <img src="/images/poster/falcon-poster.jpg" alt="falcons" class="card-img" />
-                            <div class="hover-content">
-                                <h3 class="hover-title">Falcon's Tournament</h3>
-                            </div>
-                        </a>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="ongoing-event-container">
-            <div class="ongoing-event-wrapper">
-                <ul class="ongoing-event-card-list">
-                    <li class="ongoing-event-card-item">
-                        <a href="#" class="ongoing-event-card-link">
-                            <img src="/images/poster/Dota2-poster.jpg" alt="falcons" class="card-img" />
-                            <div class="hover-content">
-                                <h3 class="hover-title">Dota 2 Tournament</h3>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
 
 
-        <div class="ongoing-event-container">
-            <div class="ongoing-event-wrapper">
-                <ul class="ongoing-event-card-list">
-                    <li class="ongoing-event-card-item">
-                        <a href="#" class="ongoing-event-card-link">
-                            <img src="/images/poster/lols-poster.jpg" alt="falcons" class="card-img" />
-                            <div class="hover-content">
-                                <h3 class="hover-title">League Of Legends Tournament</h3>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-
-        <div class="ongoing-event-container">
-            <div class="ongoing-event-wrapper">
-                <ul class="ongoing-event-card-list">
-                    <li class="ongoing-event-card-item">
-                        <a href="#" class="ongoing-event-card-link">
-                            <img src="/images/poster/valorants-poster.jpg" alt="falcons" class="card-img" />
-                            <div class="hover-content">
-                                <h3 class="hover-title">Valorant Tournament</h3>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div id="index-event-target">
+        <partial name="_Event" />
     </div>
 </div>
 

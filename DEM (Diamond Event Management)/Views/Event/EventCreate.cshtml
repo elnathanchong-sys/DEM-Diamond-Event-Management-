@@ -15,17 +15,17 @@
             <div class="event-create-body-row-one">
                 <div class="event-create-input-box">
                     <label asp-for="Id"></label>
-                    <input asp-for="Id" data-upper autofocus>
+                    <input asp-for="Id" data-upper autofocus placeholder="Enter event ID... E.g., E001" />
                     <span asp-validation-for="Id"></span>
                 </div>
                 <div class="event-create-input-box">
                     <label asp-for="Name"></label>
-                    <input asp-for="Name" data-trim />
+                    <input asp-for="Name" data-trim placeholder="Enter event name..." />
                     <span asp-validation-for="Name"></span>
                 </div>
                 <div class="event-create-input-box">
                     <label asp-for="Price"></label>
-                    <input asp-for="Price" data-trim />
+                    <input asp-for="Price" data-trim , placeholder="Enter event price... 0.00" />
                     <span asp-validation-for="Price"></span>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="event-create-body-description">
                 <div class="event-create-input-box">
                     <label asp-for="Description"></label>
-                    <textarea asp-for="Description"  data-trim></textarea>
+                    <textarea asp-for="Description" data-trim placeholder="Enter event description..."></textarea>
                     <span asp-validation-for="Description"></span>
                 </div>
             </div>
@@ -41,22 +41,22 @@
             <div class="event-create-body-row-two">
                 <div class="event-create-input-box">
                     <label asp-for="StartDate"></label>
-                    <input asp-for="StartDate" data-trim />
+                    <input asp-for="StartDate" data-trim placeholder="Select start date... YYYY-MM-DD" />
                     <span asp-validation-for="StartDate"></span>
                 </div>
                 <div class="event-create-input-box">
                     <label asp-for="EndDate"></label>
-                    <input asp-for="EndDate" data-trim />
+                    <input asp-for="EndDate" data-trim placeholder="Select end date... YYYY-MM-DD" />
                     <span asp-validation-for="EndDate"></span>
                 </div>
                 <div class="event-create-input-box">
                     <label asp-for="StartTime"></label>
-                    <input asp-for="StartTime" data-trim />
+                    <input asp-for="StartTime" data-trim placeholder="Select start time... HH:MM" />
                     <span asp-validation-for="StartTime"></span>
                 </div>
                 <div class="event-create-input-box">
                     <label asp-for="EndTime"></label>
-                    <input asp-for="EndTime" data-trim />
+                    <input asp-for="EndTime" data-trim placeholder="Select end time... HH:MM" />
                     <span asp-validation-for="EndTime"></span>
                 </div>
             </div>
@@ -83,7 +83,13 @@
             <div class="event-create-body-row-four">
                 <div class="event-create-input-box">
                     <label asp-for="Status"></label>
-                    <input asp-for="Status" data-trim />
+                    <select asp-for="Status">
+                        <option value="">- Select One -</option>
+                        <option value="Upcoming">Upcoming</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Hidden">Hidden</option>
+                    </select>
                     <span asp-validation-for="Status"></span>
                 </div>
                 <div class="event-create-input-box">

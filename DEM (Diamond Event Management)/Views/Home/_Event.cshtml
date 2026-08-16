@@ -1,0 +1,26 @@
+﻿@{
+    @model IEnumerable<DEM__Diamond_Event_Management_.Models.EventVM>
+    <link rel="stylesheet" href="~/css/home.css" />
+
+}
+
+<div class="ongoing-event-grid">
+    @foreach (var e in Model)
+    {
+        <div class="ongoing-event-container">
+            <div class="ongoing-event-wrapper">
+                <ul class="ongoing-event-card-list">
+                    <li class="ongoing-event-card-item">
+                        <a href="#" class="ongoing-event-card-link">
+                            <img src="~/uploads/@e.PosterImg" alt="@e.Name" class="card-img" />
+                            <div class="hover-content">
+                                <h3 class="hover-title">@e.Name</h3>
+                            </div>
+                        </a>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+</div>
