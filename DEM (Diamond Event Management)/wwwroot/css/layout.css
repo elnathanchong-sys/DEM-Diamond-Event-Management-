@@ -1,6 +1,6 @@
 ﻿header {
     display: flex;
-    padding: 30px 50px;
+    padding: 18px 30px;
     background: #23262A;
     align-items: center;
     color: #ffffff;
@@ -21,15 +21,42 @@ nav {
     display: flex;
     align-items: center;
     flex: 0;
+    gap: 10px; 
+    font-size: 1.2rem;
+}
+
+.left-icon img{
+    width: 30px;
 }
 
 .navigation-bar {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 160px;
+    gap: 100px;
     flex: 1;
     text-align: center;
+    font-size: 1.2rem;
+}
+
+.right-icon{
+    gap: 50px;
+}
+
+.right-icon img{
+    display: flex;
+    align-items: center;
+}
+
+.bx{
+    font-size: 30px;
+    margin-top: 5px;
+}
+
+.search-input {
+    border-radius: 10px;
+    position: relative;
+    padding: 10px 50px;
 }
 
 nav a {
@@ -37,19 +64,11 @@ nav a {
     justify-content: space-between;
     white-space: nowrap;
     color: #f2f2f2;
-    text-decoration: none;
-    font-size: 1.5rem;
+    text-decoration: none;  
     font-family: "Bree Serif", serif;
 }
 
-.right-icon {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width:  1.5rem;
-}
 
-.index-cart img{
-    width: 1.5rem;
-}
+
+
 

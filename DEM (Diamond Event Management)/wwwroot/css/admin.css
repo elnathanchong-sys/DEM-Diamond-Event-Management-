@@ -6,10 +6,30 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.small{
+    font-size: 0.75rem;
+}
+
+.text-muted{
+    color : #ffffff;
+}
+
+.profile-photo {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto 14rem;
+}
+
 /* Sidebar */
 .sidebar {
     width: 200px; /* Reduce this value to make it to have smaller sidebar */
-    background-color: #1e1e2d;
+    background-color: #181B1E;
     color: #ffffff;
     flex-shrink: 0;
     padding-top: 1rem;
@@ -17,6 +37,7 @@ body {
     z-index: 100;
     overflow: hidden; /*Keep the text position fixed*/
     white-space: nowrap; /*Keep the text position fixed*/
+
 }
 
 .sidebar ul {
@@ -37,7 +58,7 @@ body {
 }
 
 .sidebar ul li a:hover {
-    background-color: #2b2b40;
+    background-color: #30363C;
     color: #ffffff;
 }
 
@@ -54,11 +75,12 @@ body {
     font-size: 1.1rem;
 }
 
-/* Content Area */ 
+/* Content Area */
 main {
     flex-grow: 1;
     padding: 2rem;
-
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .sidebar.close {
@@ -87,7 +109,7 @@ main {
     height: 45px;
     border: none;
     border-radius: 8px;
-    background: #1e1e2d;
+    background: #181B1E;
     color: white;
     font-size: 20px;
     cursor: pointer;
@@ -109,11 +131,278 @@ main {
 .text {
     font-size: 16px;
     font-weight: bold;
-    color: #ffffff;
+    color: #FFFFFF;
 }
 
 .text {
     font-family: "Bree Serif", serif;
     font-weight: 400;
     font-style: normal;
+}
+
+/* Main section style */
+main {
+    margin-top: 1.4rem;
+    width: auto;
+}
+
+main input {
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    color:#000000;
+}
+
+main .date {
+    display: inline-block;
+    background-color: #ffffff;
+    border-radius: 0.4rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1.6rem;
+}
+
+main .insights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+main .insights > div {
+    background-color: #ffffff;
+    padding: 1.8rem;
+    border-radius: 2rem;
+    margin-top: 1rem;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    transition: all .3s ease;
+}
+
+main .insights > div:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+}
+
+main .insights > div span {
+    background: coral;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+main .insights > div.ongoing span {
+    background: #49ff00;
+}
+
+main .insights > div.pending span {
+    background: #ff0000;
+}
+
+main .insights > div .middle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main .insights > div .middle h1 {
+    font-size: 1.6rem;
+}
+
+main h1 {
+    color: #ffffff;
+}
+
+main .insights h1 {
+    color: #000000;
+}
+
+main .insights h3 {
+    color: #000000;
+}
+
+main .insights p {
+    color: #000000;
+}
+
+main .insights .progress {
+    position: relative;
+    height: 68px;
+    width: 68px;
+    border-radius: 50px;
+}
+
+main .insights svg {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top:0;
+}
+
+main .insights svg circle {
+    fill: none;
+    stroke-width: 5px;
+    stroke: #00c1ff;
+    transform: rotate(270,80,80)
+}
+
+main .insights .event svg circle{
+    stroke-dashoffset: 10;
+    stroke-dasharray: 150;
+}
+
+main .insights .ongoing svg circle {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 150;
+}
+
+main .insights .pending svg circle {
+    stroke: #ff0000;
+}
+
+main .insights .progress .number {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main .recent_tournament {
+    margin-top: 2rem;
+}
+
+main .recent_tournament h2 {
+    color: #000000;
+}
+
+main .recent_tournament table {
+    background-color: #ffffff;
+    width: 100%;
+    border-radius: 2rem;
+    padding: 1.8rem;
+    text-align: center;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    transition: all .3s ease;
+    color: #000000;
+}
+
+main .recent_tournament table:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+}
+
+main table tbody tr {
+    height: 3.8rem;
+    border-bottom: 1px solid #FFFFFF;
+    color: #677483;
+}
+
+main table tbody td {
+    height: 3.8rem;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+main table tbody tr:last-child td{
+    border: none;
+}
+
+main .recent_tournament a {
+    text-align: center;
+    display: block;
+    margin: 1.0rem;
+}
+
+/*right*/
+
+.right {
+    margin-top: 1.4rem;
+}
+
+.right h2{
+    color: #ffffff;
+}
+
+.right .top {
+    display: flex;
+    gap: 2rem;
+    justify-content: start;
+
+}
+
+.right .top button{
+    display:none;
+}
+
+.right .theme-toggler {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    height: 1.6rem;
+    width: 4.2rem;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+.right .theme-toggler span {
+    font-size: 1.2rem;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right .theme-toggler span.active {
+    background-color: #a2a3b7;
+    color: #ffffff;
+}
+
+.right .top .profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.right .info h3 {
+    color: #ffffff;
+    margin: 0;
+}
+
+.right .item h3 {
+    color: #ffffff;
+}
+
+/*recent updates*/
+
+.right .recent-updates {
+    margin-top: 1rem;
+    margin-left: -20px;
+}
+
+.right .recent_updates .updates {
+    background-color: #ffffff;
+    padding: 1.8rem;
+    border-radius: 2rem;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    transition: all .3s ease;
+}
+
+.right .recent_updates .updates:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+}
+
+.right .recent_updates .update {
+    display: grid;
+    grid-template-columns: 0rem auto;
+    gap: 3rem;
+    margin-top: 1rem;
+    
+}
+
+.right .recent_updates .update .profile-photo {
+    margin-top: 1rem;
+    
 }

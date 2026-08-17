@@ -137,7 +137,7 @@ public class EventController(DB db,
                 Price = vm.Price,
                 PosterImg = posterFilename,
                 BannerImg = bannerFilename,
-                Status = "Active",
+                Status = vm.Status,
                 TotalTickets = 0,
                 TicketSold = 0,
                 CategoryId = vm.CategoryId,
@@ -154,6 +154,7 @@ public class EventController(DB db,
     }
     //----------------------------End Event Create---------------------------------------------
     // GET: Home/Update
+    [HttpGet]
     public IActionResult EventUpdate(string? id)
     {
         var e = db.Event.Find(id);
@@ -191,13 +192,27 @@ public class EventController(DB db,
 
     // POST: Home/Update
     [HttpPost]
-    public IActionResult EventUpdate(EventVM vm)
+    public IActionResult EventUpdate(EventVM vm, IFormFile? posterFile, IFormFile? bannerFile) //instead of Poster/BannerImg had to change to poster/bannerFile as it conflicts with EventVM
     {
         var e = db.Event.Find(vm.Id);
 
         if (e == null)
         {
             return RedirectToAction("EventRead");
+        }
+
+        // Validate the uploaded files only if the user 
+        // actually chose a replacement file.
+        if (posterFile != null && posterFile.Length > 0)
+        {
+            var p = hp.ValidatePhoto(posterFile);
+            if (p != "") ModelState.AddModelError("PosterImg", p);
+        }
+
+        if (bannerFile != null && bannerFile.Length > 0)
+        {
+            var b = hp.ValidatePhoto(bannerFile);
+            if (b != "") ModelState.AddModelError("BannerImg", b);
         }
 
         if (ModelState.IsValid("CategoryId") &&
@@ -222,13 +237,27 @@ public class EventController(DB db,
             e.StartTime = vm.StartTime;
             e.EndTime = vm.EndTime;
             e.Price = vm.Price;
-            e.PosterImg = vm.PosterImg;
-            e.BannerImg = vm.BannerImg;
             e.Status = vm.Status;
             e.TotalTickets = vm.TotalTickets;
             e.TicketSold = vm.TicketSold;
             e.CategoryId = vm.CategoryId;
             e.VenueId = vm.VenueId;
+
+
+            // Only touch the photo on the database when a new one was uploaded.
+            // Otherwise leave PosterImg and BannerImg filename as it is.
+            if (posterFile != null && posterFile.Length > 0)
+            {
+                hp.DeletePhoto(e.PosterImg, "uploads");
+                e.PosterImg = hp.SavePhoto(posterFile, "uploads", 600, 850);
+            }
+
+            if (bannerFile != null && bannerFile.Length > 0)
+            {
+                hp.DeletePhoto(e.BannerImg, "uploads");
+                e.BannerImg = hp.SavePhoto(bannerFile, "uploads", 1200, 400);
+            }
+
             db.SaveChanges();
 
             TempData["Info"] = "Record updated.";

@@ -1,0 +1,174 @@
+﻿@model DEM__Diamond_Event_Management_.Models.EventVM
+
+@{
+    ViewBag.Title = "Events";
+    Layout = "_AdminLayout";
+
+}
+<div class="container">
+    <main>
+        <h1>Dashboard</h1>
+        <div class="date">
+            <input type="date" >
+        </div>
+     
+        <div class="insights">
+            <!--how many tournament event-->
+            <div class="event">
+                <span>🏆</span>
+                <div class="middle">
+                    <div class="left">
+                        <h3>Total tournament</h3>
+                        <h1>111</h1>
+                    </div>
+                    <div class="progress">
+                        <svg>
+                            <circle r="30" cy="40" cx="40"></circle>
+                        </svg>
+                        <div class="number">80%</div>
+                    </div>
+                </div>
+                <small>Last 24 Hours</small>
+            </div>
+
+            <!--how many ongoing tournament event-->
+            <div class="ongoing">
+                <span>🎮</span>
+                <div class="middle">
+                    <div class="left">
+                        <h3>Total ongoing</h3>
+                        <h1>111</h1>
+                    </div>
+                    <div class="progress">
+                        <svg>
+                            <circle r="30" cy="40" cx="40"></circle>
+                        </svg>
+                        <div class="number">80%</div>
+                    </div>
+                </div>
+                <small>Last 24 Hours</small>
+            </div>
+
+            <!--how many tournament event is pending-->
+            <div class="pending">
+                <span>📝</span>
+                <div class="middle">
+                    <div class="left">
+                        <h3>Total pending</h3>
+                        <h1>111</h1>
+                    </div>
+                    <div class="progress">
+                        <svg>
+                            <circle r="30" cy="40" cx="40"></circle>
+                        </svg>
+                        <div class="number">80%</div>
+                    </div>
+                </div>
+                <small>Last 24 Hours</small>
+            </div>
+        </div>
+
+        <!--  Recent Tournaments  -->
+        <div class="recent_tournament">
+            <h1>Recent Tournaments</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tournament Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example row - replace with actual data -->
+                    <tr>
+                        <td>Championship Tournament</td>
+                        <td>2023-10-15</td>
+                        <td class="warning">Pending</td>
+                        <td class="primary">View</td>
+                    </tr>
+                    <tr>
+                        <td>Championship Tournament</td>
+                        <td>2023-10-15</td>
+                        <td class="warning">Pending</td>
+                        <td class="primary">View</td>
+                    </tr>
+                    <tr>
+                        <td>Championship Tournament</td>
+                        <td>2023-10-15</td>
+                        <td class="warning">Pending</td>
+                        <td class="primary">View</td>
+                    </tr>
+                    <tr>
+                        <td>Championship Tournament</td>
+                        <td>2023-10-15</td>
+                        <td class="warning">Pending</td>
+                        <td class="primary">View</td>
+                    </tr>
+                    <tr>
+                        <td>Championship Tournament</td>
+                        <td>2023-10-15</td>
+                        <td class="warning">Pending</td>
+                        <td class="primary">View</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div class="right">
+        <div class="top">
+            <button id="menu_bar">
+                <span>☰</span>
+            </button>
+            <div class="theme-toggler">
+                <span class="active">☀️</span>
+                <span>🌙</span>
+            </div>
+
+            <div class="profile">
+                <div class="info">
+                    <h3>John</h3>
+                    <p>Admin</p>
+                    <small class="text-muted"></small>
+                </div>
+                <div class="profile-photo">
+                    <img src="/images/Admin/kelvin.jpg" alt="Kelvin">
+                </div>
+            </div>
+        </div>
+        <div class="recent_updates">
+            <h2>Recent Updates</h2>
+            <div class="updates">
+                <div class="update">
+                    <div class="profile-photo">
+                        <img src="/images/Admin/kelvin.jpg" alt="Kelvin">
+                    </div>
+                    <div class="message">
+                        <p><b>Kelvin</b> added a new tournament</p>
+                        <small class="text-muted">2 minutes ago</small>
+                    </div>
+                </div>
+                <div class="update">
+                    <div class="profile-photo">
+                        <img src="/images/Admin/kelvin.jpg" alt="Kelvin">
+                    </div>
+                    <div class="message">
+                        <p><b>Kelvin</b> added a new tournament</p>
+                        <small class="text-muted">2 minutes ago</small>
+                    </div>
+                </div>
+                <div class="update">
+                    <div class="profile-photo">
+                        <img src="/images/Admin/kelvin.jpg" alt="Kelvin">
+                    </div>
+                    <div class="message">
+                        <p><b>Kelvin</b> added a new tournament</p>
+                        <small class="text-muted">2 minutes ago</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>

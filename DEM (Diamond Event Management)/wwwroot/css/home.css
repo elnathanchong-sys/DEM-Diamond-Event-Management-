@@ -64,7 +64,7 @@ span.next, span.prev{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: #eee;
+    color: white;
     font-size: 3rem;
     font-weight: bold;
     transition: 0.5s;
@@ -85,12 +85,47 @@ span.prev{
 
 /*-------------------------------------------------------------------*/
 
+.index-events-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 3rem 16rem 0;
+}
+
 .index-events-title {
-    margin: 2rem 16rem 0;
-    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
     font-family: "Bree Serif", serif;
     color: white;
     position: relative;
+
+}
+
+.index-events-status {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.status-tab {
+    font-family: "Bree Serif", serif;
+    font-size: 20px;
+    color: white; 
+    text-decoration: none;
+    padding: 8px 12px;
+    position: relative;
+    transition: color 0.25s ease, border-color 0.25s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.status-tab:hover {
+    color: #BBDEFB; 
+}
+
+.status-tab.active {
+    color: #ffffff;
+    font-weight: 600;
+    border-bottom: 3px solid #BBDEFB;
 }
 
 .ongoing-event-container {
@@ -153,6 +188,7 @@ span.prev{
     color: #ffffff;
     font-size: 1.25rem;
     font-family: "Bree Serif", serif;
+    text-decoration: none;
     text-align: center;
     transform: translateY(20px);
     transition: transform 0.3s ease;
@@ -169,4 +205,43 @@ span.prev{
 
 .hover-content:hover > * {
     transform: translateY(0px);
+}
+
+/*------------------------------------------------------------------------------------------*/
+.index-info-carousel{
+    margin: 100px auto;
+    width: 87%;
+    max-width: 87rem;
+    border: 5px solid red;
+    display: flex;
+    overflow-x: auto;
+}
+
+.index-info-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.index-info-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    animation: spin 5s infinite linear;
+    padding-right: 1em;
+}
+
+.info-card{
+    flex: 0 0 5em;
+    height: 5rem;
+    padding: 1rem;
+    background: white;
+    font-size: 3rem;
+    border-radius: .2em;
+    text-align: center;
+    align-content: center
+}
+
+@keyframes spin {
+    from {translate: 0;} /*---from animation IN index-info-group---*/
+    to {translate: -100%;}
 }

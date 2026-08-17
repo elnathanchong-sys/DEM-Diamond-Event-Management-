@@ -15,7 +15,7 @@
             <div class="event-update-body-row-one">
                 <div class="event-update-input-box">
                     <label asp-for="Id"></label>
-                    <input asp-for="Id" data-upper autofocus>
+                    <input asp-for="Id" readonly>
                     <span asp-validation-for="Id"></span>
                 </div>
                 <div class="event-update-input-box">
@@ -65,25 +65,30 @@
                 <div class="event-update-input-box">
                     <label>Photo</label>
                     <label class="event-update-poster-upload upload">
-                        <input type="file" name="PosterImg" accept="image/jpeg,image/png,image/jpg" hidden>
-                        <img src="/images/icon/upload-image.png">
+                        <input type="file" name="posterFile" accept="image/jpeg,image/png,image/jpg" hidden>
+                        <img src="~/uploads/@Model.PosterImg">
                     </label>
-                    @Html.ValidationMessage("PosterImg")
+                    @Html.ValidationMessage("posterFile")
                 </div>
                 <div class="event-update-input-box">
                     <label>Banner</label>
                     <label class="event-update-banner-upload upload">
-                        <input type="file" name="BannerImg" accept="image/jpeg,image/png,image/jpg" hidden>
-                        <img src="/images/icon/upload-image.png">
+                        <input type="file" name="bannerFile" accept="image/jpeg,image/png,image/jpg" hidden>
+                        <img src="~/uploads/@Model.BannerImg">
                     </label>
-                    @Html.ValidationMessage("BannerImg")
+                    @Html.ValidationMessage("bannerFile")
                 </div>
             </div>
-
-            <div class="event-update-body-row-four">
-                <div class="event-update-input-box">
+            <div class="event-create-body-row-four">
+                <div class="event-create-input-box">
                     <label asp-for="Status"></label>
-                    <input asp-for="Status" data-trim />
+                    <select asp-for="Status">
+                        <option value="">- Select One -</option>
+                        <option value="Upcoming">Upcoming</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Hidden">Hidden</option>
+                    </select>
                     <span asp-validation-for="Status"></span>
                 </div>
                 <div class="event-update-input-box">

@@ -80,17 +80,18 @@
 
 .btn-Reg {
     width: 49%;
-    background-color: #2563eb;
+    background-color: #36465d;
     border: 1px solid #ADB5BD;
     color: #F8F9FA;
     border-radius: 6px;
     padding: 12px;
+    margin-top: 10px;
     font-weight: 600;
     transition: all 0.2s ease-in-out;
 }
 
     .btn-Reg:hover {
-        background-color: #1d4ed8;
+        background-color: #36465d9e;
         border-color: #CED4DA;
         color: #F8F9FA;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
