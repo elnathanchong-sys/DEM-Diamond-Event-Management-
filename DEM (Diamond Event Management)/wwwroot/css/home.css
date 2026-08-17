@@ -88,7 +88,8 @@ span.prev{
 .index-events-nav {
     display: flex;
     justify-content: space-between;
-    padding: 3rem 16rem 0;
+    padding: 3rem 8rem 0;
+    width: 100%;
 }
 
 .index-events-title {
@@ -206,13 +207,24 @@ span.prev{
 .hover-content:hover > * {
     transform: translateY(0px);
 }
+/*------------------------------------------------------------------------------------------*/
+
+.index-ad {
+    margin: 5rem 0;
+    padding: 15rem;
+    background: #495057;
+    font-size: 50px;
+    font-family: "Bree Serif", serif;
+    text-align: center;
+    color: white;
+}
 
 /*------------------------------------------------------------------------------------------*/
 .index-info-carousel{
     margin: 100px auto;
     width: 87%;
     max-width: 87rem;
-    border: 5px solid red;
+    border: 5px;
     display: flex;
     overflow-x: auto;
 }
@@ -226,22 +238,42 @@ span.prev{
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    animation: spin 5s infinite linear;
-    padding-right: 1em;
+    animation: spin 20s infinite linear;
+    padding-right: 1rem;
 }
 
-.info-card{
-    flex: 0 0 5em;
-    height: 5rem;
-    padding: 1rem;
-    background: white;
-    font-size: 3rem;
-    border-radius: .2em;
-    text-align: center;
-    align-content: center
+.info-card {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 5rem;
+    gap: 10px;
+    height: 20rem;
+    background: #6C757D;
+    border-radius: 1rem;
+    min-width: 18rem;
+    color: #212529;
 }
+
+.info-card-title {
+    padding: 1rem 1rem;
+    border-bottom: 1px solid black;
+    min-height: 7rem;
+    font-size: 15px;
+}
+
+.info-card-content {
+    padding: .5rem 1rem;
+    font-size: 20px;
+}
+
+
 
 @keyframes spin {
-    from {translate: 0;} /*---from animation IN index-info-group---*/
-    to {translate: -100%;}
-}
+    from {
+        translate: 0;
+    }
+    /*---from animation IN index-info-group---*/
+    to {
+        translate: -100%;
+    }
+}   
