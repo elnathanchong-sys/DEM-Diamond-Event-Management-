@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="~/css/home.css" />
+    <link rel="stylesheet" href="~/css/eventlist.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com"> @*Google Fonts*@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> @*Google Fonts*@
     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet"> @*Bree Serif Font*@
@@ -16,14 +17,14 @@
     <header>
         <nav>
             <div class="left-icon">
-                <a href="/index.php"><img src="/images/icon/logo.png" alt="DEM Logo"></a>
-                <a href="/Event/EventRead" class="no-underlined"> Diamond Event Management</a>
+                <a href="/Home/Index"><img src="/images/icon/logo.png" alt="DEM Logo"></a>
+                <a href="/Home/Index" class="no-underlined"> Diamond Event Management</a>
 
             </div>
 
             <div class="navigation-bar">
                 <a href="/Event/EventRead" class="no-underlined">Home</a>
-                <a href="/Account/Login" class="no-underlined">Events</a>
+                <a href="/Home/EventList" class="no-underlined">Events</a>
                 <a href="/page/contactus.php" class="no-underlined">FAQs</a>
                 <a href="/Home/About" class="no-underlined">About Us</a>
             </div>
@@ -42,7 +43,7 @@
                 </div>
             </div>
     *@
-            <a href="/page/cart.php" class="right-icon">
+            <div class="right-icon">
                 <div class="search-section">
                     <form method="get" action="/Event/EventRead">
                         <input type="search"
@@ -52,9 +53,13 @@
                                value="@Context.Request.Query["name"]" />
                     </form> @*copied from HO's eventcreate search bar function not added yet*@
                 </div>
-                <i class="bx bx-cart"></i>
-                <i class="bx bx-user"></i>
-            </a>
+                <a href="/Account/Login" class="user-icon">
+                    <i class="bx bx-cart"></i>
+                </a>
+                <a href="/Account/Login" class="user-icon">
+                    <i class="bx bx-user"></i>
+                </a>
+            </div>
 
         </nav>
     </header>

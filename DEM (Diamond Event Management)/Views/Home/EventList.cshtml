@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.EventVM>
+
+@{
+    // Set the page title
+    ViewData["Title"] = "EventList";
+    Layout = "_Layout";
+}
+<div class="index-events">
+    <div class="index-events-nav">
+        <div class="index-events-title">
+            <h1>Events</h1>
+        </div>
+
+        <div class="index-events-status">
+            <p>
+                @foreach (var s in ViewBag.Status) // Reminder to self : ViewBag can be found in the controller
+                {
+                    if (s == ViewBag.CurrentStatus)
+                    {
+                        // Tab when selected by user (active)
+                        <a data-ajax="true"
+                           data-ajax-update="#index-event-target"
+                           class="status-tab active"
+                           href="?Status=@s">@s</a>
+                    }
+                    else
+                    {
+                        // Inactive tab when not selected by user
+                        <a data-ajax="true"
+                           data-ajax-update="#index-event-target"
+                           class="status-tab"
+                           href="?Status=@s">@s</a>
+                    }
+                    <text> </text>
+                }
+
+            </p>
+        </div>
+    </div>
+
+
+
+    <div id="index-event-target">
+        <partial name="_EventList" />
+    </div>
+</div>

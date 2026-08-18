@@ -40,12 +40,9 @@ nav {
 }
 
 .right-icon{
-    gap: 50px;
-}
-
-.right-icon img{
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    gap: 50px;
 }
 
 .bx{
@@ -62,6 +59,7 @@ nav {
 nav a {
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
     white-space: nowrap;
     color: #f2f2f2;
     text-decoration: none;  
