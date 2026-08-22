@@ -28,6 +28,7 @@
                     <input asp-for="Price" data-trim , placeholder="Enter event price... 0.00" />
                     <span asp-validation-for="Price"></span>
                 </div>
+
             </div>
 
             <div class="event-create-body-description">
@@ -41,22 +42,22 @@
             <div class="event-create-body-row-two">
                 <div class="event-create-input-box">
                     <label asp-for="StartDate"></label>
-                    <input asp-for="StartDate" data-trim placeholder="Select start date... YYYY-MM-DD" />
+                    <input asp-for="StartDate" type="date" />
                     <span asp-validation-for="StartDate"></span>
                 </div>
                 <div class="event-create-input-box">
                     <label asp-for="EndDate"></label>
-                    <input asp-for="EndDate" data-trim placeholder="Select end date... YYYY-MM-DD" />
+                    <input asp-for="EndDate" type="date" />
                     <span asp-validation-for="EndDate"></span>
                 </div>
                 <div class="event-create-input-box">
                     <label asp-for="StartTime"></label>
-                    <input asp-for="StartTime" data-trim placeholder="Select start time... HH:MM" />
+                    <input asp-for="StartTime" type="time" />
                     <span asp-validation-for="StartTime"></span>
                 </div>
                 <div class="event-create-input-box">
                     <label asp-for="EndTime"></label>
-                    <input asp-for="EndTime" data-trim placeholder="Select end time... HH:MM" />
+                    <input asp-for="EndTime" type="time" />
                     <span asp-validation-for="EndTime"></span>
                 </div>
             </div>
