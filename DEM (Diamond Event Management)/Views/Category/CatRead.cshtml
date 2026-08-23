@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "_AdminLayout";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+<div class="category-container">
+    <div class="category-header">
+        <h1 class="category-title">Categories</h1>
+
+        <div class="search-section">
+            <form method="get" action="/Category/CatRead">
+                <input type="search"
+                       name="search"
+                       class="search-input"
+                       placeholder="Search category..."
+                       value="@(Context.Request.Query["search"])" />
+            </form>
+        </div>
+
+        <a href="/Category/CatCreate" class="create-new-btn">+ Create New Category</a>
+    </div>
+
+    <div class="category-record-amount">
+        <p>@Model.Count() record(s)</p>
+    </div>
+
+    <div class="category-list-container">
+        @foreach (var c in Model)
+        {
+            <div class="category-info-row">
+                <div class="category-info">
+                    <strong>@c.Id</strong>
+                    @c.CategoryName
+                </div>
+
+                <div class="category-action-btns">
+                    <a href="/Category/CatUpdate/@c.Id" class="btn-update">Update</a>
+                    <button data-post="/Category/CatDelete/@c.Id" class="btn-delete">Delete</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
