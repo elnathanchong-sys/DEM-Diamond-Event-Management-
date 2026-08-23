@@ -1,0 +1,44 @@
+﻿@model DEM__Diamond_Event_Management_.Models.CategoryVM
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "_AdminLayout";
+}
+
+<div class="category-create-container">
+    <h1 class="category-create-title">Add New Category</h1>
+    <div class="category-create-body">
+        <form method="post" class="form" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <div class="category-create-body-row-one">
+                <div class="category-create-input-box">
+                    <label asp-for="Id"></label>
+                    <input asp-for="Id" data-upper autofocus placeholder="Enter category ID... E.g., C001" />
+                    <span asp-validation-for="Id"></span>
+                </div>
+
+                <div class="category-create-input-box">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" data-trim placeholder="Enter category name..." />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+
+            <div class="category-create-body-description">
+                <div class="category-create-input-box">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" data-trim placeholder="Enter category description..."></textarea>
+                    <span asp-validation-for="Description"></span>
+                </div>
+            </div>
+
+            <section>
+                <button class="category-create-btn-submit">Submit</button>
+                <button type="reset" class="category-create-btn-reset">Reset</button>
+            </section>
+        </form>
+    </div>
+</div>
+<br />
+<a href="/Category/CategoryRead" class="category-create-btn-return">Return</a>
