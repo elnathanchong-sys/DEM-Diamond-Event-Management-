@@ -1,5 +1,6 @@
 ﻿using DEM__Diamond_Event_Management_;
 using DEM__Diamond_Event_Management_.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,9 @@ public class EventController(DB db,
             Status = e.Status,
             TotalTickets = e.TotalTickets,
             TicketSold = e.TicketSold,
+            MaxPlayersPerTeam = e.MaxPlayersPerTeam,
+            MaxTeams = e.MaxTeams,
+            PrizePool = e.PrizePool,
             CategoryId = e.CategoryId,
             VenueId = e.VenueId
         }).ToList();
@@ -43,19 +47,150 @@ public class EventController(DB db,
         return View(model);
     }
 
-    // GET: Home/Detail
-    public IActionResult Detail(string? id)
+    //--------------------------------Event individual page-------------------------
+    public IActionResult EventIndividual(string? id)
     {
-        var model = db.Event.Find(id);
+        // connect to the database
+        var model = db.Event
+                       .Include(e => e.Venue)
+                       .Include(e => e.Category)
+                       .FirstOrDefault(e => e.Id == id);
 
+        // Check if the event exists if not the redirect back to home
         if (model == null)
         {
-            return RedirectToAction("Index");
+            return RedirectToAction("EventList", "Home");
         }
+
+        // Count the number of registered teams for the current event and ignore any "Cancalled or hidden events" 
+        int registeredCount = db.Registration.Count(r => r.EventId == id && r.Status != "Cancelled");
+        ViewBag.RegisteredCount = registeredCount;
+        ViewBag.IsFull = registeredCount >= model.MaxTeams;
+
+        // Set the default value is false for every user who visits the page.
+        bool alreadyRegistered = false;
+        //then you check if the user is logged in or not
+        if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            string userEmail = User.Identity.Name!; //get user email from the logged in user visiting the page.
+            alreadyRegistered = db.Registration.Any(r => r.EventId == id &&
+                                                         r.UserEmail == userEmail &&
+                                                         r.Status != "Cancelled"); 
+            // then check if the user has already registered for the current events
+        }
+        ViewBag.AlreadyRegistered = alreadyRegistered; //temp storage for cshtml
 
         return View(model);
     }
 
+    //-----------------------------End Event individual page-------------------------
+    //-----------------------------Registration-------------------------
+    [HttpPost]
+    [Authorize]
+    public IActionResult RegisterTeam(RegistrationVM vm)
+    {
+        // connect to the database
+        var e = db.Event.Find(vm.EventId); 
+
+        // Check if the event still exists
+        if (e == null)
+        {
+            TempData["Error"] = "That event no longer exists.";
+            return RedirectToAction("EventList", "Home");
+        }
+
+        // check the logged in user email
+        string userEmail = User.Identity!.Name!;
+
+        // Team name input check and trimmed
+        string teamName = (vm.TeamName ?? "").Trim(); 
+        // For player in game names input, trimmed 
+        List<string> playerIgns = (vm.PlayerIGNs ?? [])
+                                    .Where(p => !string.IsNullOrWhiteSpace(p))
+                                    .Select(p => p.Trim())
+                                    .ToList();
+
+        // Registration Flash messages
+        if (teamName == "")
+        {
+            TempData["Error"] = "Please enter a team name.";
+            return RedirectToAction("EventIndividual", new { id = vm.EventId });
+        }
+
+        if (playerIgns.Count == 0)
+        {
+            TempData["Error"] = "Please enter at least one player IGN.";
+            return RedirectToAction("EventIndividual", new { id = vm.EventId });
+        }
+
+        if (playerIgns.Count > e.MaxPlayersPerTeam)
+        {
+            TempData["Error"] = $"You cannot register more than {e.MaxPlayersPerTeam} players for this tournament.";
+            return RedirectToAction("EventIndividual", new { id = vm.EventId });
+        }
+
+        // Check if the account is already registered for the current event 
+        bool alreadyRegistered = db.Registration.Any(r => r.EventId == vm.EventId &&
+                                                               r.UserEmail == userEmail &&
+                                                               r.Status != "Cancelled");
+        if (alreadyRegistered)
+        {
+            TempData["Error"] = "You have already registered a team for this tournament.";
+            return RedirectToAction("EventIndividual", new { id = vm.EventId });
+        }
+
+        // Chcek whether if the current event is already full.
+        int registeredCount = db.Registration.Count(r => r.EventId == vm.EventId && r.Status != "Cancelled");
+        if (registeredCount >= e.MaxTeams)
+        {
+            TempData["Error"] = "Sorry, registration for this tournament is already full.";
+            return RedirectToAction("EventIndividual", new { id = vm.EventId });
+        }
+
+        //Auto assign unique Id to every new team for registrationID
+        string regId = $"TR{(db.Registration.Count() + 1):D4}";
+
+        var registration = new Registration
+        {
+            Id = regId,
+            TeamName = teamName,
+            RegDate = DateOnly.FromDateTime(DateTime.Now),
+            Status = "In Cart", // not sure yet, could be in cart, pending, or something else
+            UserEmail = userEmail,
+            EventId = vm.EventId
+        };
+
+        db.Registration.Add(registration);
+        db.SaveChanges(); //save now so RegistrationID exists before we attach players to it
+
+        //Count players so that not every player gets the same id
+        int playerSeq = db.Player.Count();
+        for (int i = 0; i < playerIgns.Count; i++)
+        {
+            playerSeq++;
+
+            // Assign role dynamically based on roster
+            string role = "Player";
+            if (i == 0) role = "Captain";
+            else if (i == 5) role = "Substitute";
+            else if (i == 6) role = "Coach";
+            else if (i > 6) role = "Extra";
+
+            db.Player.Add(new Player
+            {
+                Id = $"TP{playerSeq:D4}",
+                IGN = playerIgns[i],
+                Role = role,
+                TeamRegistrationId = regId
+            });
+        }
+
+        db.SaveChanges();
+
+        TempData["Info"] = "Team registered! It has been added to your cart.";
+        return RedirectToAction("EventIndividual", new { id = vm.EventId });
+    }
+    //-----------------------------End of Registration-------------------------
     // GET: Home/CheckEventId 
     public bool CheckEventId(string eventId)
     {
@@ -74,7 +209,7 @@ public class EventController(DB db,
         return db.Venue.Any(v => v.Id == venueId);
     }
 
-//-----------------------------EventCreate---------------------------------------------
+    //-----------------------------EventCreate---------------------------------------------
 
     // GET: Home/EventCreate
     public IActionResult EventCreate()
@@ -140,6 +275,9 @@ public class EventController(DB db,
                 Status = vm.Status,
                 TotalTickets = 0,
                 TicketSold = 0,
+                MaxPlayersPerTeam = vm.MaxPlayersPerTeam,
+                MaxTeams = vm.MaxTeams,
+                PrizePool = vm.PrizePool,
                 CategoryId = vm.CategoryId,
                 VenueId = vm.VenueId
             });
@@ -179,6 +317,9 @@ public class EventController(DB db,
             Status = e.Status,
             TotalTickets = e.TotalTickets,
             TicketSold = e.TicketSold,
+            MaxPlayersPerTeam = e.MaxPlayersPerTeam,
+            MaxTeams = e.MaxTeams,
+            PrizePool = e.PrizePool,
             CategoryId = e.CategoryId,
             VenueId = e.VenueId
         };
@@ -240,6 +381,9 @@ public class EventController(DB db,
             e.Status = vm.Status;
             e.TotalTickets = vm.TotalTickets;
             e.TicketSold = vm.TicketSold;
+            e.MaxPlayersPerTeam = vm.MaxPlayersPerTeam;
+            e.MaxTeams = vm.MaxTeams;
+            e.PrizePool = vm.PrizePool;
             e.CategoryId = vm.CategoryId;
             e.VenueId = vm.VenueId;
 
@@ -339,6 +483,9 @@ public class EventController(DB db,
                 Status = data[10],
                 TotalTickets = int.Parse(data[11]),
                 TicketSold = int.Parse(data[12]),
+                MaxTeams = 16,
+                MaxPlayersPerTeam = 7,
+                PrizePool = 0,
                 CategoryId = data[13],
                 VenueId = data[14]
             });

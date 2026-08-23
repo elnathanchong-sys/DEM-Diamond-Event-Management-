@@ -1,0 +1,131 @@
+﻿@model DEM__Diamond_Event_Management_.Models.Event
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "_Layout";
+    <link rel="stylesheet" href="/css/eventindividual.css">
+
+    //initialize variables from ViewBag
+    int registeredCount = ViewBag.RegisteredCount;
+    bool isFull = ViewBag.IsFull;
+    bool alreadyRegistered = ViewBag.AlreadyRegistered;
+
+    bool reopenModal = TempData["Error"] != null;
+}
+
+
+<div class="event-individual-container">
+
+    @if (TempData["Info"] != null)
+    {   
+        @* flash messages for feedback *@
+        <div class="event-individual-alert event-individual-alert-info">@TempData["Info"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        @* flash messages for errors *@
+        <div class="event-individual-alert event-individual-alert-error">@TempData["Error"]</div>
+    }
+
+    <div class="event-individual-banner">
+        <img src="~/uploads/@Model.BannerImg" alt="@Model.Name banner" />
+    </div>
+
+    <div class="event-individual-card">
+        <div class="event-individual-card-header">
+            <h1 class="event-individual-name">@Model.Name</h1>
+            <span class="event-individual-price">Entry Fee: RM @Model.Price.ToString("0.00")</span> @*0.00 is used for formatting the price if only 15 it will show 15.00*@
+        </div>
+
+        <div class="event-individual-card-body">
+            <div class="event-individual-poster">
+                <img src="~/uploads/@Model.PosterImg" alt="@Model.Name poster" />
+            </div>
+
+            <div class="event-individual-actions">
+
+                @if (User.Identity == null || !User.Identity.IsAuthenticated)
+                {
+                    @* If not logged in you can't register' *@
+                    <a href="/Account/Login?ReturnUrl=@Url.Action("EventIndividual", "Event", new { id = Model.Id })" class="event-individual-btn-register">Login to Register</a>
+                }
+                else if (alreadyRegistered)
+                {
+                    <div class="event-individual-status-box">You have already registered a team for this tournament.</div>
+                }
+                else if (isFull)
+                {
+                    <button class="event-individual-btn-register event-individual-btn-disabled" disabled>Registration Full</button>
+                }
+                else
+                {
+                    <button type="button" id="openRegisterModalBtn" class="event-individual-btn-register">Register Team</button>
+                }
+
+                <div class="event-individual-info-box">
+                    Venue Capacity: @(Model.Venue != null ?Model.Venue.VenueCapacity.ToString() : "-")
+                </div>
+                <div class="event-individual-info-box">
+                    Teams Registered: @registeredCount / @Model.MaxTeams
+                </div>
+                <div class="event-individual-info-box">
+                    Max Roster Size: @Model.MaxPlayersPerTeam Members
+                </div>
+                <div class="event-individual-info-box">
+                    Prize Pool: RM @Model.PrizePool.ToString("0.00")
+                </div>
+                <div class="event-individual-info-box">
+                    Date: @Model.StartDate.ToString("dd MMM yyyy") - @Model.EndDate.ToString("dd MMM yyyy")<br />
+
+                </div>
+
+                <p class="event-individual-description">
+                    @Model.Description <br />  
+                    #@(Model.Category != null ? Model.Category.CategoryName : "")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ----------------------------Register Team input---------------------------- *@
+<div class="event-individual-modal-overlay @(reopenModal ? "open" : "")" id="registerModalOverlay">
+    @*pop up window linked to js *@
+    <div class="event-individual-modal">
+        <button type="button" class="event-individual-modal-close" id="closeRegisterModalBtn">&times;</button>
+        <h2>Register Your Team</h2>
+        <p class="event-individual-modal-subtitle">@Model.Name</p>
+
+        <form method="post" asp-action="RegisterTeam" asp-controller="Event">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" name="EventId" value="@Model.Id" />
+
+            <div class="event-individual-input-box">
+                <label for="TeamName">Team Name</label>
+                <input type="text" id="TeamName" name="TeamName" placeholder="Enter your team name..." required />
+                @Html.ValidationMessage("TeamName", new { @class = "text-danger" }) @*input validation message dont want to add a new VM so i used this instead*@
+            </div>
+
+            <div id="playerFieldsContainer" data-max-players="@Model.MaxPlayersPerTeam">
+
+                <div class="event-individual-input-box event-individual-player-box">
+                    <label>Player 1 IGN (Captain)</label>
+                    <input type="text" name="PlayerIGNs" placeholder="Enter captain handle..." required />
+                    @Html.ValidationMessage("PlayerIGNs", new { @class = "text-danger" })@*input validation message dont want to add a new VM so i used this instead*@
+                </div>
+
+            </div>
+
+            @if (Model.MaxPlayersPerTeam > 1)
+            {
+                <button type="button" id="addPlayerBtn" class="event-individual-btn-addplayer">+ Add Member (Max @Model.MaxPlayersPerTeam)</button>
+            }
+
+            <section>
+                <button type="submit" class="event-individual-btn-submit">Confirm &amp; Add to Cart</button>
+            </section>
+        </form>
+    </div>
+</div>
+

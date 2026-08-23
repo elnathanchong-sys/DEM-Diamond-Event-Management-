@@ -36,6 +36,13 @@ namespace DEM__Diamond_Event_Management_.Models
         public int TotalTickets { get; set; }
         [Range(0, 1000)]
         public int TicketSold { get; set; }
+        [Range(1, 10)]
+        public int MaxPlayersPerTeam { get; set; }
+        [Range(1, 1000)]
+        public int MaxTeams { get; set; }
+        [Precision(10, 2)]
+        public decimal PrizePool { get; set; }
+
 
 
         public string VenueId { get; set; }

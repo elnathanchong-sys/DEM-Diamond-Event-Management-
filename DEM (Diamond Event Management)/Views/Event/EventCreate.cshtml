@@ -28,7 +28,24 @@
                     <input asp-for="Price" data-trim , placeholder="Enter event price... 0.00" />
                     <span asp-validation-for="Price"></span>
                 </div>
+            </div>
 
+            <div class="event-create-body-row-five">
+                <div class="event-create-input-box">
+                    <label asp-for="MaxTeams"></label>
+                    <input asp-for="MaxTeams" placeholder="Enter max teams allowed... E.g., 16" />
+                    <span asp-validation-for="MaxTeams"></span>
+                </div>
+                <div class="event-create-input-box">
+                    <label asp-for="MaxPlayersPerTeam"></label>
+                    <input asp-for="MaxPlayersPerTeam" placeholder="Max players per roster... E.g., 7" />
+                    <span asp-validation-for="MaxPlayersPerTeam"></span>
+                </div>
+                <div class="event-create-input-box">
+                    <label asp-for="PrizePool"></label>
+                    <input asp-for="PrizePool" placeholder="Enter prize pool... 0.00" />
+                    <span asp-validation-for="PrizePool"></span>
+                </div>
             </div>
 
             <div class="event-create-body-description">
