@@ -1,0 +1,58 @@
+﻿@model DEM__Diamond_Event_Management_.Models.AdminCreateViewModel
+@{
+    ViewBag.Title = "Create Admin";
+    Layout = "_AdminLayout";
+}
+
+<link rel="stylesheet" href="~/css/Category.css" />
+
+<div class="category-create-container">
+    <a asp-action="ReadAdmin" class="category-create-btn-return">← Back to List</a>
+    <h2 class="category-create-title">Create New Admin</h2>
+
+    <form asp-action="CreateAdmin" method="post" class="category-create-body">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" style="color: #ff6b6b; margin-bottom: 10px;"></div>
+
+        <div class="category-create-body-row-one">
+            <div style="flex: 1;">
+                <label asp-for="Email" style="display: block; margin-bottom: 5px;">Email</label>
+                <input asp-for="Email" placeholder="admin@domain.com" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px;" />
+                <span asp-validation-for="Email" style="color: #ff6b6b;"></span>
+            </div>
+            <div style="flex: 1;">
+                <label asp-for="Password" style="display: block; margin-bottom: 5px;">Password</label>
+                <input asp-for="Password" type="password" placeholder="••••••••" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px;" />
+                <span asp-validation-for="Password" style="color: #ff6b6b;"></span>
+            </div>
+        </div>
+
+        <div class="category-create-body-row-one">
+            <div style="flex: 1;">
+                <label asp-for="Name" style="display: block; margin-bottom: 5px;">Full Name</label>
+                <input asp-for="Name" placeholder="Full Name" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px;" />
+                <span asp-validation-for="Name" style="color: #ff6b6b;"></span>
+            </div>
+            <div style="flex: 1;">
+                <label asp-for="Gender" style="display: block; margin-bottom: 5px;">Gender</label>
+                <select asp-for="Gender" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px; font-family: 'Bree Serif', serif;">
+                    <option value="">-- Select Gender --</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+                <span asp-validation-for="Gender" style="color: #ff6b6b;"></span>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label asp-for="Phone" style="display: block; margin-bottom: 5px;">Phone Number</label>
+            <input asp-for="Phone" placeholder="012-3456789" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px;" />
+            <span asp-validation-for="Phone" style="color: #ff6b6b;"></span>
+        </div>
+
+        <div>
+            <button type="submit" class="category-create-btn-submit">Save Admin</button>
+            <button type="reset" class="category-create-btn-reset">Reset</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,35 @@
+﻿@model DEM__Diamond_Event_Management_.Models.Admin
+@{
+    ViewBag.Title = "Delete Admin Confirmation";
+    Layout = "_AdminLayout";
+}
+
+<link rel="stylesheet" href="~/css/Category.css" />
+
+<div class="category-update-container">
+    <a asp-action="ReadAdmin" class="category-update-btn-return">← Back to List</a>
+    <h2 class="category-update-title" style="color: #ff6b6b;">Delete Admin Confirmation</h2>
+
+    <div class="category-update-body">
+        <p style="color: #ff6b6b; font-weight: bold; margin-bottom: 15px;">
+            Are you sure you want to permanently delete this admin account?
+        </p>
+
+        <div style="background-color: #495057; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <p style="margin: 5px 0;"><strong>Name:</strong> @Model.Name</p>
+            <p style="margin: 5px 0;"><strong>Email:</strong> @Model.Email</p>
+            <p style="margin: 5px 0;"><strong>Gender:</strong> @(Model.Gender == "M" ? "Male" : "Female")</p>
+            <p style="margin: 5px 0;"><strong>Phone:</strong> @(string.IsNullOrEmpty(Model.Phone) ? "-" : Model.Phone)</p>
+        </div>
+
+        <form asp-action="DeleteAdmin" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="email" value="@Model.Email" />
+
+            <div>
+                <button type="submit" class="category-create-btn-reset">Confirm Delete</button>
+                <a asp-action="ReadAdmin" class="category-create-btn-submit" style="display: inline-block;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

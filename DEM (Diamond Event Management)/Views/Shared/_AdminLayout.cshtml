@@ -15,7 +15,7 @@
     @RenderSection("head", required: false)
 </head>
 <body>
-   
+
     <button class="menu-button" id="menuBtn">
         <i class="fa-solid fa-bars"></i>
     </button>
@@ -31,15 +31,15 @@
                 </a>
             </li>
             <li>
-                <a href="/Home/Index">
+                <a asp-controller="Home" asp-action="Index">
                     <span class="icon"><i class="fa-solid fa-house"></i></span>
                     <span class="text">Home</span>
                 </a>
             </li>
             <li>
-                <a href="/Admin/Index">
+                <a asp-controller="Admin" asp-action="Index">
                     <span class="icon"><i class="fa-solid fa-user"></i></span>
-                    <span class="text">Dashbord</span>
+                    <span class="text">Dashboard</span>
                 </a>
             </li>
             <li>
@@ -60,39 +60,37 @@
                     <span class="text">Schedule</span>
                 </a>
             </li>
-            
+
             <li>
                 <a href="#">
-                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
                     <span class="text">Manage Events</span>
                 </a>
             </li>
             <li>
-                <a href="/Category/CatRead">
-                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                <a asp-controller="Category" asp-action="CatRead">
+                    <span class="icon"><i class="fa-solid fa-list"></i></span>
                     <span class="text">Categories</span>
                 </a>
             </li>
-            <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-                        <span class="text">Manage Users</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-                        <span class="text">Participants</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-                        <span class="text">Administrators</span>
-                    </a>
-                </li>
-            </ul>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-users"></i></span>
+                    <span class="text">Manage Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-user-group"></i></span>
+                    <span class="text">Participants</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="ReadAdmin">
+                    <span class="icon"><i class="fa-solid fa-user-shield"></i></span>
+                    <span class="text">Administrators</span>
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -110,4 +108,3 @@
 
 </body>
 </html>
-
