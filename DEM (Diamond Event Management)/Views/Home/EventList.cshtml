@@ -1,0 +1,76 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.EventVM>
+
+@{
+    // Set the page title
+    ViewData["Title"] = "EventList";
+    Layout = "_Layout";
+
+    var selectedStatuses = ViewBag.SelectedStatuses as string[] ?? Array.Empty<string>();
+    var selectedCategories = ViewBag.SelectedCategories as string[] ?? Array.Empty<string>();
+}
+
+<div class="eventlist-layout">
+    <div class="events">
+        
+        <form id="filter-form" action="@Url.Action("EventList", "Home")">
+
+            <div class="events-nav">
+                <div class="events-title">
+                    <h1>Filters</h1>
+                    <div class="events-title-actions">
+                        <a href="#" class="collapse-all-link" data-state="expanded">Collapse All</a> @*function in app.js*@
+                        <a href="@Url.Action("EventList", "Home")" class="clear-filters-link">Clear all</a>
+                    </div>
+                </div>
+
+                <details class="filter-group" open> @* Detail class is collapsable feature and open is to leave the options open by default*@
+                    <summary class="events-status">Status</summary> @* Basically just a header for the detail class *@
+
+                    <div class="status-filter">
+                        @if (ViewBag.Status != null) @* as said previously viewbag can be found in the controller*@
+                        {
+                            foreach (var s in ViewBag.Status)
+                            {
+                                bool isChecked = selectedStatuses.Contains((string)s.Name);
+                                <label class="checkbox-item">
+                                    <input type="checkbox"
+                                           name="statuses"
+                                           value="@s.Name"
+                                    @(isChecked ? "checked" : "") />
+                                    <span>@s.Name <span class="count">(@s.Count)</span></span>
+                                </label>
+                            }
+                        }
+                    </div>
+                </details>
+
+                <details class="filter-group" open> @* Detail class is collapsable feature and open is to leave the options open by default*@
+                    <summary class="events-category">Games</summary>@* Basically just a header for the detail class *@
+
+                    <div class="category-filter">
+                        @if (ViewBag.Category != null)  @* as said previously viewbag can be found in the controller*@
+                        {
+                            foreach (var c in ViewBag.Category)
+                            {
+                                bool isChecked = selectedCategories.Contains((string)c.Id);
+                                <label class="checkbox-item">
+                                    <input type="checkbox"
+                                           name="categories"
+                                           value="@c.Id"
+                                    @(isChecked ? "checked" : "") />
+                                    <span>@c.Name <span class="count">(@c.Count)</span></span>
+                                </label>
+                            }
+                        }
+                    </div>
+                </details>
+            </div>
+        </form>
+    </div>
+
+    <div class="events-card">
+        <div id="event-target">
+            <partial name="_EventList" model="Model" />
+        </div>
+    </div>
+</div>

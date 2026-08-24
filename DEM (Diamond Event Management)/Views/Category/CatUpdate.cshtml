@@ -1,0 +1,48 @@
+﻿@model DEM__Diamond_Event_Management_.Models.CategoryVM
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "_AdminLayout";
+}
+
+<link rel="stylesheet" href="/css/category.css">
+
+<div class="category-update-container">
+    <h1 class="category-update-title">Update Category</h1>
+
+    <div class="category-update-body">
+        <form method="post" class="form">
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <div class="category-update-body-row-one">
+                <div class="category-update-input-box">
+                    <label asp-for="Id"></label>
+                    <input asp-for="Id" readonly />
+                    <span asp-validation-for="Id"></span>
+                </div>
+
+                <div class="category-update-input-box">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" data-trim />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+
+            <div class="category-update-body-description">
+                <div class="category-update-input-box">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" data-trim></textarea>
+                    <span asp-validation-for="Description"></span>
+                </div>
+            </div>
+
+            <section>
+                <button class="category-update-btn-submit">Submit</button>
+                <button type="reset" class="category-update-btn-reset">Reset</button>
+            </section>
+        </form>
+    </div>
+</div>
+<br />
+
+<a href="/Category/CategoryRead" class="category-update-btn-return">Return</a>

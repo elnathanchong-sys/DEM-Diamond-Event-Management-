@@ -64,6 +64,12 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<TimeOnly>("EndTime")
                         .HasColumnType("TIME");
 
+                    b.Property<int>("MaxPlayersPerTeam")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxTeams")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -77,6 +83,10 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<decimal>("Price")
                         .HasPrecision(6, 2)
                         .HasColumnType("decimal(6,2)");
+
+                    b.Property<decimal>("PrizePool")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("DATE");
@@ -128,7 +138,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
 
                     b.Property<string>("RegistrationId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(4)");
+                        .HasColumnType("nvarchar(6)");
 
                     b.HasKey("Id");
 
@@ -137,19 +147,45 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.ToTable("Payment");
                 });
 
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Player", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("IGN")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("RegistrationId")
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TeamRegistrationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegistrationId");
+
+                    b.ToTable("Player");
+                });
+
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Registration", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<string>("EventId")
                         .IsRequired()
                         .HasColumnType("nvarchar(6)");
-
-                    b.Property<int>("Quantity")
-                        .HasMaxLength(100)
-                        .HasColumnType("int");
 
                     b.Property<DateOnly>("RegDate")
                         .HasColumnType("DATE");
@@ -158,6 +194,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TeamName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
@@ -313,6 +354,15 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Navigation("Registration");
                 });
 
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Player", b =>
+                {
+                    b.HasOne("DEM__Diamond_Event_Management_.Models.Registration", "Registration")
+                        .WithMany("Players")
+                        .HasForeignKey("RegistrationId");
+
+                    b.Navigation("Registration");
+                });
+
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Registration", b =>
                 {
                     b.HasOne("DEM__Diamond_Event_Management_.Models.Event", "Event")
@@ -340,6 +390,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Event", b =>
                 {
                     b.Navigation("Registrations");
+                });
+
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Registration", b =>
+                {
+                    b.Navigation("Players");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.User", b =>

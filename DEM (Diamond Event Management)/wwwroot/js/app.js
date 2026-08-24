@@ -150,13 +150,44 @@ document.addEventListener("DOMContentLoaded", function () {
             startAutoSlide(); // Reset timer
         });
     });
-
-    // Simple hover/change animation for index events status
-    $(document).on('click', '.status-tab', function () {
-        // Remove status active class from all tabs
-        $('.status-tab').removeClass('active');
-
-        // Add status active class to the clicked tab
-        $(this).addClass('active');
-    });
 });
+
+//hover/change animation for index events status
+$(document).on('click', '.status-tab', function () {
+    // Remove status active class from all tabs
+    $('.status-tab').removeClass('active');
+
+    // Add status active class to the clicked tab
+    $(this).addClass('active');
+});
+
+//index page evetn status slider
+$(document).on('click', '.event-carousel-next', function () {
+    var slider = $(this).siblings('.event-carousel-slider')[0];
+    if (!slider) return;
+    slider.scrollBy({ left: slider.clientWidth * 0.8, behavior: 'smooth' });
+});
+
+$(document).on('click', '.event-carousel-prev', function () {
+    var slider = $(this).siblings('.event-carousel-slider')[0];
+    if (!slider) return;
+    slider.scrollBy({ left: -slider.clientWidth * 0.8, behavior: 'smooth' });
+});
+
+// Event list collapse function
+$(document).on('click', '.collapse-all-link', function (e) {
+    e.preventDefault();
+
+    var $link = $(this);
+    var isCollapsing = $link.data('state') !== 'collapsed';
+
+    $('.filter-group').prop('open', !isCollapsing);
+    $link.text(isCollapsing ? 'Expand All' : 'Collapse All');
+    $link.data('state', isCollapsing ? 'collapsed' : 'expanded');
+});
+
+// Automatically submit the filter form whenever any checkbox state changes this is inside eventlist
+$(document).on('change', '#filter-form input[type="checkbox"]', function () {
+    $(this).closest('form').submit();
+});
+

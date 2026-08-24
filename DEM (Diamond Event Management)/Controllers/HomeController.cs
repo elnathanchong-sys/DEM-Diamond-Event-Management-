@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.NetworkInformation;
 
 namespace DEM__Diamond_Event_Management_.Controllers;
 
@@ -34,6 +35,57 @@ public class HomeController(DB db) : Controller
         if (Request.IsAjax())
         {
             return PartialView("_Event", model);
+        }
+
+        return View(model);
+    }
+
+    public IActionResult EventList(string[] statuses, string[] categories)
+    {
+        ViewBag.SelectedStatuses = statuses ?? Array.Empty<string>();
+        ViewBag.SelectedCategories = categories ?? Array.Empty<string>();
+
+        //Status with event counts
+        var statusNames = new[] { "Ongoing", "Upcoming", "Completed" };
+        ViewBag.Status = statusNames.Select(s => new
+        {
+            Name = s,
+            Count = db.Event.Count(e => e.Status == s)
+        }).ToList();
+
+        //Categories with event counts
+        ViewBag.Category = db.Category.Select(c => new
+        {
+            Id = c.Id,
+            Name = c.CategoryName,
+            Count = db.Event.Count(e => e.CategoryId == c.Id && e.Status != "Hidden")
+        }).ToList();
+
+        // Filter
+        var query = db.Event.Where(e => e.Status != "Hidden");
+
+        if (statuses != null && statuses.Length > 0)
+        {
+            query = query.Where(e => statuses.Contains(e.Status));
+        }
+
+        if (categories != null && categories.Length > 0)
+        {
+            query = query.Where(e => categories.Contains(e.CategoryId));
+        }
+
+        var model = query.Select(e => new EventVM
+        {
+            Id = e.Id,
+            Name = e.Name,
+            PosterImg = e.PosterImg,
+            Status = e.Status,
+            CategoryId = e.CategoryId
+        }).ToList();
+
+        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+        {
+            return PartialView("_EventList", model);
         }
 
         return View(model);

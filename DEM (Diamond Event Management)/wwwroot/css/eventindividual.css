@@ -1,0 +1,231 @@
+﻿.event-individual-container {
+    max-width: 100%;
+    padding-bottom: 60px;
+    font-family: "Bree Serif", serif;
+}
+
+.event-individual-alert {
+    margin: 15px 35px 0px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: white;
+}
+
+.event-individual-alert-info {
+    background: #495057;
+    border: 1px solid #6C757D;
+}
+
+.event-individual-alert-error {
+    background: #495057;
+    border: 1px solid #dc3545;
+}
+
+.event-individual-banner {
+    width: 100%;
+    max-height: 22.5rem;
+    overflow: hidden;
+}
+
+.event-individual-banner img {
+    width: 100%;
+    height: 22.5rem;
+    object-fit: cover;
+    display: block;
+}
+
+.event-individual-card {
+    background-color: #343A40;
+    border-radius: 12px;
+    margin: -60px 35px 0px;
+    padding: 20px;
+    position: relative;
+    color: white;
+}
+
+.event-individual-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #495057;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.event-individual-name {
+    margin: 0;
+}
+
+.event-individual-price {
+    font-size: 1.1rem;
+}
+
+.event-individual-card-body {
+    display: flex;
+    gap: 30px;
+}
+
+.event-individual-poster img {
+    display: block;
+    border: 1px solid #333;
+    width: 100%;
+    max-width: 18.75rem;
+    aspect-ratio: 1 / 1.42;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.event-individual-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+}
+
+.event-individual-btn-register {
+    padding: 12px 18px;
+    background: #6C757D;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: "Bree Serif", serif;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.event-individual-btn-register:hover {
+    background: #808990;
+}
+
+.event-individual-btn-disabled,
+.event-individual-btn-register:disabled {
+    background: #495057;
+    color: #ADB5BD;
+    cursor: not-allowed;
+}
+
+.event-individual-status-box {
+    padding: 12px 18px;
+    background: #495057;
+    border-radius: 6px;
+    color: #ADB5BD;
+}
+
+.event-individual-info-box {
+    background-color: #495057;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.event-individual-date {
+    color: #ADB5BD;
+    margin-top: 5px;
+}
+
+/*-------------------------------------Register Team Modal----------------------------------*/
+
+.event-individual-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.event-individual-modal-overlay.open {
+    display: flex;
+}
+
+.event-individual-modal {
+    background-color: #343A40;
+    border-radius: 12px;
+    padding: 25px 30px;
+    width: 90%;
+    max-width: 28rem;
+    max-height: 85vh;
+    overflow-y: auto;
+    color: white;
+    position: relative;
+    font-family: "Bree Serif", serif;
+}
+
+.event-individual-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.event-individual-modal-subtitle {
+    color: #ADB5BD;
+    margin-top: -8px;
+    margin-bottom: 20px;
+}
+
+.event-individual-input-box {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.event-individual-input-box input {
+    background-color: #495057;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 10px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Bree Serif", serif;
+}
+
+.event-individual-player-box {
+    position: relative;
+}
+
+.event-individual-btn-removeplayer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    color: #ADB5BD;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.event-individual-btn-addplayer {
+    padding: 8px 12px;
+    background: #495057;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: "Bree Serif", serif;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.event-individual-btn-submit {
+    padding: 10px 16px;
+    background: #6C757D;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: "Bree Serif", serif;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.event-individual-btn-submit:hover {
+    background: #808990;
+}
