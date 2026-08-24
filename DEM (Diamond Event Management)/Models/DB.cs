@@ -18,6 +18,9 @@ public class DB(DbContextOptions options) : DbContext(options)
     public DbSet<Category> Category { get; set; }
     public DbSet<Venue> Venue { get; set; }
     public DbSet<Payment> Payment { get; set; }
+    public DbSet<Team> Team { get; set; }
+    public DbSet<Tournament> Tournament { get; set; }
+    public DbSet<TournamentRegistration> TournamentRegistration { get; set; }
 }
 
 public class User
@@ -163,4 +166,87 @@ public class Payment
     public string RegistrationId { get; set; }
     public Registration Registration { get; set; }
 
+}
+
+public class Player
+{
+    public int Id { get; set; }
+
+    [Required, StringLength(100)]
+    public string FullName { get; set; } = string.Empty;
+
+    [Required]
+    public int TeamId { get; set; }
+
+    public Team Team { get; set; } = null!;
+}
+
+public enum RegistrationStatus
+{
+    Pending,
+    Approved,
+    Rejected
+}
+
+public class Team
+{
+    public int Id { get; set; }
+
+    [Required, StringLength(100)]
+    public string Name { get; set; } = string.Empty;
+
+    // Email of the authenticated member who created this team.
+    [Required, StringLength(100)]
+    public string CaptainEmail { get; set; } = string.Empty;
+
+    public List<Player> Players { get; set; } = [];
+    public List<TournamentRegistration> Registrations { get; set; } = [];
+}
+
+public class Tournament
+{
+    public int Id { get; set; }
+
+    [Required, StringLength(150)]
+    public string Name { get; set; } = string.Empty;
+
+    [DataType(DataType.Date)]
+    public DateOnly RegistrationDeadline { get; set; }
+
+    [Range(1, 1000)]
+    public int MaxTeams { get; set; }
+
+    [Range(1, 100)]
+    public int MinPlayersPerTeam { get; set; }
+
+    [Range(1, 100)]
+    public int MaxPlayersPerTeam { get; set; }
+
+    public List<TournamentRegistration> Registrations { get; set; } = [];
+}
+
+public class TournamentRegistration
+{
+    public int Id { get; set; }
+
+    [Required]
+    public int TournamentId { get; set; }
+    public Tournament Tournament { get; set; } = null!;
+
+    [Required]
+    public int TeamId { get; set; }
+    public Team Team { get; set; } = null!;
+
+    [Required, StringLength(100)]
+    public string CaptainEmail { get; set; } = string.Empty;
+
+    public RegistrationStatus Status { get; set; } = RegistrationStatus.Pending;
+    public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
+
+    [StringLength(500)]
+    public string? AdminNote { get; set; }
+
+    [StringLength(100)]
+    public string? ReviewedByEmail { get; set; }
+    public DateTime? ReviewedAt { get; set; }
 }

@@ -97,6 +97,81 @@ public class HomeController(DB db) : Controller
         return View();
     }
 
+    public IActionResult Register(int? tournamentId)
+    {
+        Tournament? tournament = null;
+
+        if (tournamentId.HasValue)
+        {
+            tournament = db.Tournament.Find(tournamentId.Value);
+
+            if (tournament == null)
+                return NotFound();
+        }
+
+        ViewBag.Tournament = tournament;
+
+        var model = new TournamentRegistration
+        {
+            TournamentId = tournamentId ?? 0
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public IActionResult Register(TournamentRegistration model)
+    {
+        var tournament = db.Tournament.Find(model.TournamentId);
+        if (tournament == null) return NotFound();
+
+        // Validation
+        if (DateTime.Now.Date > tournament.RegistrationDeadline.ToDateTime(TimeOnly.MinValue))
+        {
+            ModelState.AddModelError("", "Registration deadline has passed.");
+        }
+
+        var team = db.Team.Include(t => t.Players).FirstOrDefault(t => t.Id == model.TeamId);
+        if (team == null)
+        {
+            ModelState.AddModelError("", "Team not found.");
+        }
+        else if (team.Players.Count < tournament.MinPlayersPerTeam || team.Players.Count > tournament.MaxPlayersPerTeam)
+        {
+            ModelState.AddModelError("", $"Team must have between {tournament.MinPlayersPerTeam} and {tournament.MaxPlayersPerTeam} players.");
+        }
+
+        if (db.TournamentRegistration.Count(r => r.TournamentId == tournament.Id) >= tournament.MaxTeams)
+        {
+            ModelState.AddModelError("", "No slots available.");
+        }
+
+        if (ModelState.IsValid)
+        {
+            model.RegisteredAt = DateTime.UtcNow;
+            model.Status = RegistrationStatus.Pending;
+            db.TournamentRegistration.Add(model);
+            db.SaveChanges();
+            return RedirectToAction("Status", new { id = model.Id });
+        }
+
+        ViewBag.Tournament = tournament;
+        return View(model);
+    }
+
+
+
+    public IActionResult List()
+    {
+        var regs = db.TournamentRegistration
+                     .Include(r => r.Team)
+                     .Include(r => r.Tournament)
+                     .ToList();
+
+        return View(regs);
+    }
+
+
     [Authorize(Roles = "Member")]
     public IActionResult Member()
     {
