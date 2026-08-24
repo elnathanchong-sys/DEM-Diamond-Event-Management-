@@ -3,15 +3,15 @@
 @{
     ViewBag.Title = "Events";
     Layout = "_AdminLayout";
-
 }
+
 <div class="container">
     <main>
         <h1>Dashboard</h1>
         <div class="date">
-            <input type="date" >
+            <input type="date">
         </div>
-     
+
         <div class="insights">
             <!--how many tournament event-->
             <div class="event">
@@ -137,38 +137,55 @@
                 </div>
             </div>
         </div>
-        <div class="recent_updates">
-            <h2>Recent Updates</h2>
-            <div class="updates">
-                <div class="update">
-                    <div class="profile-photo">
-                        <img src="/images/Admin/kelvin.jpg" alt="Kelvin">
+
+        <!-- Replaced Audit Log with Sales Analysis -->
+        <h2>Ticket Sales Analysis</h2>
+        <div class="sales_analytics">
+            <div class="sal_box">
+                <div class="item online">
+                    <div class="icon">
+                        <span>🎫</span>
                     </div>
-                    <div class="message">
-                        <p><b>Kelvin</b> added a new tournament</p>
-                        <small class="text-muted">2 minutes ago</small>
-                    </div>
-                </div>
-                <div class="update">
-                    <div class="profile-photo">
-                        <img src="/images/Admin/kelvin.jpg" alt="Kelvin">
-                    </div>
-                    <div class="message">
-                        <p><b>Kelvin</b> added a new tournament</p>
-                        <small class="text-muted">2 minutes ago</small>
+                    <div class="right_content">
+                        <div class="info">
+                            <h3>General Tickets</h3>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+                        <h5 class="success">+39%</h5>
+                        <h3>RM 3,849</h3>
                     </div>
                 </div>
-                <div class="update">
-                    <div class="profile-photo">
-                        <img src="/images/Admin/kelvin.jpg" alt="Kelvin">
+
+                <div class="item offline">
+                    <div class="icon">
+                        <span>🎟️</span>
                     </div>
-                    <div class="message">
-                        <p><b>Kelvin</b> added a new tournament</p>
-                        <small class="text-muted">2 minutes ago</small>
+                    <div class="right_content">
+                        <div class="info">
+                            <h3>VIP Tickets</h3>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+                        <h5 class="danger">-17%</h5>
+                        <h3>RM 1,100</h3>
+                    </div>
+                </div>
+
+                <div class="item customers">
+                    <div class="icon">
+                        <span>💰</span>
+                    </div>
+                    <div class="right_content">
+                        <div class="info">
+                            <h3>Total Revenue</h3>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+                        <h5 class="success">+25%</h5>
+                        <h3>RM 84,250</h3>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- End of Sales Analysis -->
+
     </div>
-   
 </div>

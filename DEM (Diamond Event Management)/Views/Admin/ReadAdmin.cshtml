@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.Admin>
+@{
+    ViewBag.Title = "Manage Admins";
+    Layout = "_AdminLayout";
+}
+
+<link rel="stylesheet" href="~/css/Category.css" />
+
+<div class="category-container">
+    <div class="category-header">
+        <h2 class="category-title">Admin Management</h2>
+        <a asp-action="CreateAdmin" class="create-new-btn">+ Add New Admin</a>
+    </div>
+
+    <p class="category-record-amount">Total Admins: @Model.Count()</p>
+
+    @if (TempData["Info"] != null)
+    {
+        <div style="margin: 0 35px 15px; padding: 10px; background-color: #198754; color: white; border-radius: 6px;">
+            @TempData["Info"]
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div style="margin: 0 35px 15px; padding: 10px; background-color: #dc3545; color: white; border-radius: 6px;">
+            @TempData["Error"]
+        </div>
+    }
+
+    <div class="category-list-container">
+        @foreach (var admin in Model)
+        {
+            <div class="category-info-row">
+                <div class="category-info">
+                    <div><strong>Name:</strong> @admin.Name</div>
+                    <div><strong>Email:</strong> @admin.Email</div>
+                    <div><strong>Gender:</strong> @(admin.Gender == "M" ? "Male" : "Female")</div>
+                    <div><strong>Phone:</strong> @(string.IsNullOrEmpty(admin.Phone) ? "-" : admin.Phone)</div>
+                    <div><strong>Created:</strong> @admin.CreationDate.ToString("yyyy-MM-dd")</div>
+                </div>
+                <div class="category-action-btns">
+                    <a asp-action="UpdateAdmin" asp-route-email="@admin.Email" class="btn-update">Edit</a>
+                    @if (User.Identity?.Name != admin.Email)
+                    {
+                        <a asp-action="DeleteAdmin" asp-route-email="@admin.Email" class="btn-delete" style="background-color: red;">Delete</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

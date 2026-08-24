@@ -14,7 +14,7 @@
                 <div class="event-carousel-card">
                     <ul class="ongoing-event-card-list">
                         <li class="ongoing-event-card-item">
-                            <a href="@Url.Action("Detail", "Event", new { id = e.Id })" class="ongoing-event-card-link">
+                            <a href="@Url.Action("EventIndividual", "Event", new { id = e.Id })" class="ongoing-event-card-link">
                                 <img src="~/uploads/@e.PosterImg" alt="@e.Name" class="card-img" />
                                 <div class="hover-content">
                                     <h3 class="hover-title">@e.Name</h3>

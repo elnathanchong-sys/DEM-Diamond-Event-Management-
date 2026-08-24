@@ -6,7 +6,7 @@ namespace DEM__Diamond_Event_Management_.Controllers;
 public class AccountController(DB db, Helper hp) : Controller
 {
     // GET: /Account/Login
-    
+
     [HttpGet]
     public IActionResult Login()
     {
@@ -14,10 +14,10 @@ public class AccountController(DB db, Helper hp) : Controller
     }
 
     // POST: /Account/Login
-    
+
     [HttpPost]
-    [ValidateAntiForgeryToken] 
-    public async Task <IActionResult> Login(LoginViewModel model, string? returnURL)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(LoginViewModel model, string? returnURL)
     {
         //Get user (admin or member) record based on email (PK)
         var u = db.User.Find(model.Email);
@@ -44,13 +44,6 @@ public class AccountController(DB db, Helper hp) : Controller
             {
                 return Redirect(returnURL);
             }
-            // No database implement yetttttttttt
-            //if (model.Email == "admin@test.com" && model.Password == "password123")
-            //{
-
-            // Add an error message if wrong credentials 
-            // Changed since practical uses another method instead of just another line of code under the login method
-            //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         }
 
         return View(model);
@@ -88,12 +81,6 @@ public class AccountController(DB db, Helper hp) : Controller
             ModelState.AddModelError("Email", "Duplicated Email.");
         }
 
-        //if (ModelState.IsValid("Photo"))
-        //{
-            //var err = hp.ValidatePhoto(vm.Photo);
-            //if (err != "") ModelState.AddModelError("Photo", err);
-        //}
-
         if (ModelState.IsValid)
         {
             db.User.Add(new Member
@@ -117,7 +104,7 @@ public class AccountController(DB db, Helper hp) : Controller
                 Address = ""
             });
 
-            await db.SaveChangesAsync(); 
+            await db.SaveChangesAsync();
 
             TempData["Info"] = "Register successfully. Please login.";
             return RedirectToAction("Login");
@@ -129,5 +116,80 @@ public class AccountController(DB db, Helper hp) : Controller
     public bool CheckEmail(string email)
     {
         return !db.User.Any(u => u.Email == email);
+    }
+
+    // GET: /Account/ForgotPassword
+    [HttpGet]
+    public IActionResult ForgotPassword()
+    {
+        return View();
+    }
+
+    // POST: /Account/ForgotPassword
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var user = db.User.Find(model.Email);
+        if (user != null)
+        {
+            string token = Guid.NewGuid().ToString();
+
+            var resetLink = Url.Action("ResetPassword", "Account",
+                new { email = model.Email, token = token }, Request.Scheme);
+
+            string body = $@"
+            <h2>Password Reset Request</h2>
+            <p>Click the link below to reset your password for Diamond Event Management:</p>
+            <p><a href='{resetLink}'>Reset Password</a></p>";
+
+            try
+            {
+                await hp.SendEmailAsync(model.Email, "Reset Password - Diamond Event Management", body);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Unable to send email right now. Please check your network connection.");
+                return View(model);
+            }
+        }
+
+        // Returns the confirmation view directly
+        return View("ForgotPasswordConfirmation");
+    }
+
+    // GET: /Account/ResetPassword
+    [HttpGet]
+    public IActionResult ResetPassword(string email, string token)
+    {
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(token))
+        {
+            return RedirectToAction("Login");
+        }
+
+        return View(new ResetPasswordViewModel { Email = email, Token = token });
+    }
+
+    // POST: /Account/ResetPassword
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var user = db.User.Find(model.Email);
+        if (user != null)
+        {
+            user.HashedPassword = hp.HashPassword(model.Password);
+            await db.SaveChangesAsync();
+
+            TempData["Info"] = "Password reset successfully! Please log in.";
+            return RedirectToAction("Login");
+        }
+
+        ModelState.AddModelError("", "User not found or invalid request.");
+        return View(model);
     }
 }

@@ -129,7 +129,7 @@ main {
 }
 
 .text {
-    font-size: 1.2rem;
+    font-size: 16px;
     font-weight: bold;
     color: #FFFFFF;
 }
@@ -406,3 +406,105 @@ main .recent_tournament a {
     margin-top: 1rem;
     
 }
+
+    /* ================= Sales Analytics ================= */
+    .right .sales_analytics {
+        margin-top: 2rem;
+    }
+
+        .right .sales_analytics h2 {
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Individual Sale Metric Cards */
+        .right .sales_analytics .item {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1.4rem 1.8rem;
+            border-radius: 2rem;
+            box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+            transition: all .3s ease;
+        }
+
+        .right .sales_analytics .sal_box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background-color:#ffffff;
+        }
+
+            /* Hover effect matching your other cards */
+            .right .sales_analytics .item:hover {
+                transform: translateY(-5px);
+                box-shadow: none;
+            }
+
+            /* Icon Container */
+            .right .sales_analytics .item .icon {
+                padding: 0.6rem;
+                border-radius: 50%;
+                color: #ffffff;
+                display: flex;
+                font-size: 1.2rem;
+                justify-content: center;
+                align-items: center;
+                width: 40px;
+                height: 40px;
+            }
+
+            /* Match colors to your existing insights theme */
+            .right .sales_analytics .item.online .icon {
+                background: coral;
+            }
+
+            .right .sales_analytics .item.offline .icon {
+                background: #ff0000;
+            }
+
+            .right .sales_analytics .item.customers .icon {
+                background: #49ff00;
+            }
+
+            /* Text & Content Layout */
+        .right .sales_analytics .item .right_content {
+            
+            
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            width: 100%;
+        }
+
+                .right .sales_analytics .item .right_content .info h3 {
+                    color: #000000;
+                    margin-bottom: 0.2rem;
+                }
+
+                .right .sales_analytics .item .right_content .info small {
+                    color: #677483;
+                }
+
+                .right .sales_analytics .item .right_content > h3 {
+                    color: #000000;
+                    font-size: 1.2rem;
+                }
+
+            /* Percentage Indicators */
+            .right .sales_analytics .item h5 {
+                font-size: 0.85rem;
+                font-weight: bold;
+            }
+
+                .right .sales_analytics .item h5.success {
+                    color: #49ff00;
+                }
+
+                .right .sales_analytics .item h5.danger {
+                    color: #ff0000;
+                }
+
+               

@@ -20,7 +20,39 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<Helper>();
+
 var app = builder.Build();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DB>();
+    var hp = scope.ServiceProvider.GetRequiredService<Helper>();
+
+    string adminEmail = "admin@domain.com";
+
+    
+    if (!db.Admin.Any(a => a.Email == adminEmail))
+    {
+        var defaultAdmin = new Admin
+        {
+            Email = adminEmail,
+            HashedPassword = hp.HashPassword("Admin12345"), 
+            Name = "Super Admin",
+            Gender = "M",
+            Phone = "0123456789",
+            CreationDate = DateOnly.FromDateTime(DateTime.Now),
+            UserImg = "",
+            OngoingEvent = "",
+            UpcomingEvent = ""
+        };
+
+        db.Admin.Add(defaultAdmin);
+        db.SaveChanges();
+    }
+}
+// ==========================================
+
 //Added to properly route request
 app.UseRouting();
 
@@ -33,7 +65,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 //When entering the website the first page will be the login page.
 app.MapControllerRoute(
-    name:"default",
+    name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
 

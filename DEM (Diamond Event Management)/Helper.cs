@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
@@ -71,7 +73,7 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
     }
 
     public async Task SignIn(string email, string role, bool rememberMe)
-    {   
+    {
         //Claim, identity and principal
         List<Claim> claims =
         [
@@ -87,8 +89,6 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
         AuthenticationProperties properties = new()
         {
             IsPersistent = rememberMe,
-            //Interesting it was auto added when I tabbed it. This could be an additional feature if needed?
-            //!!!!ExpiresUtc = DateTime.UtcNow.AddDays(7),
         };
 
         //sign in
@@ -98,7 +98,7 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
     //Sign out
     public async Task SignOut()
     {
-       await ct.HttpContext!.SignOutAsync();
+        await ct.HttpContext!.SignOutAsync();
     }
 
     public string RandomPassword()
@@ -116,6 +116,30 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
         return password;
     }
 
+    // Google SMTP Email Sender
+    public async Task SendEmailAsync(string toEmail, string subject, string htmlBody)
+    {
+        string fromEmail = "kelvinchu32@gmail.com";
+        string appPassword = "dvakcyfibugjgbwk";
 
-}   
+        using var smtpClient = new SmtpClient("smtp.gmail.com")
+        {
+            Port = 587, // Changed from 465 to 587 (Port 465 is not supported by System.Net.Mail)
+            UseDefaultCredentials = false, // Must be set BEFORE setting Credentials
+            Credentials = new NetworkCredential(fromEmail, appPassword),
+            EnableSsl = true
+        };
 
+        using var mailMessage = new MailMessage
+        {
+            From = new MailAddress(fromEmail, "Diamond Event Management"),
+            Subject = subject,
+            Body = htmlBody,
+            IsBodyHtml = true
+        };
+
+        mailMessage.To.Add(toEmail);
+
+        await smtpClient.SendMailAsync(mailMessage);
+    }
+}

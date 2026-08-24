@@ -15,6 +15,7 @@ public class DB(DbContextOptions options) : DbContext(options)
     public DbSet<Admin> Admin { get; set; }
     public DbSet<Event> Event { get; set; }
     public DbSet<Registration> Registration { get; set; }
+    public DbSet<Player> Player { get; set; }
     public DbSet<Category> Category { get; set; }
     public DbSet<Venue> Venue { get; set; }
     public DbSet<Payment> Payment { get; set; }
@@ -102,6 +103,13 @@ public class Event
     public int TotalTickets { get; set; }
     [Range(0, 1000)]
     public int TicketSold { get; set; }
+    [Range(1, 20, ErrorMessage = "Max players per team must be between 1 and 20")]
+    public int MaxPlayersPerTeam { get; set; } = 7;
+    [Range(1, 1000)]
+    public int MaxTeams { get; set; }
+    [Precision(10, 2)]
+    public decimal PrizePool { get; set; }
+
 
 
     //Foreign Key
@@ -116,20 +124,38 @@ public class Event
 public class Registration
 {
     // Column
-    [Key, MaxLength(4)]
+    [Key, MaxLength(6)]
     public string Id { get; set; }
+    [MaxLength(100)]
+    public string TeamName { get; set; }
     [Column(TypeName = "DATE")]
     public DateOnly RegDate { get; set; }
+
     [MaxLength(20)]
     public string Status { get; set; }
-    // Foreign Keys
-    [MaxLength(100)]
-    public int Quantity { get; set; }
 
+    // Foreign Keys
     public string UserEmail { get; set; }
     public string EventId { get; set; }
-    public Event Event { get; set; }
+    // Navigation
     public User User { get; set; }
+    public Event Event { get; set; }
+    public List<Player> Players { get; set; } = [];
+}
+
+public class Player
+{
+    [Key, MaxLength(6)]
+    public string Id { get; set; }
+    [MaxLength(100)]
+    public string IGN { get; set; }
+    [MaxLength(20)]
+    public string Role { get; set; } = "Player"; //Default value is Player
+
+    // Foreign Key
+    public string TeamRegistrationId { get; set; }
+    // Navigation
+    public Registration Registration { get; set; }
 }
 
 public class Category
