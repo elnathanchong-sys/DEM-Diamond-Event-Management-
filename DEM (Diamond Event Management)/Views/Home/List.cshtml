@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.TournamentRegistration>
+<h2>Tournament Registrations</h2>
+<table>
+    <tr><th>Team</th><th>Captain</th><th>Status</th><th>Tournament</th><th>Actions</th></tr>
+    @foreach (var reg in Model)
+    {
+        <tr>
+            <td>@reg.Team.Name</td>
+            <td>@reg.CaptainEmail</td>
+            <td>@reg.Status</td>
+            <td>@reg.Tournament.Name</td>
+            <td>
+                @Html.ActionLink("Approve", "Approve", new { id = reg.Id }) |
+                @Html.ActionLink("Reject", "Reject", new { id = reg.Id })
+            </td>
+        </tr>
+    }
+</table>

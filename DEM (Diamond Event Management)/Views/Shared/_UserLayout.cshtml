@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/event.css">
+    <link rel="stylesheet" href="/css/Category.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    @RenderSection("head", required: false)
+</head>
+<body>
+
+    <button class="menu-button" id="menuBtn">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="sidebar">
+
+        <ul>
+            <li>
+                <a href="#" class="logo">
+                    <span class="icon">💎</span>
+                    <span class="text">DEM</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="/Home/Index">
+                    <span class="icon"><i class="fa-solid fa-house"></i></span>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Index">
+                    <span class="icon"><i class="fa-solid fa-user"></i></span>
+                    <span class="text">Dashbord</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-bell"></i></span>
+                    <span class="text">Ongoing events</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-heart"></i></span>
+                    <span class="text">Upcoming events</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-gear"></i></span>
+                    <span class="text">Schedule</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span class="text">Manage Events</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Category/CatRead">
+                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span class="text">Categories</span>
+                </a>
+            </li>
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">Manage Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">Participants</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">Administrators</span>
+                    </a>
+                </li>
+            </ul>
+        </ul>
+    </div>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/jquery.validate.unobstrusive.min.js"></script>
+    <script src="/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/js/admin.js"></script>
+    <script src="/js/app.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
+

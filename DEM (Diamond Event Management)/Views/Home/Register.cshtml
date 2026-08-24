@@ -1,0 +1,62 @@
+﻿@model DEM__Diamond_Event_Management_.Models.TournamentRegistration
+
+@{
+    ViewBag.Title = "Tournament Registration";
+    Layout = "_AdminLayout";
+
+    var tournament = ViewBag.Tournament as DEM__Diamond_Event_Management_.Models.Tournament;
+}
+
+<div class="registration-create-container">
+    <h1 class="registration-create-title">Register Team</h1>
+
+    <div class="registration-create-body">
+        <form method="post" class="form">
+            <div asp-validation-summary="ModelOnly"></div>
+
+            @Html.HiddenFor(m => m.TournamentId)
+
+            <div class="registration-create-body-row-one">
+
+                <div class="registration-create-input-box">
+                    <label asp-for="TeamId"></label>
+                    <input asp-for="TeamId"
+                           autofocus
+                           placeholder="Enter team ID..." />
+                    <span asp-validation-for="TeamId"></span>
+                </div>
+
+                <div class="registration-create-input-box">
+                    <label asp-for="CaptainEmail"></label>
+                    <input asp-for="CaptainEmail"
+                           type="email"
+                           placeholder="Enter captain email..." />
+                    <span asp-validation-for="CaptainEmail"></span>
+                </div>
+
+            </div>
+
+            <div class="registration-create-tournament">
+                <label>Tournament</label>
+                <input value="@tournament?.Name" readonly />
+            </div>
+
+            <section>
+                <button type="submit" class="registration-create-btn-submit">
+                    Register
+                </button>
+
+                <button type="reset" class="registration-create-btn-reset">
+                    Reset
+                </button>
+            </section>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<a href="/Tournament/TournamentRead"
+   class="registration-create-btn-return">
+    Return
+</a>
