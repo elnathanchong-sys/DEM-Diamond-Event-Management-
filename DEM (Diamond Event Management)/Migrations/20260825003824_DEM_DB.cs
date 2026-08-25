@@ -92,26 +92,6 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Player",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Player", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Player_Team_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Team",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TournamentRegistration",
                 columns: table => new
                 {
@@ -160,6 +140,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     Status = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     TotalTickets = table.Column<int>(type: "int", nullable: false),
                     TicketSold = table.Column<int>(type: "int", nullable: false),
+                    MaxPlayersPerTeam = table.Column<int>(type: "int", nullable: false),
+                    MaxTeams = table.Column<int>(type: "int", nullable: false),
+                    PrizePool = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(4)", nullable: false),
                     VenueId = table.Column<string>(type: "nvarchar(4)", nullable: false)
                 },
@@ -184,10 +167,10 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 name: "Registration",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
+                    TeamName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     RegDate = table.Column<DateOnly>(type: "DATE", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Quantity = table.Column<int>(type: "int", maxLength: 100, nullable: false),
                     UserEmail = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     EventId = table.Column<string>(type: "nvarchar(6)", nullable: false)
                 },
@@ -216,7 +199,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     PaymentMethod = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AmountPaid = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false),
                     PaymentDate = table.Column<DateOnly>(type: "DATE", nullable: false),
-                    RegistrationId = table.Column<string>(type: "nvarchar(4)", nullable: false)
+                    RegistrationId = table.Column<string>(type: "nvarchar(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -227,6 +210,32 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         principalTable: "Registration",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Player",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
+                    IGN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    TeamRegistrationId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegistrationId = table.Column<string>(type: "nvarchar(6)", nullable: true),
+                    TeamId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Player", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Player_Registration_RegistrationId",
+                        column: x => x.RegistrationId,
+                        principalTable: "Registration",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Player_Team_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Team",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -242,6 +251,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Payment_RegistrationId",
                 table: "Payment",
+                column: "RegistrationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Player_RegistrationId",
+                table: "Player",
                 column: "RegistrationId");
 
             migrationBuilder.CreateIndex(

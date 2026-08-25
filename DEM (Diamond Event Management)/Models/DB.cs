@@ -194,18 +194,20 @@ public class Payment
 
 }
 
-public class Player
-{
-    public int Id { get; set; }
+//Ho's newly added table is causing issue for the exisitng player table which was previosuly added 
+//public class Player
+//{
+//    public int Id { get; set; }
+//
+//    [Required, StringLength(100)]
+//    public string FullName { get; set; } = string.Empty;
 
-    [Required, StringLength(100)]
-    public string FullName { get; set; } = string.Empty;
+//    [Required]
+//    public int TeamId { get; set; }
 
-    [Required]
-    public int TeamId { get; set; }
+//    public Team Team { get; set; } = null!;
+//}
 
-    public Team Team { get; set; } = null!;
-}
 
 public enum RegistrationStatus
 {

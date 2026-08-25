@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/event.css">
     <link rel="stylesheet" href="/css/Category.css">
+    <link rel="stylesheet" href="/css/registration.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
@@ -31,15 +33,15 @@
                 </a>
             </li>
             <li>
-                <a asp-controller="Home" asp-action="Index">
+                <a href="/Home/Index">
                     <span class="icon"><i class="fa-solid fa-house"></i></span>
                     <span class="text">Home</span>
                 </a>
             </li>
             <li>
-                <a asp-controller="Admin" asp-action="Index">
+                <a href="/Admin/Index">
                     <span class="icon"><i class="fa-solid fa-user"></i></span>
-                    <span class="text">Dashboard</span>
+                    <span class="text">Dashbord</span>
                 </a>
             </li>
             <li>
@@ -63,34 +65,42 @@
 
             <li>
                 <a href="#">
-                    <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
+                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
                     <span class="text">Manage Events</span>
                 </a>
             </li>
             <li>
-                <a asp-controller="Category" asp-action="CatRead">
-                    <span class="icon"><i class="fa-solid fa-list"></i></span>
+                <a href="/Category/CatRead">
+                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
                     <span class="text">Categories</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <span class="icon"><i class="fa-solid fa-users"></i></span>
-                    <span class="text">Manage Users</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="icon"><i class="fa-solid fa-user-group"></i></span>
-                    <span class="text">Participants</span>
-                </a>
-            </li>
-            <li>
-                <a asp-controller="Admin" asp-action="ReadAdmin">
-                    <span class="icon"><i class="fa-solid fa-user-shield"></i></span>
-                    <span class="text">Administrators</span>
-                </a>
-            </li>
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">Manage Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Registration/RegistrationEvents">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">Team Approvals</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">Participants</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="text">Administrators</span>
+                    </a>
+                </li>
+            </ul>
         </ul>
     </div>
 
@@ -104,7 +114,10 @@
     <script src="/js/jquery.unobtrusive-ajax.min.js"></script>
     <script src="/js/admin.js"></script>
     <script src="/js/app.js"></script>
+    <script src="/js/registration.js"></script>
     @RenderSection("Scripts", required: false)
 
 </body>
 </html>
+
+s

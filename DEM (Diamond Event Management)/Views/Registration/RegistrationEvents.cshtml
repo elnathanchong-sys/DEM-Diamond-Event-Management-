@@ -1,0 +1,76 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.EventApprovalVM>
+
+@{
+    ViewBag.Title = "Team Approvals";
+    Layout = "_AdminLayout";
+
+    var selectedCategories = ViewBag.SelectedCategories as string[] ?? Array.Empty<string>();
+}
+
+<div class="registration-container">
+
+    <form id="filter-form" method="get" action="/Registration/RegistrationEvents">
+        <div class="registration-header">
+            <h1 class="registration-title">Events</h1>
+
+            <div class="registration-search-section">
+                <input type="search"
+                       name="name"
+                       class="registration-search-input"
+                       placeholder="Search event..."
+                       value="@Context.Request.Query["name"]" />
+            </div>
+
+            <div class="filter-wrapper">
+                <button type="button" class="filter-btn" id="filterToggleBtn">
+                    <i class="bx bx-filter-alt"></i>
+                </button>
+
+                <div class="filter-dropdown" id="filterDropdown">
+                    <p class="filter-dropdown-title">Games</p>
+
+                    @if (ViewBag.CategoryList != null)
+                    {
+                        foreach (var c in ViewBag.CategoryList)
+                        {
+                            bool isChecked = selectedCategories.Contains((string)c.Id);
+                            <label class="filter-dropdown-item">
+                                <input type="checkbox"
+                                       name="categories"
+                                       value="@c.Id"
+                                @(isChecked ? "checked" : "") />
+                                <span>@c.Name <span class="filter-count">(@c.Count)</span></span>
+                            </label>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="registration-record-amount">
+        <p>@Model.Count() record(s)</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="no-events-found">No events to show.</p>
+    }
+    else
+    {
+        <div class="approval-grid">
+            @foreach (var e in Model)
+            {
+                <div class="approval-card">
+                    <a href="/Registration/RegistrationTeams?eventId=@e.Id" class="approval-card-link">
+                        <img src="~/uploads/@e.PosterImg" alt="@e.Name" class="approval-card-img" />
+                        <div class="approval-overlay">
+                            <h3 class="approval-overlay-title">@e.Name</h3>
+                            <span class="approval-overlay-badge">@e.PendingCount Team(s) Pending</span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.TeamRowVM>
+
+@{
+    ViewBag.Title = "Teams";
+    Layout = "_AdminLayout";
+}
+
+<div class="registration-container">
+    <div class="registration-header">
+        <h1 class="registration-title">Teams - @ViewBag.EventName</h1>
+        <a href="/Registration/RegistrationEvents" class="registration-back-btn">Back to Events</a>
+    </div>
+
+    <div class="registration-record-amount">
+        <p>@Model.Count() team(s) registered</p>
+    </div>
+
+    <div class="registration-list-container">
+        @if (!Model.Any())
+        {
+            <p>No teams have registered for this event yet.</p>
+        }
+        else
+        {
+            @foreach (var t in Model)
+            {
+
+                string statusClass = t.Status == "Approved" ? "approved"
+                                    : t.Status == "Denied" ? "denied"
+                                    : "pending";
+
+                <div class="registration-info-row">
+                    <div class="registration-info">
+                        <strong>@t.TeamName</strong>
+                        <span class="status-badge status-@statusClass">@t.Status</span>
+                        <span>Registered: @t.RegDate.ToString("dd MMM yyyy")</span>
+                    </div>
+
+                    <div class="registration-action-btns">
+                        <a href="/Registration/RegistrationDetails?id=@t.Id" class="btn-view">View Details</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

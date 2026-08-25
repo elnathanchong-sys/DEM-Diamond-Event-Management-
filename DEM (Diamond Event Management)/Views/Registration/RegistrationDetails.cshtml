@@ -1,0 +1,65 @@
+﻿@model DEM__Diamond_Event_Management_.Models.TeamDetailVM
+
+@{
+    ViewBag.Title = "Team Details";
+    Layout = "_AdminLayout";
+
+    string statusClass = Model.Status == "Approved" ? "approved"
+                        : Model.Status == "Denied" ? "denied"
+                        : "pending";
+}
+
+<div class="registration-container">
+    <div class="registration-header">
+        <h1 class="registration-title">@Model.TeamName</h1>
+        <a href="/Registration/RegistrationTeams?eventId=@Model.EventId" class="registration-back-btn">Back to Teams</a>
+    </div>
+
+    @if (TempData["Info"] != null)
+    {
+        <div class="registration-record-amount">
+            <p>@TempData["Info"]</p>
+        </div>
+    }
+
+    <div class="registration-list-container">
+
+        <div class="team-detail-info">
+            <p><strong>Event:</strong> @Model.EventName</p>
+            <p><strong>Registered by:</strong> @Model.UserEmail</p>
+            <p><strong>Registration date:</strong> @Model.RegDate.ToString("dd MMM yyyy")</p>
+            <p>
+                <strong>Current status:</strong>
+                <span class="status-badge status-@statusClass">@Model.Status</span>
+            </p>
+        </div>
+
+        <h2 class="team-detail-subtitle">Player Roster</h2>
+
+        @if (!Model.Players.Any())
+        {
+            <p>No players were added to this team.</p>
+        }
+        else
+        {
+            @foreach (var p in Model.Players)
+            {
+                <div class="registration-info-row">
+                    <div class="registration-info">
+                        @p.IGN
+                    </div>
+                    <div class="registration-action-btns">
+                        <span class="player-role">@p.Role</span>
+                    </div>
+                </div>
+            }
+        }
+
+        <div class="team-detail-actions">
+            <button data-post="/Registration/RegistrationUpdateStatus/@Model.Id?status=Approved" class="btn-approve">Approve</button>
+            <button data-post="/Registration/RegistrationUpdateStatus/@Model.Id?status=Denied" class="btn-deny">Deny</button>
+            <button data-post="/Registration/RegistrationUpdateStatus/@Model.Id?status=Pending" class="btn-pending">Leave Pending</button>
+
+        </div>
+    </div>
+</div>
