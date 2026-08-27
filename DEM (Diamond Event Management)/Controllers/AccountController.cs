@@ -35,10 +35,18 @@ public class AccountController(DB db, Helper hp) : Controller
             //Sign In
             await hp.SignIn(u!.Email, u.Role, model.RememberMe);
 
-            //Redirect to Home Screen after sign in successful
+            // Redirect based on role if no returnURL is specified
             if (string.IsNullOrEmpty(returnURL))
             {
-                return RedirectToAction("Index", "Home");
+                // Check if the role is Admin (case-insensitive)
+                if (u.Role != null && u.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    return RedirectToAction("Index", "Admin"); // Directs to AdminController's Index action
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home"); // Directs to HomeController's Index action for members
+                }
             }
             else if (Url.IsLocalUrl(returnURL))
             {
