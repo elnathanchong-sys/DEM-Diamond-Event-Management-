@@ -361,3 +361,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DEM (Diamond Event Management)/Migrations/20260827044211_DEM_DB.cs
+/DEM (Diamond Event Management)/Migrations/20260827044211_DEM_DB.Designer.cs
+/.gitignore
+/.gitignore
+/.gitignore
+/.gitignore
+/.gitignore

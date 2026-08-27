@@ -1,12 +1,16 @@
 ﻿using DEM__Diamond_Event_Management_.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DEM__Diamond_Event_Management_.Controllers;
 
 [Authorize(Roles = "Admin")]
 public class AdminController(DB db, Helper hp) : Controller
 {
+    // In-memory list to persist custom announcements while the application is running
+    private static readonly List<AnnouncementItem> _announcements = [];
+
     // READ: Display all admins
     [HttpGet]
     public IActionResult ReadAdmin()
@@ -140,16 +144,96 @@ public class AdminController(DB db, Helper hp) : Controller
 
         return RedirectToAction(nameof(ReadAdmin));
     }
-    
+
     [HttpGet]
     public IActionResult Index()
     {
-        
         var model = new EventVM
         {
-            
+
         };
 
         return View(model);
+    }
+
+    // ANNOUNCEMENTS & NOTIFICATIONS: GET
+    [HttpGet]
+    public IActionResult Notifications()
+    {
+        var model = new AdminNotificationDashboardVM();
+
+        // 1. Fetch posted in-memory announcements
+        model.Announcements = _announcements
+            .OrderByDescending(a => a.PostedAt)
+            .ToList();
+
+        // 2. Fetch event schedule timings directly from DB[cite: 10]
+        model.ScheduleUpdates = db.Event
+            .Select(e => new ScheduleNotificationItem
+            {
+                EventId = e.Id,
+                EventName = e.Name,
+                StartDate = e.StartDate,
+                StartTime = e.StartTime,
+                EndDate = e.EndDate,
+                EndTime = e.EndTime,
+                Status = e.Status
+            })
+            .ToList();
+
+        // 3. Fetch registration status logs directly from DB[cite: 10]
+        var eventRegistrations = db.Registration
+            .Include(r => r.Event)
+            .Where(r => r.Status == "Approved" || r.Status == "Denied" || r.Status == "Rejected")
+            .Select(r => new RegistrationNotificationItem
+            {
+                TeamName = r.TeamName,
+                EventOrTournamentName = r.Event != null ? r.Event.Name : "Event",
+                Status = r.Status,
+                DateInfo = r.RegDate.ToString("dd MMM yyyy")
+            })
+            .ToList();
+
+        var tournamentRegistrations = db.TournamentRegistration
+            .Include(tr => tr.Tournament)
+            .Include(tr => tr.Team)
+            .Where(tr => tr.Status != RegistrationStatus.Pending)
+            .Select(tr => new RegistrationNotificationItem
+            {
+                TeamName = tr.Team != null ? tr.Team.Name : "Team",
+                EventOrTournamentName = tr.Tournament != null ? tr.Tournament.Name : "Tournament",
+                Status = tr.Status.ToString(),
+                AdminNote = tr.AdminNote,
+                DateInfo = tr.ReviewedAt.HasValue
+                    ? tr.ReviewedAt.Value.ToString("dd MMM yyyy")
+                    : tr.RegisteredAt.ToString("dd MMM yyyy")
+            })
+            .ToList();
+
+        model.RegistrationLogs = eventRegistrations.Concat(tournamentRegistrations).ToList();
+
+        return View(model);
+    }
+
+    // ANNOUNCEMENTS & NOTIFICATIONS: POST
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PostAnnouncement(string title, string message, string type)
+    {
+        if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(message))
+        {
+            _announcements.Add(new AnnouncementItem
+            {
+                Id = _announcements.Count + 1,
+                Title = title,
+                Message = message,
+                Type = type,
+                PostedAt = DateTime.Now
+            });
+
+            TempData["Info"] = "Announcement successfully posted!";
+        }
+
+        return RedirectToAction(nameof(Notifications));
     }
 }

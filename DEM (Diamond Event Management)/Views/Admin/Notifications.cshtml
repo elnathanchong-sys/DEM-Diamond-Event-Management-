@@ -1,0 +1,119 @@
+﻿@model DEM__Diamond_Event_Management_.Models.AdminNotificationDashboardVM
+
+@{
+    ViewBag.Title = "Notifications Hub";
+    Layout = "_AdminLayout";
+}
+
+<link rel="stylesheet" href="~/css/admin-notifications.css" />
+
+<div class="registration-container">
+    <div class="registration-header">
+        <h1 class="registration-title">Announcements & Notifications</h1>
+    </div>
+
+    @if (TempData["Info"] != null)
+    {
+        <div class="registration-record-amount">
+            <p class="admin-success-message">@TempData["Info"]</p>
+        </div>
+    }
+
+    <!-- Post New Announcement -->
+    <div class="registration-list-container section-spacer">
+        <h2 class="admin-section-title">Post New Announcement</h2>
+        <form method="post" action="/AdminNotifications/PostAnnouncement" class="announcement-form">
+            <div class="form-row">
+                <input type="text" name="title" class="registration-search-input form-input-title" placeholder="Title..." required />
+                <select name="type" class="form-select-type">
+                    <option value="General">General Announcement</option>
+                    <option value="Schedule">Schedule Update</option>
+                    <option value="Urgent">Urgent Notice</option>
+                </select>
+            </div>
+            <textarea name="message" rows="3" placeholder="Write announcement details..." class="form-textarea" required></textarea>
+            <div>
+                <button type="submit" class="btn-approve btn-submit">Publish Announcement</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Active Posted Announcements -->
+    <div class="registration-list-container section-spacer">
+        <h2 class="admin-section-title">Posted Announcements</h2>
+        @if (!Model.Announcements.Any())
+        {
+            <p>No active announcements posted yet.</p>
+        }
+        else
+        {
+            @foreach (var ann in Model.Announcements)
+            {
+                <div class="registration-info-row announcement-card">
+                    <div class="announcement-card-header">
+                        <strong>@ann.Title</strong>
+                        <span class="status-badge announcement-badge-type">@ann.Type</span>
+                    </div>
+                    <p class="announcement-text">@ann.Message</p>
+                    <small class="announcement-timestamp">Posted at @ann.PostedAt.ToString("g")</small>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Tournament Schedule Status -->
+    <div class="registration-list-container section-spacer">
+        <h2 class="admin-section-title">Tournament Schedule Status</h2>
+        @if (!Model.ScheduleUpdates.Any())
+        {
+            <p>No tournament schedule data found.</p>
+        }
+        else
+        {
+            @foreach (var sched in Model.ScheduleUpdates)
+            {
+                <div class="registration-info-row">
+                    <div class="registration-info">
+                        <strong>@sched.EventName</strong>
+                        <span>Dates: @sched.StartDate.ToString("dd MMM yyyy") - @sched.EndDate.ToString("dd MMM yyyy")</span>
+                        <span>Time: @sched.StartTime.ToString("HH:mm") - @sched.EndTime.ToString("HH:mm")</span>
+                    </div>
+                    <div class="registration-action-btns">
+                        <span class="status-badge status-pending">@sched.Status</span>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Registration Approval & Rejection Log -->
+    <div class="registration-list-container">
+        <h2 class="admin-section-title">Registration Approval Logs</h2>
+        @if (!Model.RegistrationLogs.Any())
+        {
+            <p>No processed registrations recorded.</p>
+        }
+        else
+        {
+            @foreach (var log in Model.RegistrationLogs)
+            {
+                string statusClass = (log.Status == "Approved") ? "approved" : "denied";
+
+                <div class="registration-info-row">
+                    <div class="registration-info">
+                        <strong>@log.TeamName</strong>
+                        <span>Event/Tournament: @log.EventOrTournamentName</span>
+                        <span>Date: @log.DateInfo</span>
+                        @if (!string.IsNullOrEmpty(log.AdminNote))
+                        {
+                            <span class="log-note">Note: "@log.AdminNote"</span>
+                        }
+                    </div>
+                    <div class="registration-action-btns">
+                        <span class="status-badge status-@statusClass">@log.Status</span>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
