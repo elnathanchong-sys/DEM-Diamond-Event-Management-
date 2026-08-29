@@ -1,0 +1,63 @@
+﻿@model DEM__Diamond_Event_Management_.Models.Payment
+
+@{
+    ViewBag.Title = "Payment Successful";
+    Layout = "_Layout";
+}
+
+<div class="payment-container">
+
+    <div class="payment-card success-card">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>Payment Successful!</h1>
+
+        <p class="payment-subtitle">
+            Your payment has been successfully recorded.
+        </p>
+
+        <hr />
+
+        <div class="payment-info">
+
+            <div class="info-row">
+                <span>Payment ID</span>
+                <strong>@Model.Id</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Registration ID</span>
+                <strong>@Model.RegistrationId</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Payment Method</span>
+                <strong>@Model.PaymentMethod</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Payment Date</span>
+                <strong>
+                    @Model.PaymentDate.ToString("dd/MM/yyyy")
+                </strong>
+            </div>
+
+            <div class="info-row total">
+                <span>Amount Paid</span>
+                <strong>
+                    RM @Model.AmountPaid.ToString("0.00")
+                </strong>
+            </div>
+
+        </div>
+
+        <a href="/" class="pay-button">
+            Back to Home
+        </a>
+
+    </div>
+
+</div>

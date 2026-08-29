@@ -1,109 +1,103 @@
-﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.Payment>
+﻿@model DEM__Diamond_Event_Management_.Models.Registration
 
 @{
-    ViewBag.Title = "Payments";
-    Layout = "_AdminLayout";
+    ViewBag.Title = "Payment";
+    Layout = "_Layout";
 }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+<div class="payment-container">
 
-<div class="category-container">
+    <div class="payment-card">
 
-    <div class="category-header">
+        <h1>Complete Payment</h1>
 
-        <h1 class="category-title">Payments</h1>
+        <p class="payment-subtitle">
+            Complete your payment to confirm your registration.
+        </p>
 
-        <div class="search-section">
+        <hr />
 
-            <form method="get" action="/Payment/PayRead">
+        <div class="payment-info">
 
-                <input type="search"
-                       name="search"
-                       class="search-input"
-                       placeholder="Search payment..."
-                       value="@(Context.Request.Query["search"])" />
+            <div class="info-row">
+                <span>Event</span>
+                <strong>@Model.Event.Name</strong>
+            </div>
 
-            </form>
+            <div class="info-row">
+                <span>Team</span>
+                <strong>@Model.TeamName</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Registration ID</span>
+                <strong>@Model.Id</strong>
+            </div>
+
+            <div class="info-row total">
+                <span>Total Amount</span>
+                <strong>
+                    RM @Model.Event.Price.ToString("0.00")
+                </strong>
+            </div>
 
         </div>
 
-        <a href="/Payment/PayCreate" class="create-new-btn">
-            + Create New Payment
-        </a>
+        <hr />
 
-    </div>
+        <h3>Payment Method</h3>
 
-    <div class="category-record-amount">
-
-        <p>@(Model?.Count() ?? 0) record(s)</p>
-
-    </div>
-
-    <div class="category-list-container">
-
-        @if (Model != null && Model.Any())
+        @if (TempData["Error"] != null)
         {
-            foreach (var p in Model)
-            {
-                <div class="category-info-row">
-
-                    <div class="category-info">
-
-                        <strong>@p.Id</strong>
-
-                        <br />
-
-                        Payment Method:
-                        @p.PaymentMethod
-
-                        <br />
-
-                        Amount:
-                        RM @p.AmountPaid
-
-                        <br />
-
-                        Payment Date:
-                        @p.PaymentDate.ToString("dd/MM/yyyy")
-
-                        <br />
-
-                        Registration:
-                        @p.RegistrationId
-
-                    </div>
-
-                    <div class="category-action-btns">
-
-                        <a href="/Payment/PayUpdate/@p.Id"
-                           class="btn-update">
-                            Update
-                        </a>
-
-                        <button data-post="/Payment/PayDelete/@p.Id"
-                                class="btn-delete">
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-            }
-        }
-        else
-        {
-            <div class="category-info-row">
-
-                <div class="category-info">
-
-                    <strong>No payment records found.</strong>
-
-                </div>
-
+            <div class="error-message">
+                @TempData["Error"]
             </div>
         }
+
+        <form method="post" action="/Payment/Pay">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   name="registrationId"
+                   value="@Model.Id" />
+
+            <label class="payment-option">
+                <input type="radio"
+                       name="paymentMethod"
+                       value="Credit/Debit Card"
+                       required />
+
+                <span>
+                    💳 Credit / Debit Card
+                </span>
+            </label>
+
+            <label class="payment-option">
+                <input type="radio"
+                       name="paymentMethod"
+                       value="Online Banking" />
+
+                <span>
+                    🏦 Online Banking
+                </span>
+            </label>
+
+            <label class="payment-option">
+                <input type="radio"
+                       name="paymentMethod"
+                       value="E-Wallet" />
+
+                <span>
+                    📱 E-Wallet
+                </span>
+            </label>
+
+            <button type="submit" class="pay-button">
+                Pay RM @Model.Event.Price.ToString("0.00")
+            </button>
+
+        </form>
 
     </div>
 

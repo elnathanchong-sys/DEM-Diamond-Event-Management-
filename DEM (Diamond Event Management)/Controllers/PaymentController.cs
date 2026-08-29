@@ -13,144 +13,88 @@ public class PaymentController : Controller
         this.db = db;
     }
 
-    // READ: Display all payments
+    // PAYMENT PAGE
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult Index(string registrationId)
     {
-        var payments = db.Payment.ToList();
+        if (string.IsNullOrEmpty(registrationId))
+        {
+            return NotFound("Registration ID is missing.");
+        }
 
-        return View(payments);
+        var registration = db.Registration
+            .Include(r => r.Event)
+            .FirstOrDefault(r => r.Id == registrationId);
+
+        if (registration == null)
+        {
+            return NotFound("Registration not found.");
+        }
+
+        // Check if this registration already has a payment
+        var existingPayment = db.Payment
+            .FirstOrDefault(p => p.RegistrationId == registrationId);
+
+        if (existingPayment != null)
+        {
+            return View("Success", existingPayment);
+        }
+
+        return View(registration);
     }
 
-    // CREATE: GET
-    [HttpGet]
-    public IActionResult PayCreate()
-    {
-        return View();
-    }
 
-    // CREATE: POST
+    // PROCESS PAYMENT
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PayCreate(Payment model)
+    public async Task<IActionResult> Pay(
+        string registrationId,
+        string paymentMethod)
     {
-        if (ModelState.IsValid)
+        if (string.IsNullOrEmpty(registrationId))
         {
-            db.Payment.Add(model);
-            await db.SaveChangesAsync();
-
-            TempData["Info"] = "Payment created successfully.";
-
-            return RedirectToAction(nameof(Index));
+            return NotFound("Registration ID is missing.");
         }
 
-        return View(model);
-    }
-
-    // UPDATE: GET
-    [HttpGet]
-    public IActionResult PayUpdate(string id)
-    {
-        if (string.IsNullOrEmpty(id))
+        if (string.IsNullOrEmpty(paymentMethod))
         {
-            return NotFound();
+            TempData["Error"] = "Please select a payment method.";
+            return RedirectToAction(nameof(Index),
+                new { registrationId });
         }
 
-        var payment = db.Payment.Find(id);
+        var registration = db.Registration
+            .Include(r => r.Event)
+            .FirstOrDefault(r => r.Id == registrationId);
 
-        if (payment == null)
+        if (registration == null)
         {
-            return NotFound();
+            return NotFound("Registration not found.");
         }
 
-        return View(payment);
-    }
+        // Prevent duplicate payment
+        var existingPayment = db.Payment
+            .FirstOrDefault(p => p.RegistrationId == registrationId);
 
-    // UPDATE: POST
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PayUpdate(Payment model)
-    {
-        if (!ModelState.IsValid)
+        if (existingPayment != null)
         {
-            return View(model);
+            return View("Success", existingPayment);
         }
 
-        var payment = db.Payment.Find(model.Id);
-
-        if (payment == null)
+        // Create payment record
+        var payment = new Payment
         {
-            return NotFound();
-        }
+            Id = "P" + Random.Shared.Next(100, 999),
+            PaymentMethod = paymentMethod,
+            AmountPaid = registration.Event.Price,
+            PaymentDate = DateOnly.FromDateTime(DateTime.Now),
+            RegistrationId = registrationId
+        };
 
-        payment.PaymentMethod = model.PaymentMethod;
-        payment.AmountPaid = model.AmountPaid;
-        payment.PaymentDate = model.PaymentDate;
-        payment.RegistrationId = model.RegistrationId;
+        db.Payment.Add(payment);
 
         await db.SaveChangesAsync();
 
-        TempData["Info"] = "Payment updated successfully.";
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    // DELETE: GET
-    [HttpGet]
-    public IActionResult PayDelete(string id)
-    {
-        if (string.IsNullOrEmpty(id))
-        {
-            return NotFound();
-        }
-
-        var payment = db.Payment.Find(id);
-
-        if (payment == null)
-        {
-            return NotFound();
-        }
-
-        return View(payment);
-    }
-
-    // DELETE: POST
-    [HttpPost, ActionName("PayDelete")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> PayDeleteConfirmed(string id)
-    {
-        if (string.IsNullOrEmpty(id))
-        {
-            return NotFound();
-        }
-
-        var payment = db.Payment.Find(id);
-
-        if (payment != null)
-        {
-            db.Payment.Remove(payment);
-            await db.SaveChangesAsync();
-
-            TempData["Info"] = "Payment deleted successfully.";
-        }
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    // SEARCH
-    [HttpGet]
-    public IActionResult PayRead(string? search)
-    {
-        var payments = db.Payment.AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(search))
-        {
-            payments = payments.Where(p =>
-                p.Id.Contains(search) ||
-                p.PaymentMethod.Contains(search) ||
-                p.RegistrationId.Contains(search));
-        }
-
-        return View("Index", payments.ToList());
+        return View("Success", payment);
     }
 }
