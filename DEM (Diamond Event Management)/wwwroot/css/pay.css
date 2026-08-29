@@ -1,0 +1,179 @@
+﻿```css
+/* =========================================================
+   PAYMENT PAGE
+   Consistent with Home Page design
+   ========================================================= */
+.payment-container {
+    min-height: 80vh;
+    padding: 5rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #212529;
+}
+
+.payment-card {
+    width: 100%;
+    max-width: 45rem;
+    background: #495057;
+    border-radius: 1rem;
+    padding: 3rem;
+    color: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+    /* -------------------- TITLE -------------------- */
+
+    .payment-card h1 {
+        margin: 0;
+        text-align: center;
+        font-family: "Bree Serif", serif;
+        font-size: 2.2rem;
+        color: white;
+    }
+
+.payment-subtitle {
+    text-align: center;
+    color: #dee2e6;
+    margin: 0.75rem 0 2rem;
+    font-size: 1rem;
+}
+
+.payment-card hr {
+    border: none;
+    border-top: 1px solid #6c757d;
+    margin: 1.5rem 0;
+}
+
+/* -------------------- EVENT INFORMATION -------------------- */
+
+.payment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border-radius: 0.5rem;
+    color: #dee2e6;
+}
+
+    .info-row strong {
+        color: white;
+        text-align: right;
+    }
+
+    .info-row.total {
+        margin-top: 0.75rem;
+        background: #6c757d;
+        padding: 1.2rem 1rem;
+        font-size: 1.15rem;
+    }
+
+        .info-row.total strong {
+            color: #BBDEFB;
+            font-size: 1.3rem;
+        }
+
+/* -------------------- PAYMENT METHOD -------------------- */
+
+.payment-card h3 {
+    font-family: "Bree Serif", serif;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+    background: #6c757d;
+    border: 2px solid transparent;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s ease;
+}
+
+    .payment-option:hover {
+        border-color: #BBDEFB;
+        background: #5c636a;
+    }
+
+    .payment-option input {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .payment-option span {
+        font-size: 1rem;
+    }
+
+/* -------------------- PAY BUTTON -------------------- */
+
+.pay-button {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.75rem;
+    background: #BBDEFB;
+    color: #212529;
+    font-size: 1.1rem;
+    font-family: "Bree Serif", serif;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .pay-button:hover {
+        background: white;
+        transform: translateY(-2px);
+    }
+
+/* -------------------- ERROR MESSAGE -------------------- */
+
+.error-message {
+    margin-bottom: 1rem;
+    padding: 0.9rem 1rem;
+    background: #6c757d;
+    border-left: 4px solid #dc3545;
+    border-radius: 0.5rem;
+    color: white;
+}
+
+/* -------------------- MOBILE -------------------- */
+
+@media (max-width: 600px) {
+
+    .payment-container {
+        padding: 3rem 1rem;
+    }
+
+    .payment-card {
+        padding: 2rem 1.5rem;
+    }
+
+        .payment-card h1 {
+            font-size: 1.8rem;
+        }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+
+        .info-row strong {
+            text-align: left;
+        }
+}
+
+```
