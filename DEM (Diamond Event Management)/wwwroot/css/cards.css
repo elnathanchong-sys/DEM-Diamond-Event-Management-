@@ -38,7 +38,7 @@
 }
 
 .hover-title {
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 1.25rem;
     font-family: "Bree Serif", serif;
     text-decoration: none;
@@ -49,8 +49,8 @@
 }
 
 .hover-join-btn {
-    color: #212529;
-    background: #BBDEFB;
+    color: var(--text-primary);
+    background: var(--bg-layer-2);
     font-size: 0.9rem;
     font-family: "Bree Serif", serif;
     padding: 0.5rem 1.1rem;
@@ -74,7 +74,7 @@
 .status-tab {
     font-family: "Bree Serif", serif;
     font-size: 20px;
-    color: white;
+    color: var(--text-primary);
     text-decoration: none;
     padding: 8px 12px;
     position: relative;
@@ -83,17 +83,17 @@
 }
 
 .status-tab:hover {
-    color: #BBDEFB;
+    color: var(--accent-500);
 }
 
 .status-tab.active {
-    color: #ffffff;
+    color: var(--text-primary);
     font-weight: 600;
-    border-bottom: 3px solid #BBDEFB;
+    border-bottom: 3px solid var(--accent-500);
 }
 
 .no-events-found {
-    color: white;
+    color: var(--text-primary);
     font-family: "Bree Serif", serif;
     padding: 3rem 0;
     text-align: center;

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width" initial-scale="1.0">
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/darklight.css" />
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/event.css">
     <link rel="stylesheet" href="/css/Category.css">
@@ -75,14 +76,13 @@
                         <span class="text">Administrators</span>
                     </a>
                 </li>
-                <li>
-                    <a href="/Admin/Notifications">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-                        <span class="text">Create Announcement</span>
-                    </a>
-                </li>
-
             </ul>
+            <li class="theme-toggle-item">
+                <a href="#" class="theme-toggle">
+                    <span class="icon"><i class="bx bx-sun"></i></span>
+                    <span class="text theme-toggle-label">Light mode</span>
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -97,9 +97,8 @@
     <script src="/js/admin.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/registration.js"></script>
+    <script src="/js/darklight.js"></script>
     @RenderSection("Scripts", required: false)
 
 </body>
 </html>
-
-s

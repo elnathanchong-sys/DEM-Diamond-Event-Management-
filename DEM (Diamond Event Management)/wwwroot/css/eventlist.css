@@ -4,16 +4,13 @@
     box-sizing: border-box;
 }
 
-body {
-    background: #212529;
-}
-
 /*sidebar for eventlist*/
 .eventlist-layout {
     display: flex;
     align-items: flex-start;
     gap: 2.5rem;
     padding: 2rem 3rem;
+    background: var(--bg-page);
 }
 
 .events-card {
@@ -27,9 +24,9 @@ body {
     align-items: stretch;
     width: 17rem;
     flex-shrink: 0;
-    color: white;
+    color: var(--text-primary);
     font-family: "Bree Serif", serif;
-    background: #2b2f34;
+    background: var(--bg-layer-1);
     border-radius: 12px;
     padding: 1.25rem 1.5rem;
 }
@@ -38,7 +35,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #495057;
+    border-bottom: 1px solid var(--border-subtle);
     padding-bottom: 0.75rem;
     margin-bottom: 0.5rem;
 }
@@ -57,7 +54,7 @@ body {
 .clear-filters-link,
 .collapse-all-link {
     font-size: 0.8rem;
-    color: #BBDEFB;
+    color: var(--text-primary);
     text-decoration: none;
     background: none;
     border: none;
@@ -72,7 +69,7 @@ body {
 }
 
 .filter-group {
-    border-bottom: 1px solid #495057;
+    border-bottom: 1px solid var(--border-subtle);
     padding: 0.75rem 0;
 }
 
@@ -121,17 +118,17 @@ body {
 .checkbox-item input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    accent-color: #BBDEFB;
+    accent-color: var(--accent-color);
     cursor: pointer;
 }
 
 .checkbox-item .count {
-    color: #adb5bd;
+    color: var(--text-secondary);
     font-size: 0.85rem;
 }
 
 .events-result-count {
-    color: white;
+    color: var(--text-primary);
     font-family: "Bree Serif", serif;
     font-size: 1.1rem;
     margin-bottom: 1.25rem;

@@ -1,7 +1,7 @@
 ﻿body {
-    background: #212529;
+    background: var(--bg-page);
     font-family: "Bree Serif", serif;
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
 /* ------------------------------------- Layout & Titles ---------------------------------- */
@@ -202,5 +202,5 @@
 
 .status-pending {
     background-color: #ffc107;
-    color: #212529;
+    color: var(--text-primary);
 }

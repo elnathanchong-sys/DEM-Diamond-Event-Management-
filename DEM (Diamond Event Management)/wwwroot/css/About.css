@@ -1,5 +1,5 @@
 ﻿.about-page {
-    background-color: #22262a;
+    background-color: var(--bg-page);
     color: white;
     min-height: 100vh;
     padding-bottom: 80px;
@@ -8,22 +8,23 @@
 .about-header {
     text-align: center;
     padding: 90px 20px 70px;
-    background-color: #292d31;
+    background-color: var(--bg-layer-1);
+    color: var(--text-primary);
 }
 
-    .about-header h1 {
-        font-size: 48px;
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
+.about-header h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
 
-    .about-header p {
-        font-size: 20px;
-        color: #d0d0d0;
-        max-width: 750px;
-        margin: auto;
-        line-height: 1.6;
-    }
+.about-header p {
+    font-size: 20px;
+    color: var(--text-third);
+    max-width: 750px;
+    margin: auto;
+    line-height: 1.6;
+}
 
 .about-content {
     max-width: 1200px;
@@ -35,46 +36,49 @@
 }
 
 .about-card {
-    background-color: #2b3034;
+    background-color: var(--bg-layer-2);
     padding: 40px;
     border-radius: 8px;
-    border: 1px solid #3b4044;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
 }
 
-    .about-card h2 {
-        font-size: 30px;
-        margin-bottom: 20px;
-    }
+.about-card h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+}
 
-    .about-card p {
-        color: #d0d0d0;
-        line-height: 1.8;
-        font-size: 16px;
-        margin-bottom: 15px;
-    }
+.about-card p {
+    color: var(--text-third);
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
 
 .mission-section {
     max-width: 1000px;
     margin: 70px auto;
     padding: 50px 30px;
     text-align: center;
-    background-color: #292d31;
+    background-color: var(--bg-layer-1);
     border-radius: 8px;
 }
 
-    .mission-section h2,
-    .vision-section h2,
-    .values-section h2 {
-        font-size: 32px;
-        margin-bottom: 20px;
-    }
+.mission-section h2,
+.vision-section h2,
+.values-section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
 
-    .mission-section p,
-    .vision-section p {
-        color: #d0d0d0;
-        font-size: 17px;
-        line-height: 1.8;
-    }
+.mission-section p,
+.vision-section p {
+    color: var(--text-third);
+    font-size: 17px;
+    line-height: 1.8;
+}
 
 .values-section {
     max-width: 1200px;
@@ -91,28 +95,29 @@
 }
 
 .value-box {
-    background-color: #2b3034;
+    background-color: var(--bg-layer-2);
     padding: 30px;
     border-radius: 8px;
-    border: 1px solid #3b4044;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
 }
 
-    .value-box h3 {
-        font-size: 22px;
-        margin-bottom: 15px;
-    }
+.value-box h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
 
-    .value-box p {
-        color: #d0d0d0;
-        line-height: 1.7;
-    }
+.value-box p {
+    color: var(--text-third);
+    line-height: 1.7;
+}
 
 .vision-section {
     max-width: 1000px;
     margin: 70px auto 0;
     padding: 50px 30px;
     text-align: center;
-    background-color: #292d31;
+    background-color: var(--bg-layer-1);
     border-radius: 8px;
 }
 

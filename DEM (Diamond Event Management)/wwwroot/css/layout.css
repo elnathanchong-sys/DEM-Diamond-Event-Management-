@@ -1,13 +1,14 @@
 ﻿header {
     display: flex;
     padding: 18px 30px;
-    background: #23262A;
+    background: var(--bg-head);
     align-items: center;
-    color: #ffffff;
+    color: var(--text-primary);
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 /* navigation bar in general*/
@@ -45,24 +46,44 @@ nav {
     gap: 50px;
 }
 
-.bx{
-    font-size: 30px;
-    margin-top: 5px;
+.right-icon .bx{
+    font-size: 25px;
+    margin: 10px 0px;
 }
 
 .search-input {
     border-radius: 10px;
     position: relative;
     padding: 10px 50px;
+    margin: 1px 0px;
 }
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0;
+    font-family: inherit;
+    transition: color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-1px);
+}
+
+
 
 nav a {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     white-space: nowrap;
-    color: #f2f2f2;
-    text-decoration: none;  
+    color: var(--text-primary);
+    text-decoration: none;
     font-family: "Bree Serif", serif;
 }
 

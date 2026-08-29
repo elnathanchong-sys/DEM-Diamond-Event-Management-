@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/cards.css" />
     <link rel="stylesheet" href="/css/home.css" />
     <link rel="stylesheet" href="/css/eventlist.css" />
+    <link rel="stylesheet" href="~/css/darklight.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com"> @*Google Fonts*@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> @*Google Fonts*@
     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet"> @*Bree Serif Font*@
@@ -57,6 +58,9 @@
                 <a href="/Account/Login" class="user-icon">
                     <i class="bx bx-cart"></i>
                 </a>
+                <button type="button" class="theme-toggle">
+                    <i class="bx bx-moon"></i>
+                </button>
                 <a href="/Account/Login" class="user-icon">
                     <i class="bx bx-user"></i>
                 </a>
@@ -73,6 +77,7 @@
     <script src="/js/jquery.validate.unobstrusive.min.js"></script>
     <script src="/js/jquery.unobtrusive-ajax.min.js"></script>
     <script src="/js/app.js"></script>
+    <script src="/js/darklight.js"></script>
     <script src="/js/event.js"></script>
     @RenderSection("Scripts", required: false)
     @await RenderSectionAsync("foot", required: false)

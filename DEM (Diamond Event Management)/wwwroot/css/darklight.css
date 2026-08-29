@@ -1,0 +1,68 @@
+﻿:root {
+    --bg-head: #181B1E;
+    --bg-page: #212529;
+    --bg-layer-1: #343A40;
+    --bg-layer-2: #495057;
+    --bg-muted: #6C757D;
+    /* Text */
+    --text-primary: white;
+    --text-secondary: #CED4DA;
+    --text-third: #d0d0d0;
+    --text-muted: #ADB5BD;
+    /* Borders */
+    --border-subtle: #495057;
+    /* Accent (blue) - same in both themes */
+    --accent-50: #EDF2FB;
+    --accent-100: #E2EAFC;
+    --accent-200: #D7E3FC;
+    --accent-300: #CCDBFD;
+    --accent-400: #C1D3FE;
+    --accent-500: #B6CCFE;
+    --accent-600: #ABC4FF;
+    --accent-text-on-light: #212529;
+    /*Buttons*/
+    --button-1: #6C757D;
+    --button-2: red;
+    /*White*/
+    --white: white;
+}
+
+[data-theme="light"] {
+    --bg-head: #F8F9FA;
+    --bg-page: #E9ECEF;
+    --bg-layer-1: #DEE2E6;
+    --bg-layer-2: #CED4DA;
+    --bg-muted: #ADB5BD;
+    --text-primary: black;
+    --text-secondary: black;
+    --text-muted: #6C757D;
+    --border-subtle: #CED4DA;
+}
+
+/* ============================================================
+   Theme toggle control - shared look for header + sidebar
+   ============================================================ */
+
+
+
+
+/* Sidebar variant: sits as a list item, matches other sidebar links */
+.sidebar .theme-toggle-item a.theme-toggle {
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: 0;
+    padding: 12px 16px;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.sidebar .theme-toggle-item a.theme-toggle:hover {
+    background-color: var(--bg-layer-1);
+    color: var(--text-primary);
+    transform: none;
+}
+
+.sidebar.close .theme-toggle-item a.theme-toggle {
+    justify-content: center;
+    padding: 12px 0;
+}

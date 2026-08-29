@@ -4,6 +4,7 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+    background: var(--bg-page);
 }
 
 .small{
@@ -11,7 +12,7 @@ body {
 }
 
 .text-muted{
-    color : #ffffff;
+    color : var(--text-muted);
 }
 
 .profile-photo {
@@ -29,8 +30,8 @@ body {
 /* Sidebar */
 .sidebar {
     width: 200px; /* Reduce this value to make it to have smaller sidebar */
-    background-color: #181B1E;
-    color: #ffffff;
+    background-color: var(--bg-head);
+    color: var(--text-primary);
     flex-shrink: 0;
     padding-top: 1rem;
     transition: width 0.4s ease;
@@ -38,6 +39,10 @@ body {
     overflow: hidden; /*Keep the text position fixed*/
     white-space: nowrap; /*Keep the text position fixed*/
 
+}
+
+.sidebar span{
+    color: var(--text-primary);
 }
 
 .sidebar ul {
@@ -58,8 +63,8 @@ body {
 }
 
 .sidebar ul li a:hover {
-    background-color: #30363C;
-    color: #ffffff;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
 }
 
 .sidebar ul li a span {
