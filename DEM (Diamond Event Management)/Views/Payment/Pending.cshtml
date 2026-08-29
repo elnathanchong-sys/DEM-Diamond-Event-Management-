@@ -1,0 +1,61 @@
+﻿@model DEM__Diamond_Event_Management_.Models.Registration
+
+@{
+    ViewBag.Title = "Payment Pending";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/pay.css" />
+
+<div class="payment-status-container">
+
+    <div class="payment-status-card">
+
+        <div class="status-icon">
+            ⏳
+        </div>
+
+        <h1>Registration Pending</h1>
+
+        <p class="status-message">
+            Your registration has not been approved yet.
+        </p>
+
+        <p class="status-description">
+            Please wait for the administrator to review your registration.
+            You will be able to make payment once your registration is approved.
+        </p>
+
+        <div class="status-info">
+
+            <div class="status-row">
+                <span>Event</span>
+                <strong>@Model.Event.Name</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Team</span>
+                <strong>@Model.TeamName</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Registration ID</span>
+                <strong>@Model.Id</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Status</span>
+                <strong class="pending-text">
+                    @Model.Status
+                </strong>
+            </div>
+
+        </div>
+
+        <a href="/" class="back-button">
+            Back to Home
+        </a>
+
+    </div>
+
+</div>

@@ -1,8 +1,4 @@
-﻿```css
-/* =========================================================
-   PAYMENT PAGE
-   Consistent with Home Page design
-   ========================================================= */
+﻿
 .payment-container {
     min-height: 80vh;
     padding: 5rem 2rem;
@@ -176,4 +172,94 @@
         }
 }
 
-```
+/*   PAYMENT STATUS   */
+
+.payment-status-container {
+    min-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 1.5rem;
+}
+
+.payment-status-card {
+    width: 100%;
+    max-width: 38rem;
+    background: #495057;
+    border-radius: 1rem;
+    padding: 3rem;
+    text-align: center;
+    color: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.status-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.payment-status-card h1 {
+    font-family: "Bree Serif", serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.status-message {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.status-description {
+    color: #dee2e6;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.status-info {
+    background: #343a40;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #6c757d;
+}
+
+.status-row:last-child {
+    border-bottom: none;
+}
+
+.status-row span {
+    color: #ced4da;
+}
+
+.status-row strong {
+    text-align: right;
+}
+
+.pending-text {
+    color: #ffc107;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.back-button:hover {
+    background: #adb5bd;
+    color: #212529;
+}

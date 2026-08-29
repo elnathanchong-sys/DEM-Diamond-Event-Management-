@@ -31,6 +31,16 @@ public class PaymentController : Controller
             return NotFound("Registration not found.");
         }
 
+        if (registration.Status == "Pending")
+        {
+            return View("Pending", registration);
+        }
+
+        if (registration.Status == "Rejected" || registration.Status == "Denied")
+        {
+            return View("Rejected", registration);
+        }
+
         // Check if this registration already has a payment
         var existingPayment = db.Payment
             .FirstOrDefault(p => p.RegistrationId == registrationId);
