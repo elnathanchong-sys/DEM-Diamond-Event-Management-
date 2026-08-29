@@ -1,0 +1,110 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.Payment>
+
+@{
+    ViewBag.Title = "Payments";
+    Layout = "_AdminLayout";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+<div class="category-container">
+
+    <div class="category-header">
+
+        <h1 class="category-title">Payments</h1>
+
+        <div class="search-section">
+
+            <form method="get" action="/Payment/PayRead">
+
+                <input type="search"
+                       name="search"
+                       class="search-input"
+                       placeholder="Search payment..."
+                       value="@(Context.Request.Query["search"])" />
+
+            </form>
+
+        </div>
+
+        <a href="/Payment/PayCreate" class="create-new-btn">
+            + Create New Payment
+        </a>
+
+    </div>
+
+    <div class="category-record-amount">
+
+        <p>@(Model?.Count() ?? 0) record(s)</p>
+
+    </div>
+
+    <div class="category-list-container">
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var p in Model)
+            {
+                <div class="category-info-row">
+
+                    <div class="category-info">
+
+                        <strong>@p.Id</strong>
+
+                        <br />
+
+                        Payment Method:
+                        @p.PaymentMethod
+
+                        <br />
+
+                        Amount:
+                        RM @p.AmountPaid
+
+                        <br />
+
+                        Payment Date:
+                        @p.PaymentDate.ToString("dd/MM/yyyy")
+
+                        <br />
+
+                        Registration:
+                        @p.RegistrationId
+
+                    </div>
+
+                    <div class="category-action-btns">
+
+                        <a href="/Payment/PayUpdate/@p.Id"
+                           class="btn-update">
+                            Update
+                        </a>
+
+                        <button data-post="/Payment/PayDelete/@p.Id"
+                                class="btn-delete">
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <div class="category-info-row">
+
+                <div class="category-info">
+
+                    <strong>No payment records found.</strong>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

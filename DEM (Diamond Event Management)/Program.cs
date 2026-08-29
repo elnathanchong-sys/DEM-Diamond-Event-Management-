@@ -3,6 +3,7 @@ global using DEM__Diamond_Event_Management_;
 global using DEM__Diamond_Event_Management_.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
