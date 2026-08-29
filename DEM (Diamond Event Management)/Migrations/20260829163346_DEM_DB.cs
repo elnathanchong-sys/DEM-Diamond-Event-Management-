@@ -197,7 +197,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    AmountPaid = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false),
+                    AmountPaid = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     PaymentDate = table.Column<DateOnly>(type: "DATE", nullable: false),
                     RegistrationId = table.Column<string>(type: "nvarchar(6)", nullable: false)
                 },

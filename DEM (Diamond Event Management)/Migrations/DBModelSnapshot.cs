@@ -125,8 +125,8 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasColumnType("nvarchar(4)");
 
                     b.Property<decimal>("AmountPaid")
-                        .HasPrecision(4, 2)
-                        .HasColumnType("decimal(4,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<DateOnly>("PaymentDate")
                         .HasColumnType("DATE");

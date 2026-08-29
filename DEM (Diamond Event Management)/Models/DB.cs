@@ -184,7 +184,7 @@ public class Payment
     public string Id { get; set; }
     [MaxLength(100)]
     public string PaymentMethod { get; set; }
-    [Precision (4, 2)]
+    [Precision (10, 2)]
     public decimal AmountPaid { get; set; }
     [Column(TypeName = "DATE")]
     public DateOnly PaymentDate { get; set; }
