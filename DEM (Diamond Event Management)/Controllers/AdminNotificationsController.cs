@@ -44,6 +44,7 @@ namespace DEM__Diamond_Event_Management_.Controllers
                 .Where(r => r.Status == "Approved" || r.Status == "Denied" || r.Status == "Rejected")
                 .Select(r => new RegistrationNotificationItem
                 {
+                    RegistrationId = r.Id,
                     TeamName = r.TeamName,
                     EventOrTournamentName = r.Event != null ? r.Event.Name : "Event",
                     Status = r.Status,
