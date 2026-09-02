@@ -56,6 +56,7 @@ public class Member : User
 {
     [MaxLength(100)]
     public string Country { get; set; }
+
     [MaxLength(100)]
     public string State { get; set; }
 
@@ -67,6 +68,12 @@ public class Member : User
 
     [MaxLength(100)]
     public string Address { get; set; }
+
+    // Membership information
+    [MaxLength(20)]
+    public string MembershipLevel { get; set; } = "Silver";
+
+    public int RewardPoints { get; set; } = 0;
 }
 
 public class Admin : User
@@ -174,7 +181,11 @@ public class Venue
 {
     [Key, MaxLength(4)]
     public string Id { get; set; }
-    [Range(1, 100000, ErrorMessage = "Capacity must be between 1 and 100,000")]
+
+    [MaxLength(100)]
+    public string VenueName { get; set; }
+
+    [Range(1, 100000)]
     public int VenueCapacity { get; set; }
 }
 

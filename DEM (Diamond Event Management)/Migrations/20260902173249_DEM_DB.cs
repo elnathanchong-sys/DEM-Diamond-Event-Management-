@@ -72,7 +72,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     HouseNo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    MembershipLevel = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    RewardPoints = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,6 +86,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    VenueName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     VenueCapacity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

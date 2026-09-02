@@ -383,6 +383,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<int>("VenueCapacity")
                         .HasColumnType("int");
 
+                    b.Property<string>("VenueName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Venue");
@@ -418,6 +423,14 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("MembershipLevel")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("RewardPoints")
+                        .HasColumnType("int");
 
                     b.Property<string>("State")
                         .IsRequired()
