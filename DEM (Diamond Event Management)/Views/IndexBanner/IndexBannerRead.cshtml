@@ -1,0 +1,47 @@
+@model IEnumerable<DEM__Diamond_Event_Management_.Models.IndexBannerVM>
+
+@{
+    ViewBag.Title = "IndexBanners";
+    Layout = "_AdminLayout";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+<div class="IndexBanner-container">
+    <div class="IndexBanner-header">
+        <h1 class="IndexBanner-title">IndexBanners</h1>
+        <div class="search-section">
+            <form method="get" action="/IndexBanner/IndexBannerRead">
+                <input type="search"
+                       name="name"
+                       class="search-input"
+                       placeholder="Search IndexBanner..."
+                       value="@Context.Request.Query["name"]" />
+            </form>
+        </div>
+        <a href="/IndexBanner/IndexBannerCreate" class="create-new-btn">+Create New IndexBanner</a>
+    </div>
+
+    <div class="IndexBanner-record-amount">
+        <p>@Model.Count() record(s)</p>
+    </div>
+
+    <div class="IndexBanner-list-container">
+        @foreach (var e in Model)
+        {
+            <div class="IndexBanner-info-row">
+                <div class="IndexBanner-info">
+                    <strong>@e.Id</strong>
+                    <strong>@e.Name</strong>
+                </div>
+
+                <div class="IndexBanner-action-btns">
+                    <a href="/IndexBanner/IndexBannerUpdate/@e.Id" class="btn-update">Update</a>
+                    <button data-post="/IndexBanner/IndexBannerDelete/@e.Id" class="btn-delete">Delete</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model DEM__Diamond_Event_Management_.Models.IndexBannerVM
+
+@{
+    ViewBag.Title = "Add Index Banner";
+    Layout = "_AdminLayout";
+}
+
+<div class="IndexBanner-create-container">
+    <h1 class="IndexBanner-create-title">Add New IndexBanner</h1>
+
+    <div class="IndexBanner-create-body">
+        <form method="post" class="form" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="IndexBanner-create-body-row-one">
+                <div class="IndexBanner-create-input-box">
+                    <label asp-for="Id"></label>
+                    <input asp-for="Id" data-upper autofocus placeholder="Enter banner ID... E.g., IB0001" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+
+                <div class="IndexBanner-create-input-box">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" data-trim placeholder="Enter banner name..." />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="IndexBanner-create-input-box">
+                <label>Banner (3840px x 1200px)</label>
+                <label class="IndexBanner-create-banner-upload upload">
+
+                    <input type="file" name="indexBannerFile" accept="image/jpeg,image/png,image/jpg" hidden>
+
+                    <img src="/images/icon/image-banner-upload.jpg" alt="Upload Placeholder">
+                </label>
+                @Html.ValidationMessage("IndexBannerImg", new { @class = "text-danger" })
+            </div>
+
+            <section>
+                <button type="submit" class="IndexBanner-create-btn-submit">Submit</button>
+                <button type="reset" class="IndexBanner-create-btn-reset">Reset</button>
+            </section>
+        </form>
+    </div>
+</div>
+<br />
+<a href="/IndexBanner/IndexBannerRead" class="IndexBanner-create-btn-return">Return</a>

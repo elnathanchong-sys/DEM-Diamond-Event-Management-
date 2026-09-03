@@ -25,6 +25,7 @@
     --button-2: red;
     /*White*/
     --white: white;
+    --black: black;
 }
 
 [data-theme="light"] {

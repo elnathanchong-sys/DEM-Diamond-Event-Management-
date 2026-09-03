@@ -1,0 +1,50 @@
+﻿@model global::DEM__Diamond_Event_Management_.Models.IndexBannerVM
+
+@{
+    ViewBag.Title = "Update Index Banner";
+    Layout = "_AdminLayout";
+}
+
+<div class="IndexBanner-update-container">
+    <h1 class="IndexBanner-update-title">Update Banner: @Model.Name</h1>
+
+    <div class="IndexBanner-update-body">
+        <form method="post" asp-action="IndexBannerUpdate" class="form" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Id can't be changed after creation, just carried along so the server knows which banner this is -->
+            <input type="hidden" asp-for="Id" />
+
+            <div class="IndexBanner-update-input-box">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" data-trim placeholder="Enter banner name..." />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="IndexBanner-update-input-box">
+                <label>Banner (3840px x 1200px)</label>
+                <label class="IndexBanner-update-banner-upload upload">
+
+                    <!-- File input name must match the controller parameter "indexBannerFile" -->
+                    <input type="file" name="indexBannerFile" accept="image/jpeg,image/png,image/jpg" hidden>
+
+                    @if (!string.IsNullOrEmpty(Model.IndexBannerImg))
+                    {
+                        <img src="/uploads/@Model.IndexBannerImg" alt="Current Banner">
+                    }
+                    else
+                    {
+                        <img src="/images/icon/image-banner-upload.jpg" alt="Upload Placeholder">
+                    }
+                </label>
+                @Html.ValidationMessage("IndexBannerImg", new { @class = "text-danger" })
+            </div>
+
+            <section>
+                <button type="submit" class="IndexBanner-update-btn-submit">Submit</button>
+            </section>
+        </form>
+    </div>
+</div>
+<br />
+<a href="/IndexBanner/IndexBannerRead" class="IndexBanner-update-btn-return">Return</a>

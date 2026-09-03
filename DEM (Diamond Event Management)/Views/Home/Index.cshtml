@@ -2,21 +2,24 @@
     // Set the page title
     ViewData["Title"] = "Home";
     Layout = "_Layout";
+    var indexBanner = ViewBag.indexBanner as List<DEM__Diamond_Event_Management_.Models.IndexBannerVM> ?? new List<DEM__Diamond_Event_Management_.Models.IndexBannerVM>();
 }
 
 <div class="banner-img-carousel-container">
     <div class="banner-img-carousel-wrapper">
         <div class="banner-img-carousel-slider">
-            <img src="~/images/banner/cs2.png" alt="Banner Image 1" />
-            <img src="~/images/banner/valorant.png" alt="Banner Image 2" />
-            <img src="~/images/banner/lol.png" alt="Banner Image 3" />
-        </div>
-        <div class="banner-img-carousel-nav">
-            <a href="javascript:void(0)" class="dot active" data-index="0"></a>
-            <a href="javascript:void(0)" class="dot" data-index="1"></a>
-            <a href="javascript:void(0)" class="dot" data-index="2"></a>
+            @foreach (var b in indexBanner)
+            {
+                <img src="~/uploads/@b.IndexBannerImg" alt="@b.Name" class="index-banner-img" />
+            }
         </div>
 
+        <div class="banner-img-carousel-nav">
+            @for (int i = 0; i < indexBanner.Count; i++)
+            {
+                <a href="javascript:void(0)" class="dot @(i == 0 ? "active" : "")" data-index="@i"></a>
+            }
+        </div>
         <div class="next-prev-btn">
             <span class="next">&#10095</span>
             <span class="prev">&#10094</span>

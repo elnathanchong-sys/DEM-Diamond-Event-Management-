@@ -24,6 +24,19 @@ namespace DEM__Diamond_Event_Management_.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IndexBanner",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IndexBannerImg = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IndexBanner", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Team",
                 columns: table => new
                 {
@@ -287,6 +300,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "IndexBanner");
+
             migrationBuilder.DropTable(
                 name: "Payment");
 

@@ -15,6 +15,16 @@ public class HomeController(DB db) : Controller
 
         ViewBag.CurrentStatus = Status;
 
+        ViewBag.indexBanner = db.IndexBanner
+                         .Take(5)
+                         .Select(b => new IndexBannerVM
+                         {
+                             Id = b.Id,
+                             Name = b.Name,
+                             IndexBannerImg = b.IndexBannerImg
+                         })
+                         .ToList();
+
         ViewBag.Status = db.Event
                            .Where(e => e.Status != "Hidden") // Keep status with the Hidden status out of the list
                            .Select(e => e.Status) // Instead of fetching all atrributes it fetches only the status attribute

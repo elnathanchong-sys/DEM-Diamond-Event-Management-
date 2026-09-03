@@ -12,22 +12,23 @@
 
 <body>
     <div class="event-container">
-            <div class="event-header">
-                <h1 class="event-title">Events</h1>
-                <div class="search-section">
-                <form method="get" action="/Event/EventRead">
-                    <input type="search"
-                           name="name"
-                           class="search-input"
-                           placeholder="Search event..."
-                           value="@Context.Request.Query["name"]" />
-                </form>
-                </div>
-                <a href="/Event/EventCreate" class="create-new-btn">+ Create New Event</a>
+        <div class="event-header">
+            <h1 class="event-title">Events</h1>
+            <div class="search-section">
+            <form method="get" action="/Event/EventRead">
+                <input type="search"
+                        name="name"
+                        class="search-input"
+                        placeholder="Search event..."
+                        value="@Context.Request.Query["name"]" />
+            </form>
             </div>
+            <a href="/Event/EventCreate" class="create-new-btn">+ Create New Event</a>
+        </div>
 
         <div class="event-record-amount">
             <p>@Model.Count() record(s)</p>
+            <p>*Please remember to change the event status when the event is completed*</p>
         </div>
 
         <div class="event-list-container">
@@ -38,11 +39,12 @@
                         <div class="event-info">
                             <strong>@e.Id</strong> 
                             @e.Name
+                            @e.Status
                         </div>
 
                         <div class="event-action-btns">
+                            <span>@e.Status</span>
                             <a href="/Event/EventUpdate/@e.Id" class="btn-update">Update</a>
-                            <button data-post="/Event/EventDelete/@e.Id" class="btn-delete">Delete</button>
                         </div>
                     </div>
                 }

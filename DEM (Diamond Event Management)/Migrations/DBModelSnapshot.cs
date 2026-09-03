@@ -118,6 +118,27 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.ToTable("Event");
                 });
 
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.IndexBanner", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("IndexBannerImg")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IndexBanner");
+                });
+
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Payment", b =>
                 {
                     b.Property<string>("Id")

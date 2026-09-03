@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20260829163346_DEM_DB")]
+    [Migration("20260903023604_DEM_DB")]
     partial class DEM_DB
     {
         /// <inheritdoc />
@@ -119,6 +119,27 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.HasIndex("VenueId");
 
                     b.ToTable("Event");
+                });
+
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.IndexBanner", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("IndexBannerImg")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IndexBanner");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Payment", b =>
