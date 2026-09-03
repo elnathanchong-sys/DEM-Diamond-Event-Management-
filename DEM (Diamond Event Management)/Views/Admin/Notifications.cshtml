@@ -102,15 +102,40 @@
                 <div class="registration-info-row">
                     <div class="registration-info">
                         <strong>@log.TeamName</strong>
-                        <span>Event/Tournament: @log.EventOrTournamentName</span>
-                        <span>Date: @log.DateInfo</span>
+
+                        <span>
+                            Event/Tournament: @log.EventOrTournamentName
+                        </span>
+
+                        <span>
+                            Date: @log.DateInfo
+                        </span>
+
                         @if (!string.IsNullOrEmpty(log.AdminNote))
                         {
-                            <span class="log-note">Note: "@log.AdminNote"</span>
+                            <span class="log-note">
+                                Note: "@log.AdminNote"
+                            </span>
                         }
                     </div>
+
                     <div class="registration-action-btns">
-                        <span class="status-badge status-@statusClass">@log.Status</span>
+
+                        <span class="status-badge status-@statusClass">
+                            @log.Status
+                        </span>
+
+                        @if (log.Status == "Approved" &&
+                             !string.IsNullOrEmpty(log.RegistrationId))
+                        {
+                            <a asp-controller="Payment"
+                               asp-action="Index"
+                               asp-route-registrationId="@log.RegistrationId"
+                               class="btn-approve payment-btn">
+                                PAY NOW
+                            </a>
+                        }
+
                     </div>
                 </div>
             }

@@ -31,6 +31,7 @@ namespace DEM__Diamond_Event_Management_.Models
 
     public class RegistrationNotificationItem
     {
+        public string RegistrationId { get; set; } = string.Empty;
         public string TeamName { get; set; } = string.Empty;
         public string EventOrTournamentName { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;

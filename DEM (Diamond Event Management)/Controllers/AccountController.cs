@@ -109,7 +109,10 @@ public class AccountController(DB db, Helper hp) : Controller
                 State = "",
                 City = "",
                 HouseNo = "",
-                Address = ""
+                Address = "",
+
+                MembershipLevel = "Silver",
+                RewardPoints = 0
             });
 
             await db.SaveChangesAsync();

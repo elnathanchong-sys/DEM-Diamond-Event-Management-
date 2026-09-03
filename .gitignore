@@ -368,3 +368,4 @@ FodyWeavers.xsd
 /.gitignore
 /.gitignore
 /.gitignore
+/DEM (Diamond Event Management)/Migrations/20260903023604_DEM_DB.Designer.cs

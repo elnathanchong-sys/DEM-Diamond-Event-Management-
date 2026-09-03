@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DEM__Diamond_Event_Management_.Models.ProfileViewModel
+
+@{
     ViewData["Title"] = "My Profile";
 }
 
@@ -8,14 +10,21 @@
 
     <!-- Cover -->
     <div class="cover">
-        <img src="~/images/profile.jpg" class="avatar" />
+        @if (!string.IsNullOrEmpty(Model.UserImg))
+        {
+            <img src="~/images/@Model.UserImg" class="avatar" />
+        }
+        else
+        {
+            <img src="~/images/profile.jpg" class="avatar" />
+        }
 
         <div class="info">
-            <h2>Ho Shin You</h2>
-            <p>hsy@email.com</p>
+            <h2>@Model.Name</h2>
+            <p>@Model.Email</p>
 
             <span class="member gold">
-                ★ Gold Member
+                ★ @Model.MembershipLevel Member
             </span>
         </div>
     </div>
@@ -25,11 +34,11 @@
 
         <div>
             <h3>Membership Status</h3>
-            <p>Gold Member since 2025</p>
+            <p>Member since @Model.CreationDate.Year</p>
         </div>
 
         <div class="points">
-            <h2>1,280</h2>
+            <h2>@Model.RewardPoints</h2>
             <span>Reward Points</span>
         </div>
 
@@ -65,20 +74,43 @@
 
     <div class="event-list">
 
-        <div class="event">
+        <div class="event-list">
 
-            <img src="~/images/valorant.jpg" />
+            @if (Model.UpcomingEvents.Any())
+            {
+                foreach (var item in Model.UpcomingEvents)
+                {
+                    <div class="event">
 
-            <div class="details">
-                <h4>Valorant Community Cup</h4>
-                <p>30 Aug 2026 · 2:00 PM</p>
-                <p>Sunway Convention Centre</p>
-            </div>
+                        <img src="~/images/@item.PosterImg" />
 
-            <button>View Ticket</button>
+                        <div class="details">
+
+                            <h4>@item.EventName</h4>
+
+                            <p>
+                                @item.StartDate.ToString("dd MMM yyyy")
+                                ·
+                                @item.StartTime.ToString("hh:mm tt")
+                            </p>
+
+                            <p>@item.Venue</p>
+
+                        </div>
+
+                        <a href="/Profile/Ticket/@item.RegistrationId">
+                            View Ticket
+                        </a>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No upcoming events.</p>
+            }
 
         </div>
-
         <div class="event">
 
             <img src="~/images/mlbb.jpg" />
@@ -107,26 +139,26 @@
             <th>Status</th>
         </tr>
 
-        <tr>
-            <td>Valorant Community Cup</td>
-            <td>18 Aug 2026</td>
-            <td>RM35</td>
-            <td><span class="paid">Paid</span></td>
-        </tr>
+        @foreach (var purchase in Model.Purchases)
+        {
+            <tr>
+                <td>@purchase.EventName</td>
 
-        <tr>
-            <td>MLBB Weekend Showdown</td>
-            <td>20 Aug 2026</td>
-            <td>RM25</td>
-            <td><span class="paid">Paid</span></td>
-        </tr>
+                <td>
+                    @purchase.RegistrationDate.ToString("dd MMM yyyy")
+                </td>
 
-        <tr>
-            <td>FIFA Campus League</td>
-            <td>12 Jul 2026</td>
-            <td>RM40</td>
-            <td><span class="paid">Paid</span></td>
-        </tr>
+                <td>
+                    RM @purchase.Amount.ToString("0.00")
+                </td>
+
+                <td>
+                    <span class="paid">
+                        @purchase.Status
+                    </span>
+                </td>
+            </tr>
+        }
 
     </table>
 
