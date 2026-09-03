@@ -74,24 +74,24 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
 
     public async Task SignIn(string email, string role, bool rememberMe)
     {
-        //Claim, identity and principal
+        // Claim, identity and principal
         List<Claim> claims =
         [
-            new(ClaimTypes.Name, email), //Store user PK
-            new(ClaimTypes.Role, role), //Store user role (admin or member)
+            new(ClaimTypes.NameIdentifier, email), // Store user email
+            new(ClaimTypes.Role, role),             // Store user role
         ];
 
         ClaimsIdentity identity = new(claims, "Cookies");
 
         ClaimsPrincipal principal = new(identity);
 
-        //Remember Me
+        // Remember Me
         AuthenticationProperties properties = new()
         {
             IsPersistent = rememberMe,
         };
 
-        //sign in
+        // Sign in
         await ct.HttpContext!.SignInAsync(principal, properties);
     }
 

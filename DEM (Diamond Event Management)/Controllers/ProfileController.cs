@@ -7,7 +7,7 @@ namespace DEM__Diamond_Event_Management_.Controllers;
 
 public class ProfileController(DB db) : Controller
 {
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Cusprofile()
     {
         // Get email of the currently logged-in user
         var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
