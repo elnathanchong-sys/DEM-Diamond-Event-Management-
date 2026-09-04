@@ -57,6 +57,17 @@
                     <span class="text">Categories</span>
                 </a>
             </li>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <li>
+                    <a href="/Venue/Index">
+                        <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+                        <span class="text">Manage Venues</span>
+                    </a>
+                </li>
+            }
+
             <ul>
                 <li>
                     <a href="#">

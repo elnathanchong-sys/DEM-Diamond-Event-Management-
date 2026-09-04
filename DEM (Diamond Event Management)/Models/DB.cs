@@ -17,11 +17,11 @@ public class DB(DbContextOptions options) : DbContext(options)
     public DbSet<Registration> Registration { get; set; }
     public DbSet<Player> Player { get; set; }
     public DbSet<Category> Category { get; set; }
-    public DbSet<Venue> Venue { get; set; }
     public DbSet<Payment> Payment { get; set; }
     public DbSet<Team> Team { get; set; }
     public DbSet<Tournament> Tournament { get; set; }
     public DbSet<TournamentRegistration> TournamentRegistration { get; set; }
+    public DbSet<Venue> Venue { get; set; }
 }
 
 public class User
@@ -174,8 +174,21 @@ public class Venue
 {
     [Key, MaxLength(4)]
     public string Id { get; set; }
+
+    [Required]
+    [MaxLength(100)]
+    public string VenueName { get; set; }
+
+    [Required]
+    [MaxLength(200)]
+    public string Location { get; set; }
+
     [Range(1, 100000, ErrorMessage = "Capacity must be between 1 and 100,000")]
-    public int VenueCapacity { get; set; }
+    public int Capacity { get; set; }
+
+    public string? Description { get; set; }
+
+    public List<Event> Events { get; set; } = [];
 }
 
 public class Payment

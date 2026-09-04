@@ -380,8 +380,21 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<int>("VenueCapacity")
+                    b.Property<int>("Capacity")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("VenueName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -436,7 +449,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .IsRequired();
 
                     b.HasOne("DEM__Diamond_Event_Management_.Models.Venue", "Venue")
-                        .WithMany()
+                        .WithMany("Events")
                         .HasForeignKey("VenueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -538,6 +551,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.User", b =>
                 {
                     b.Navigation("Registrations");
+                });
+
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Venue", b =>
+                {
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

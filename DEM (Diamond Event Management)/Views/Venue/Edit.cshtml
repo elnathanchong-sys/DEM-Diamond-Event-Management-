@@ -1,0 +1,50 @@
+﻿@model DEM__Diamond_Event_Management_.Models.Venue
+
+<h1>Edit Venue</h1>
+
+<form asp-action="Edit" method="post">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="VenueName">Venue Name</label>
+        <input asp-for="VenueName" />
+        <span asp-validation-for="VenueName"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Location">Location</label>
+        <input asp-for="Location" />
+        <span asp-validation-for="Location"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Capacity">Capacity</label>
+        <input asp-for="Capacity" type="number" />
+        <span asp-validation-for="Capacity"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description"></textarea>
+    </div>
+
+    <br />
+
+    <button type="submit">
+        Save Changes
+    </button>
+
+    <a asp-action="Index">
+        Cancel
+    </a>
+
+</form>

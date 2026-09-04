@@ -63,7 +63,7 @@
                 }
 
                 <div class="event-individual-info-box">
-                    Venue Capacity: @(Model.Venue != null ?Model.Venue.VenueCapacity.ToString() : "-")
+                    Venue Capacity: @(Model.Venue != null ? Model.Venue.Capacity.ToString() : "-")
                 </div>
                 <div class="event-individual-info-box">
                     Teams Registered: @registeredCount / @Model.MaxTeams
