@@ -94,10 +94,6 @@
     text-decoration: none;
 }
 
-.event-individual-btn-register:hover {
-    background: var(--button-2);
-}
-
 .event-individual-btn-disabled,
 .event-individual-btn-register:disabled {
     background: var(--bg-layer-2);

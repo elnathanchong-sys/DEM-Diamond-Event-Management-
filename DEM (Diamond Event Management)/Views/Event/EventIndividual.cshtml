@@ -9,6 +9,7 @@
     int registeredCount = ViewBag.RegisteredCount;
     bool isFull = ViewBag.IsFull;
     bool alreadyRegistered = ViewBag.AlreadyRegistered;
+    bool canRegister = ViewBag.CanRegister;
 
     bool reopenModal = TempData["Error"] != null;
 }
@@ -52,6 +53,10 @@
                 else if (alreadyRegistered)
                 {
                     <div class="event-individual-status-box">You have already registered a team for this tournament.</div>
+                }
+                else if (!canRegister)
+                {
+                    <div class="event-individual-status-box">Registration is closed for this tournament (status: @Model.Status).</div>
                 }
                 else if (isFull)
                 {

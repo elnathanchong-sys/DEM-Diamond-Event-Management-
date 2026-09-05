@@ -12,13 +12,15 @@
         <form method="post" class="form" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+
             <div class="IndexBanner-create-body-row-one">
+    @*
                 <div class="IndexBanner-create-input-box">
                     <label asp-for="Id"></label>
                     <input asp-for="Id" data-upper autofocus placeholder="Enter banner ID... E.g., IB0001" />
                     <span asp-validation-for="Id" class="text-danger"></span>
                 </div>
-
+    *@
                 <div class="IndexBanner-create-input-box">
                     <label asp-for="Name"></label>
                     <input asp-for="Name" data-trim placeholder="Enter banner name..." />

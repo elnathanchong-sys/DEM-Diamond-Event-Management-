@@ -54,6 +54,10 @@ using (var scope = app.Services.CreateScope())
 }
 // ==========================================
 
+app.UseDeveloperExceptionPage();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 //Added to properly route request
 app.UseRouting();
 
@@ -61,9 +65,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseDeveloperExceptionPage();
-app.UseHttpsRedirection();
-app.UseStaticFiles();
 //When entering the website the first page will be the login page.
 app.MapControllerRoute(
     name: "default",
