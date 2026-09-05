@@ -47,5 +47,12 @@ namespace DEM__Diamond_Event_Management_.Models
 
         public string VenueId { get; set; }
         public string CategoryId { get; set; }
+        public int TotalEvents { get; set; }
+        public int TotalOngoing { get; set; }
+        public int TotalPending { get; set; }
+
+        public decimal TotalRevenue { get; set; }
+
+        public List<EventVM> RecentEvents { get; set; } = [];
     }
 }

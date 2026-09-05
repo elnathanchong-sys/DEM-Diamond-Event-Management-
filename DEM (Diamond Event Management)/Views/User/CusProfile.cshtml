@@ -6,160 +6,164 @@
 
 <link rel="stylesheet" href="~/css/user.css" />
 
-<div class="profile-page">
+<div class="profile-container">
 
-    <!-- Cover -->
-    <div class="cover">
-        @if (!string.IsNullOrEmpty(Model.UserImg))
-        {
-            <img src="~/images/@Model.UserImg" class="avatar" />
-        }
-        else
-        {
-            <img src="~/images/profile.jpg" class="avatar" />
-        }
+    <!-- Hero -->
+    <div class="profile-hero">
 
-        <div class="info">
-            <h2>@Model.Name</h2>
-            <p>@Model.Email</p>
+        <div class="profile-left">
 
-            <span class="member gold">
-                ★ @Model.MembershipLevel Member
-            </span>
-        </div>
-    </div>
-
-    <!-- Member Status -->
-    <div class="member-card">
-
-        <div>
-            <h3>Membership Status</h3>
-            <p>Member since @Model.CreationDate.Year</p>
-        </div>
-
-        <div class="points">
-            <h2>@Model.RewardPoints</h2>
-            <span>Reward Points</span>
-        </div>
-
-    </div>
-
-    <!-- Menu Cards -->
-    <div class="menu">
-
-        <a class="card" href="/Profile/UpcomingEvents">
-            <h3>🎫 Upcoming Events</h3>
-            <p>View all purchased event tickets and QR codes.</p>
-        </a>
-
-        <a class="card" href="/Profile/PurchaseHistory">
-            <h3>🧾 Purchase History</h3>
-            <p>See your previous ticket purchases and receipts.</p>
-        </a>
-
-        <a class="card" href="/Profile/Favourites">
-            <h3>❤️ Favourite Games</h3>
-            <p>Your saved games and interested events.</p>
-        </a>
-
-        <a class="card" href="/Profile/Settings">
-            <h3>⚙️ Account Settings</h3>
-            <p>Edit profile, password and notification settings.</p>
-        </a>
-
-    </div>
-
-    <!-- Upcoming Event Preview -->
-    <h3 class="section-title">My Upcoming Events</h3>
-
-    <div class="event-list">
-
-        <div class="event-list">
-
-            @if (Model.UpcomingEvents.Any())
+            @if (!string.IsNullOrEmpty(Model.UserImg))
             {
-                foreach (var item in Model.UpcomingEvents)
-                {
-                    <div class="event">
+                <img src="~/images/@Model.UserImg" class="profile-avatar" />
+            }
+            else
+            {
+                <img src="~/images/profile.jpg" class="profile-avatar" />
+            }
 
-                        <img src="~/images/@item.PosterImg" />
+            <div>
 
-                        <div class="details">
+                <h1>@Model.Name</h1>
 
-                            <h4>@item.EventName</h4>
+                <p>@Model.Email</p>
 
-                            <p>
-                                @item.StartDate.ToString("dd MMM yyyy")
-                                ·
-                                @item.StartTime.ToString("hh:mm tt")
-                            </p>
+                <span class="member-badge">
+                    ★ @Model.MembershipLevel Member
+                </span>
 
-                            <p>@item.Venue</p>
+            </div>
 
-                        </div>
+        </div>
 
-                        <a href="/Profile/Ticket/@item.RegistrationId">
+        <div class="reward-box">
+
+            <h2>@Model.RewardPoints</h2>
+
+            <span>Reward Points</span>
+
+            <small>Member since @Model.CreationDate.Year</small>
+
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+
+    <div class="quick-actions">
+
+        <a class="quick-card" href="/Profile/UpcomingEvents">
+            <div class="icon">🎫</div>
+            <h3>Upcoming</h3>
+            <p>Your event tickets</p>
+        </a>
+
+        <a class="quick-card" href="/Profile/PurchaseHistory">
+            <div class="icon">🧾</div>
+            <h3>History</h3>
+            <p>Past purchases</p>
+        </a>
+
+        <a class="quick-card" href="/Profile/Favourites">
+            <div class="icon">❤️</div>
+            <h3>Favourites</h3>
+            <p>Saved games</p>
+        </a>
+
+        <a class="quick-card" href="/Profile/Settings">
+            <div class="icon">⚙️</div>
+            <h3>Settings</h3>
+            <p>Manage account</p>
+        </a>
+
+    </div>
+
+    <!-- Upcoming Events -->
+
+    <div class="section-header">
+        <h2>Upcoming Events</h2>
+    </div>
+
+    <div class="upcoming-slider">
+
+        @if (Model.UpcomingEvents.Any())
+        {
+            foreach (var item in Model.UpcomingEvents)
+            {
+                <div class="event-card">
+
+                    <img src="~/images/@item.PosterImg" />
+
+                    <div class="event-content">
+
+                        <h3>@item.EventName</h3>
+
+                        <p>@item.StartDate.ToString("dd MMM yyyy")</p>
+
+                        <p>@item.StartTime.ToString("hh:mm tt")</p>
+
+                        <p>@item.Venue</p>
+
+                        <a class="ticket-btn" href="/Profile/Ticket/@item.RegistrationId">
                             View Ticket
                         </a>
 
                     </div>
-                }
+
+                </div>
             }
-            else
-            {
-                <p>No upcoming events.</p>
-            }
-
-        </div>
-        <div class="event">
-
-            <img src="~/images/mlbb.jpg" />
-
-            <div class="details">
-                <h4>MLBB Weekend Showdown</h4>
-                <p>5 Sept 2026 · 11:00 AM</p>
-                <p>Kuala Lumpur Esports Hub</p>
-            </div>
-
-            <button>View Ticket</button>
-
-        </div>
+        }
+        else
+        {
+            <p>No upcoming events.</p>
+        }
 
     </div>
 
     <!-- Purchase History -->
-    <h3 class="section-title">Recent Purchases</h3>
 
-    <table class="history">
+    <div class="section-header">
+        <h2>Purchase History</h2>
+    </div>
 
-        <tr>
-            <th>Event</th>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Status</th>
-        </tr>
+    <div class="history-card">
 
-        @foreach (var purchase in Model.Purchases)
-        {
-            <tr>
-                <td>@purchase.EventName</td>
+        <table>
 
-                <td>
-                    @purchase.RegistrationDate.ToString("dd MMM yyyy")
-                </td>
+            <thead>
 
-                <td>
-                    RM @purchase.Amount.ToString("0.00")
-                </td>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
 
-                <td>
-                    <span class="paid">
-                        @purchase.Status
-                    </span>
-                </td>
-            </tr>
-        }
+            </thead>
 
-    </table>
+            <tbody>
+
+                @foreach (var purchase in Model.Purchases)
+                {
+                    <tr>
+
+                        <td>@purchase.EventName</td>
+
+                        <td>@purchase.RegistrationDate.ToString("dd MMM yyyy")</td>
+
+                        <td>RM @purchase.Amount.ToString("0.00")</td>
+
+                        <td>
+                            <span class="status-paid">@purchase.Status</span>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>

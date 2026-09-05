@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20260903023604_DEM_DB")]
+    [Migration("20260905010003_DEM_DB")]
     partial class DEM_DB
     {
         /// <inheritdoc />
@@ -407,6 +407,11 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<int>("VenueCapacity")
                         .HasColumnType("int");
 
+                    b.Property<string>("VenueName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Venue");
@@ -442,6 +447,14 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("MembershipLevel")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("RewardPoints")
+                        .HasColumnType("int");
 
                     b.Property<string>("State")
                         .IsRequired()
