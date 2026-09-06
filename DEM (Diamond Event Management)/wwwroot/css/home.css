@@ -186,12 +186,13 @@ span.prev {
 }
 
 .map-section h2 {
+    color: var(--text-primary);
     margin-bottom: 20px;
     font-family: "Bree Serif", serif;
 }
 
 .map-section p {
-    color: var(--text-third);
+    color: var(--text-secondary);
     max-width: 700px;
     margin: 0 auto 25px;
     line-height: 1.7;
