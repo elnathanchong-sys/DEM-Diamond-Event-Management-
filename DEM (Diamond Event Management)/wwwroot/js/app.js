@@ -191,3 +191,26 @@ $(document).on('change', '#filter-form input[type="checkbox"]', function () {
     $(this).closest('form').submit();
 });
 
+// Back to top button 
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("backToTopBtn");
+    if (!btn) return;
+
+    const SHOW_AFTER_PX = 300; // how far down the page before the button shows up
+
+    function toggleButton() {
+        if (window.scrollY > SHOW_AFTER_PX) {
+            btn.classList.add("show");
+        } else {
+            btn.classList.remove("show");
+        }
+    }
+
+    window.addEventListener("scroll", toggleButton);
+    toggleButton(); // run once in case the page loads already scrolled down (e.g. after a redirect)
+
+    btn.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+});
+
