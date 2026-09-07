@@ -1,317 +1,85 @@
-﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.Venue>
+﻿@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Venue";
+}
 
-<style>
-    .venue-page {
-        padding: 30px;
-        color: white;
-    }
+@section head {
+    <link rel="stylesheet" href="~/css/venue.css" />
+}
 
-    /* Header */
-    .venue-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-    }
-
-    .venue-title {
-        font-family: "Barrel Relief", sans-serif;
-        font-size: 32px;
-        font-weight: 700;
-        margin: 0;
-        color: white;
-    }
-
-    .venue-subtitle {
-        margin-top: 6px;
-        font-size: 16px;
-        color: #b8b8b8;
-    }
-
-    /* Add Venue Button */
-    .add-venue-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 22px;
-        background: #6c5ce7;
-        color: white;
-        text-decoration: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        transition: 0.2s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    }
-
-        .add-venue-btn:hover {
-            background: #5848d6;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-    .add-icon {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    /* Table Container */
-    .venue-table-container {
-        background: #1f1f2b;
-        border-radius: 14px;
-        padding: 10px;
-        overflow-x: auto;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-    }
-
-    /* Table */
-    .venue-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        color: white;
-    }
-
-        .venue-table th {
-            padding: 18px 20px;
-            text-align: left;
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            background: #2c2c3a;
-            color: #cfc8ff;
-            border-bottom: 1px solid #454557;
-        }
-
-            .venue-table th:first-child {
-                border-top-left-radius: 10px;
-            }
-
-            .venue-table th:last-child {
-                border-top-right-radius: 10px;
-            }
-
-        .venue-table td {
-            padding: 20px;
-            font-size: 16px;
-            border-bottom: 1px solid #383848;
-            vertical-align: middle;
-        }
-
-        .venue-table tbody tr {
-            background: #252533;
-            transition: 0.2s ease;
-        }
-
-            .venue-table tbody tr:nth-child(even) {
-                background: #292938;
-            }
-
-            .venue-table tbody tr:hover {
-                background: #323247;
-            }
-
-            .venue-table tbody tr:last-child td {
-                border-bottom: none;
-            }
-
-    /* Venue Name */
-    .venue-name {
-        font-weight: 700;
-        font-size: 17px;
-        color: #ffffff;
-    }
-
-    /* Location */
-    .venue-location {
-        color: #d6d6df;
-    }
-
-    /* Capacity */
-    .capacity-badge {
-        display: inline-block;
-        padding: 6px 12px;
-        background: #334155;
-        color: #93c5fd;
-        border-radius: 20px;
-        font-weight: 600;
-        font-size: 14px;
-    }
-
-    /* Description */
-    .venue-description {
-        color: #bfc0ca;
-        max-width: 300px;
-        line-height: 1.5;
-    }
-
-    /* Action Buttons */
-    .action-buttons {
-        display: flex;
-        gap: 10px;
-    }
-
-    .edit-btn,
-    .delete-btn {
-        display: inline-block;
-        padding: 8px 14px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        transition: 0.2s ease;
-    }
-
-    .edit-btn {
-        background: #2563eb;
-        color: white;
-    }
-
-        .edit-btn:hover {
-            background: #1d4ed8;
-            color: white;
-        }
-
-    .delete-btn {
-        background: #dc2626;
-        color: white;
-    }
-
-        .delete-btn:hover {
-            background: #b91c1c;
-            color: white;
-        }
-
-    /* Empty State */
-    .empty-message {
-        text-align: center;
-        padding: 45px;
-        color: #a7a7b2;
-        font-size: 17px;
-    }
-
-    /* Responsive */
-    @@media (max-width: 900px) {
-        .venue-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .venue-table th,
-        .venue-table td {
-            padding: 14px;
-        }
-
-        .action-buttons {
-            flex-direction: column;
-        }
-    }
-</style>
+@model IEnumerable<DEM__Diamond_Event_Management_.Models.Venue>
 
 <div class="venue-page">
 
-    <!-- Page Header -->
     <div class="venue-header">
-        <div>
-            <h1 class="venue-title">Venue Management</h1>
-            <p class="venue-subtitle">
-                Manage your event venues and their details.
-            </p>
-        </div>
-
-        <a asp-controller="Venue"
-           asp-action="Create"
-           class="add-venue-btn">
-
-            <span class="add-icon">+</span>
-            Add Venue
-
-        </a>
+        <h1>Venue Management</h1>
+        <p>Manage all available venues.</p>
     </div>
 
-    <!-- Venue Table -->
-    <div class="venue-table-container">
+    <div class="venue-toolbar">
 
-        <table class="venue-table">
+        <div class="record-count">
+            Total Records: <strong>@Model.Count()</strong>
+        </div>
+
+        <div class="search-container">
+            <input type="text"
+                   id="venueSearch"
+                   placeholder="Search venues..."
+                   onkeyup="searchVenues()" />
+        </div>
+
+        <div class="venue-actions">
+            <a asp-action="Create" class="add-btn">
+                + Add Venue
+            </a>
+        </div>
+
+    </div>
+
+    <div class="venue-table-card">
+
+        <table class="venue-table" id="venueTable">
 
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Venue Name</th>
                     <th>Location</th>
                     <th>Capacity</th>
+                    <th>Venue Capacity</th>
                     <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
 
             <tbody>
-
-                @if (Model != null && Model.Any())
-                {
-                    @foreach (var venue in Model)
-                    {
-                        <tr>
-
-                            <td>
-                                <div class="venue-name">
-                                    @venue.VenueName
-                                </div>
-                            </td>
-
-                            <td>
-                                <div class="venue-location">
-                                    @venue.Location
-                                </div>
-                            </td>
-
-                            <td>
-                                <span class="capacity-badge">
-                                    @venue.Capacity seats
-                                </span>
-                            </td>
-
-                            <td>
-                                <div class="venue-description">
-                                    @(string.IsNullOrWhiteSpace(venue.Description)
-                                        ? "No description"
-                                        : venue.Description)
-                                </div>
-                            </td>
-
-                            <td>
-                                <div class="action-buttons">
-
-                                    <a asp-action="Edit"
-                                       asp-route-id="@venue.Id"
-                                       class="edit-btn">
-                                        Edit
-                                    </a>
-
-                                    <a asp-action="Delete"
-                                       asp-route-id="@venue.Id"
-                                       class="delete-btn"
-                                       onclick="return confirm('Are you sure you want to delete this venue?');">
-                                        Delete
-                                    </a>
-
-                                </div>
-                            </td>
-
-                        </tr>
-                    }
-                }
-                else
+                @foreach (var venue in Model)
                 {
                     <tr>
-                        <td colspan="5">
-                            <div class="empty-message">
-                                No venues have been added yet.
-                            </div>
+                        <td>@venue.Id</td>
+                        <td>@venue.VenueName</td>
+                        <td>@venue.Location</td>
+                        <td>@venue.Capacity</td>
+                        <td>@venue.VenueCapacity</td>
+                        <td>@venue.Description</td>
+
+                        <td class="action-buttons">
+                            <a asp-action="Edit"
+                               asp-route-id="@venue.Id"
+                               class="edit-btn">
+                                Edit
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@venue.Id"
+                               class="delete-btn"
+                               onclick="return confirm('Are you sure you want to delete this venue?');">
+                                Delete
+                            </a>
                         </td>
                     </tr>
                 }
-
             </tbody>
 
         </table>
@@ -319,3 +87,22 @@
     </div>
 
 </div>
+
+<script>
+    function searchVenues() {
+        var input = document.getElementById("venueSearch");
+        var filter = input.value.toLowerCase();
+        var table = document.getElementById("venueTable");
+        var rows = table.getElementsByTagName("tr");
+
+        for (var i = 1; i < rows.length; i++) {
+            var text = rows[i].textContent.toLowerCase();
+
+            if (text.includes(filter)) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>

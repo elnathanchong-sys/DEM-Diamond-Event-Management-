@@ -1,0 +1,259 @@
+﻿.venue-page {
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.venue-header {
+    margin-bottom: 25px;
+}
+
+    .venue-header h1 {
+        font-size: 36px;
+        margin: 0;
+        color: white;
+    }
+
+    .venue-header p {
+        color: #aaa;
+        margin-top: 8px;
+    }
+
+.venue-toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.record-count {
+    color: white;
+    font-size: 16px;
+}
+
+    .record-count strong {
+        color: #ddd;
+    }
+
+.search-container {
+    display: flex;
+    justify-content: center;
+}
+
+#venueSearch {
+    width: 280px;
+    padding: 11px 15px;
+    background: #343a40;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+    #venueSearch::placeholder {
+        color: #aaa;
+    }
+
+    #venueSearch:focus {
+        border-color: #777;
+    }
+
+.venue-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-btn {
+    background: #6c757d;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+    .add-btn:hover {
+        background: #7d868e;
+    }
+
+.venue-table-card {
+    background: #343a40;
+    border-radius: 15px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.venue-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+    .venue-table th {
+        text-align: left;
+        padding: 15px;
+        background: #2c3136;
+        font-size: 15px;
+    }
+
+    .venue-table td {
+        padding: 15px;
+        border-bottom: 1px solid #4a4f54;
+        color: #ddd;
+    }
+
+    .venue-table tbody tr:hover {
+        background: #3d4349;
+    }
+
+.action-buttons {
+    white-space: nowrap;
+}
+
+.edit-btn {
+    display: inline-block;
+    background: #6c757d;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    display: inline-block;
+    background: #dc3545;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.edit-btn:hover {
+    background: #7d868e;
+}
+
+.delete-btn:hover {
+    background: #bb2d3b;
+}
+
+@media (max-width: 800px) {
+    .venue-page {
+        padding: 25px;
+    }
+
+    .venue-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .search-container {
+        justify-content: flex-start;
+    }
+
+    .venue-actions {
+        justify-content: flex-start;
+    }
+
+    #venueSearch {
+        width: 100%;
+    }
+}
+
+.form-row {
+    display: flex;
+    gap: 40px;
+}
+
+    .form-row .form-group {
+        flex: 1;
+    }
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+    .form-group label {
+        display: block;
+        color: white;
+        font-weight: bold;
+        font-size: 17px;
+        margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        box-sizing: border-box;
+        background: #4b535c;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 13px 15px;
+        font-size: 15px;
+        outline: none;
+    }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #aaa;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            background: #525b65;
+        }
+
+    .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+.field-validation-error {
+    display: block;
+    color: #ff6b6b;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.save-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 7px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+    .save-btn:hover {
+        background: #7d868e;
+    }
+
+.cancel-btn {
+    background: #dc3545;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+    .cancel-btn:hover {
+        background: #bb2d3b;
+    }
+
+@media (max-width: 800px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

@@ -1,5 +1,20 @@
-V001	Sunway Convention Centre	500
-V002	Kuala Lumpur Esports Hub	1200
-V003	Malaysia International Trade Centre	2500
-V004	Putrajaya International Convention Centre	5000
-V005	Bukit Jalil National Stadium	10000
+V001	Sunway Convention Centre	Selangor	500	Modern convention venue for conferences and corporate events	500
+V002	Kuala Lumpur Esports Hub	Kuala Lumpur	1200	Indoor venue suitable for exhibitions and gaming events	1200
+V003	Malaysia International Trade Centre	Kuala Lumpur	2500	Large exhibition venue for trade shows and events	2500
+V004	Putrajaya International Convention Centre	Putrajaya	5000	Large venue suitable for conferences and formal events	5000
+V005	Bukit Jalil National Stadium	Kuala Lumpur	10000	Large stadium suitable for major public events	10000
+V006	KL Convention Centre	Kuala Lumpur	3000	Professional venue for conferences and exhibitions	3000
+V007	One World Hotel Grand Ballroom	Petaling Jaya	800	Elegant ballroom for weddings dinners and private events	800
+V008	Shangri-La Kuala Lumpur Ballroom	Kuala Lumpur	1000	Luxury ballroom suitable for formal events and dinners	1000
+V009	Mandarin Oriental Kuala Lumpur Ballroom	Kuala Lumpur	1500	Premium event space for conferences and celebrations	1500
+V010	Sime Darby Convention Centre	Kuala Lumpur	2000	Flexible venue for corporate events and exhibitions	2000
+V011	Setia City Convention Centre	Shah Alam	2500	Modern convention centre for large events and conferences	2500
+V012	Genting International Convention Centre	Genting	3000	Event venue suitable for conferences and entertainment	3000
+V013	Renaissance Kuala Lumpur Ballroom	Kuala Lumpur	900	Hotel ballroom for weddings dinners and corporate events	900
+V014	Hilton Kuala Lumpur Grand Ballroom	Kuala Lumpur	1200	Spacious ballroom for formal events and celebrations	1200
+V015	The Majestic Hotel Kuala Lumpur	Kuala Lumpur	700	Classic venue suitable for weddings and private functions	700
+V016	Malaysia Agro Exposition Park Serdang	Selangor	4000	Large exhibition space for fairs shows and public events	4000
+V017	World Trade Centre Kuala Lumpur	Kuala Lumpur	3500	Large event space for conferences exhibitions and fairs	3500
+V018	Connexion Conference & Event Centre	Kuala Lumpur	1800	Modern event space for conferences and corporate functions	1800
+V019	Royale Chulan Kuala Lumpur Ballroom	Kuala Lumpur	1000	Hotel ballroom for weddings dinners and formal events	1000
+V020	Berjaya Times Square Convention Centre	Kuala Lumpur	2200	Versatile venue for exhibitions conferences and celebrations	2200

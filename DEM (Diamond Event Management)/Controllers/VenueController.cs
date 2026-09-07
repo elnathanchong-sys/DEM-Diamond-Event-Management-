@@ -32,6 +32,11 @@ namespace DEM__Diamond_Event_Management_.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Venue venue)
         {
+            if (_context.Venue.Any(v => v.Id == venue.Id))
+            {
+                ModelState.AddModelError("Id", "This Venue ID already exists. Please enter a different ID.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(venue);

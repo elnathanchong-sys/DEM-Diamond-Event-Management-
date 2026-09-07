@@ -1,48 +1,94 @@
-﻿@model DEM__Diamond_Event_Management_.Models.Venue
+﻿@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Add Venue";
+}
 
-<h1>Add Venue</h1>
+@section head {
+    <link rel="stylesheet" href="~/css/venue.css" />
+}
 
-<form asp-action="Create" method="post">
+@model DEM__Diamond_Event_Management_.Models.Venue
 
-    @Html.AntiForgeryToken()
+<div class="venue-page">
 
-    <div>
-        <label asp-for="VenueName">Venue Name</label>
-        <input asp-for="VenueName" />
-        <span asp-validation-for="VenueName"></span>
+    <div class="venue-header">
+        <h1>Add New Venue</h1>
+        <p>Enter the details for the new venue.</p>
     </div>
 
-    <br />
+    <div class="venue-card">
 
-    <div>
-        <label asp-for="Location">Location</label>
-        <input asp-for="Location" />
-        <span asp-validation-for="Location"></span>
+        <form asp-action="Create" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label asp-for="Id">Venue ID</label>
+                    <input asp-for="Id"
+                           maxlength="4"
+                           placeholder="Enter venue ID... E.g. V001" />
+                    <span asp-validation-for="Id"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="VenueName">Venue Name</label>
+                    <input asp-for="VenueName"
+                           placeholder="Enter venue name..." />
+                    <span asp-validation-for="VenueName"></span>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label asp-for="Location">Location</label>
+                    <input asp-for="Location"
+                           placeholder="Enter venue location..." />
+                    <span asp-validation-for="Location"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Capacity">Capacity</label>
+                    <input asp-for="Capacity"
+                           type="number"
+                           placeholder="Enter capacity..." />
+                    <span asp-validation-for="Capacity"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="VenueCapacity">Venue Capacity</label>
+                <input asp-for="VenueCapacity"
+                       type="number"
+                       placeholder="Enter venue capacity..." />
+                <span asp-validation-for="VenueCapacity"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <textarea asp-for="Description"
+                          placeholder="Enter venue description..."></textarea>
+                <span asp-validation-for="Description"></span>
+            </div>
+
+            <div class="form-buttons">
+
+                <button type="submit" class="save-btn">
+                    Add Venue
+                </button>
+
+                <a asp-action="Index" class="cancel-btn">
+                    Return
+                </a>
+
+            </div>
+
+        </form>
+
     </div>
 
-    <br />
-
-    <div>
-        <label asp-for="Capacity">Capacity</label>
-        <input asp-for="Capacity" type="number" />
-        <span asp-validation-for="Capacity"></span>
-    </div>
-
-    <br />
-
-    <div>
-        <label asp-for="Description">Description</label>
-        <textarea asp-for="Description"></textarea>
-    </div>
-
-    <br />
-
-    <button type="submit">
-        Add Venue
-    </button>
-
-    <a asp-action="Index">
-        Cancel
-    </a>
-
-</form>
+</div>

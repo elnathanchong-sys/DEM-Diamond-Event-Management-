@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20260903034119_UpdateVenue")]
-    partial class UpdateVenue
+    [Migration("20260904133026_DEMDB")]
+    partial class DEMDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,27 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.HasIndex("VenueId");
 
                     b.ToTable("Event");
+                });
+
+            modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.IndexBanner", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("IndexBannerImg")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IndexBanner");
                 });
 
             modelBuilder.Entity("DEM__Diamond_Event_Management_.Models.Payment", b =>
@@ -394,6 +415,10 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("VenueCapacity")
+                        .HasMaxLength(100)
+                        .HasColumnType("int");
+
                     b.Property<string>("VenueName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -434,6 +459,14 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("MembershipLevel")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("RewardPoints")
+                        .HasColumnType("int");
 
                     b.Property<string>("State")
                         .IsRequired()
