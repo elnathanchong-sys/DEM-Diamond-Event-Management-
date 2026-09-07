@@ -86,7 +86,7 @@
 
 .event-action-btns span{
     padding: 8px 12px;
-    background: var(--text-secondary);
+    background: var(--accent-100);
     color: var(--black);
     border: none;
     border-radius: 6px;

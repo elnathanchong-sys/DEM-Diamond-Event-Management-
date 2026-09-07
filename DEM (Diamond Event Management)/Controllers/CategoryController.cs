@@ -26,15 +26,25 @@ namespace DEM__Diamond_Event_Management_.Controllers
                 return View(vm);
             }
 
-            if (db.Category.Any(c => c.Id == vm.Id))
+            // Find the latest category ID
+            var lastCategory = db.Category
+                .OrderByDescending(c => c.Id)
+                .FirstOrDefault();
+
+            int nextNumber = 1;
+
+            if (lastCategory != null)
             {
-                ModelState.AddModelError("Id", "Category ID already exists.");
-                return View(vm);
+                nextNumber = int.Parse(lastCategory.Id.Substring(1)) + 1;
             }
 
+            // Generate new Category ID
+            string newId = "C" + nextNumber.ToString("D3");
+
+            // Create category
             var category = new Category
             {
-                Id = vm.Id,
+                Id = newId,
                 CategoryName = vm.Name
             };
 

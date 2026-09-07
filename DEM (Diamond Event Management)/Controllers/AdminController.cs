@@ -146,11 +146,45 @@ public class AdminController(DB db, Helper hp) : Controller
     }
 
     [HttpGet]
+    [HttpGet]
     public IActionResult Index()
     {
+        // Total number of events
+        int totalEvents = db.Event.Count();
+
+        // Total ongoing events
+        int totalOngoing = db.Event
+            .Count(e => e.Status == "Ongoing");
+
+        // Total pending events
+        int totalPending = db.Event
+            .Count(e => e.Status == "Pending");
+
+        // Total revenue from payments
+        decimal totalRevenue = db.Payment
+            .Sum(p => (decimal?)p.AmountPaid) ?? 0;
+
+        // Get 5 most recent events
+        var recentEvents = db.Event
+            .OrderByDescending(e => e.StartDate)
+            .Take(5)
+            .Select(e => new EventVM
+            {
+                Id = e.Id,
+                Name = e.Name,
+                StartDate = e.StartDate,
+                EndDate = e.EndDate,
+                Status = e.Status
+            })
+            .ToList();
+
         var model = new EventVM
         {
-
+            TotalEvents = totalEvents,
+            TotalOngoing = totalOngoing,
+            TotalPending = totalPending,
+            TotalRevenue = totalRevenue,
+            RecentEvents = recentEvents
         };
 
         return View(model);

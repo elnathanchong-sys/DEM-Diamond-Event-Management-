@@ -39,10 +39,6 @@ public class IndexBannerController(DB db, Helper hp) : Controller
     [HttpPost]
     public IActionResult IndexBannerCreate(IndexBannerVM vm, IFormFile? indexBannerFile)
     {
-        if (ModelState.IsValid("Id") && db.IndexBanner.Any(b => b.Id == vm.Id))
-        {
-            ModelState.AddModelError("Id", "IndexBanner ID already exists.");
-        }
 
         if (indexBannerFile == null || indexBannerFile.Length == 0)
         {
@@ -61,6 +57,13 @@ public class IndexBannerController(DB db, Helper hp) : Controller
         {
             return View(vm);
         }
+
+        int nextBannerNumber = db.IndexBanner
+                          .AsEnumerable()
+                          .Select(b => int.TryParse(b.Id.Substring(2), out int n) ? n : 0)
+                          .DefaultIfEmpty(0)
+                          .Max() + 1;
+        string newBannerId = $"IB{nextBannerNumber:D3}";
 
         var banner = new IndexBanner
         {

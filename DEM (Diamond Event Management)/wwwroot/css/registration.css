@@ -232,8 +232,8 @@
 }
 
 .status-approved {
-    background: var(--accent-color);
-    color: var(--bg-page);
+    background: var(--accent-100);
+    color: var(--black);
 }
 
 .status-denied {
@@ -268,8 +268,8 @@
 
 .btn-approve {
     padding: 10px 20px;
-    background: var(--accent-50);
-    color: var(--bg-page);
+    background: var(--accent-100);
+    color: var(--black);
     border: none;
     border-radius: 6px;
     font-size: 16px;
@@ -291,7 +291,7 @@
 .btn-deny {
     padding: 10px 20px;
     background: red;
-    color: white;
+    color: var(--black);
     border: none;
     border-radius: 6px;
     font-size: 16px;

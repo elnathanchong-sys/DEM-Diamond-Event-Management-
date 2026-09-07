@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace DEM__Diamond_Event_Management_.Controllers;
 
@@ -72,14 +73,14 @@ public class EventController(DB db,
         //then you check if the user is logged in or not
         if (User.Identity != null && User.Identity.IsAuthenticated)
         {
-            string userEmail = User.Identity.Name!; //get user email from the logged in user visiting the page.
+            string? userEmail = User.FindFirstValue(ClaimTypes.NameIdentifier); //get user email from the logged in user visiting the page.
             alreadyRegistered = db.Registration.Any(r => r.EventId == id &&
                                                          r.UserEmail == userEmail &&
                                                          r.Status != "Cancelled"); 
             // then check if the user has already registered for the current events
         }
         ViewBag.AlreadyRegistered = alreadyRegistered; //temp storage for cshtml
-
+        ViewBag.CanRegister = model.Status == "Upcoming";
         return View(model);
     }
 
@@ -89,8 +90,17 @@ public class EventController(DB db,
     [Authorize]
     public IActionResult RegisterTeam(RegistrationVM vm)
     {
+        //Check if the user is logged in and get the email of the logged in user
+        string? userEmail = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (User.Identity == null || !User.Identity.IsAuthenticated || string.IsNullOrEmpty(userEmail))
+        {
+            TempData["Error"] = "Please login before registering a team.";
+            return RedirectToAction("EventIndividual", new { id = vm.EventId });
+        }
+
         // connect to the database
-        var e = db.Event.Find(vm.EventId); 
+        var e = db.Event.Find(vm.EventId);
 
         // Check if the event still exists
         if (e == null)
@@ -99,11 +109,14 @@ public class EventController(DB db,
             return RedirectToAction("EventList", "Home");
         }
 
-        // check the logged in user email
-        string userEmail = User.Identity!.Name!;
+        if (e.Status != "Upcoming")
+        {
+            TempData["Error"] = "Sorry, this tournament is no longer open for registration.";
+            return RedirectToAction("EventIndividual", new { id = vm.EventId });
+        }
 
         // Team name input check and trimmed
-        string teamName = (vm.TeamName ?? "").Trim(); 
+        string teamName = (vm.TeamName ?? "").Trim();
         // For player in game names input, trimmed 
         List<string> playerIgns = (vm.PlayerIGNs ?? [])
                                     .Where(p => !string.IsNullOrWhiteSpace(p))
@@ -176,7 +189,7 @@ public class EventController(DB db,
             else if (i == 6) role = "Coach";
             else if (i > 6) role = "Extra";
 
-            db.Player.Add(new Player
+            registration.Players.Add(new Player
             {
                 Id = $"TP{playerSeq:D4}",
                 IGN = playerIgns[i],
@@ -189,8 +202,7 @@ public class EventController(DB db,
 
         TempData["Info"] = "Team registered! It has been added to your cart.";
         return RedirectToAction("EventIndividual", new { id = vm.EventId });
-    }
-    //-----------------------------End of Registration-------------------------
+    }    //-----------------------------End of Registration-------------------------
     // GET: Home/CheckEventId 
     public bool CheckEventId(string eventId)
     {
@@ -224,11 +236,6 @@ public class EventController(DB db,
     [HttpPost]
     public IActionResult EventCreate(EventVM vm, IFormFile PosterImg, IFormFile BannerImg)
     {
-        if (ModelState.IsValid("Id") &&
-            db.Event.Any(e => e.Id == vm.Id))
-        {
-            ModelState.AddModelError("Id", "Duplicated Id");
-        }
 
         if (ModelState.IsValid("PosterImg"))
         {
@@ -260,9 +267,16 @@ public class EventController(DB db,
             string posterFilename = hp.SavePhoto(PosterImg, "uploads", 300, 425);
             string bannerFilename = hp.SavePhoto(BannerImg, "uploads", 7680, 2400);
 
+            int nextEventNumber = db.Event
+                         .AsEnumerable()
+                         .Select(e => int.TryParse(e.Id.Substring(1), out int n) ? n : 0)
+                         .DefaultIfEmpty(0)
+                         .Max() + 1;
+            string newEventId = $"E{nextEventNumber:D3}";
+
             db.Event.Add(new()
             {
-                Id = vm.Id.Trim().ToUpper(),
+                Id = newEventId,
                 Name = vm.Name.Trim().ToUpper(),
                 Description = vm.Description,
                 StartDate = vm.StartDate,
@@ -282,7 +296,7 @@ public class EventController(DB db,
                 VenueId = vm.VenueId
             });
             db.SaveChanges();
-            TempData["Info"] = "Record inserted.";
+            TempData["Info"] = $"Record inserted. Event ID: {newEventId}";
             return RedirectToAction("EventRead");
         }
 

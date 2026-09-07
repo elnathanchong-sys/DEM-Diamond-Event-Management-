@@ -13,11 +13,13 @@
             <div asp-validation-summary="ModelOnly"></div>
 
             <div class="event-create-body-row-one">
+@*
                 <div class="event-create-input-box">
                     <label asp-for="Id"></label>
                     <input asp-for="Id" data-upper autofocus placeholder="Enter event ID... E.g., E001" />
                     <span asp-validation-for="Id"></span>
                 </div>
+*@
                 <div class="event-create-input-box">
                     <label asp-for="Name"></label>
                     <input asp-for="Name" data-trim placeholder="Enter event name..." />

@@ -1,191 +1,388 @@
 ﻿@model DEM__Diamond_Event_Management_.Models.EventVM
 
 @{
-    ViewBag.Title = "Events";
+    ViewBag.Title = "Dashboard";
     Layout = "_AdminLayout";
 }
 
 <div class="container">
+
     <main>
+
         <h1>Dashboard</h1>
+
         <div class="date">
             <input type="date">
         </div>
 
+
+        <!-- ==========================
+             DASHBOARD STATISTICS
+             ========================== -->
+
         <div class="insights">
-            <!--how many tournament event-->
+
+            <!-- Total Tournament -->
             <div class="event">
+
                 <span>🏆</span>
+
                 <div class="middle">
+
                     <div class="left">
+
                         <h3>Total tournament</h3>
-                        <h1>111</h1>
+
+                        <h1>@Model.TotalEvents</h1>
+
                     </div>
+
                     <div class="progress">
+
                         <svg>
                             <circle r="30" cy="40" cx="40"></circle>
                         </svg>
-                        <div class="number">80%</div>
+
+                        <div class="number">
+                            100%
+                        </div>
+
                     </div>
+
                 </div>
-                <small>Last 24 Hours</small>
+
+                <small>All Events</small>
+
             </div>
 
-            <!--how many ongoing tournament event-->
+
+            <!-- Total Ongoing -->
             <div class="ongoing">
+
                 <span>🎮</span>
+
                 <div class="middle">
+
                     <div class="left">
+
                         <h3>Total ongoing</h3>
-                        <h1>111</h1>
+
+                        <h1>@Model.TotalOngoing</h1>
+
                     </div>
+
                     <div class="progress">
+
                         <svg>
                             <circle r="30" cy="40" cx="40"></circle>
                         </svg>
-                        <div class="number">80%</div>
+
+                        <div class="number">
+                            @(Model.TotalEvents > 0
+                                ? ((double)Model.TotalOngoing / Model.TotalEvents * 100).ToString("0") + "%"
+                                : "0%")
+                        </div>
+
                     </div>
+
                 </div>
-                <small>Last 24 Hours</small>
+
+                <small>Current Events</small>
+
             </div>
 
-            <!--how many tournament event is pending-->
+
+            <!-- Total Pending -->
             <div class="pending">
+
                 <span>📝</span>
+
                 <div class="middle">
+
                     <div class="left">
+
                         <h3>Total pending</h3>
-                        <h1>111</h1>
+
+                        <h1>@Model.TotalPending</h1>
+
                     </div>
+
                     <div class="progress">
+
                         <svg>
                             <circle r="30" cy="40" cx="40"></circle>
                         </svg>
-                        <div class="number">80%</div>
+
+                        <div class="number">
+                            @(Model.TotalEvents > 0
+                                ? ((double)Model.TotalPending / Model.TotalEvents * 100).ToString("0") + "%"
+                                : "0%")
+                        </div>
+
                     </div>
+
                 </div>
-                <small>Last 24 Hours</small>
+
+                <small>Pending Events</small>
+
             </div>
+
         </div>
 
-        <!--  Recent Tournaments  -->
+
+        <!-- ==========================
+             RECENT TOURNAMENTS
+             ========================== -->
+
         <div class="recent_tournament">
+
             <h1>Recent Tournaments</h1>
+
             <table>
+
                 <thead>
+
                     <tr>
+
                         <th>Tournament Name</th>
+
                         <th>Date</th>
+
                         <th>Status</th>
+
+                        <th>Action</th>
+
                     </tr>
+
                 </thead>
+
+
                 <tbody>
-                    <!-- Example row - replace with actual data -->
-                    <tr>
-                        <td>Championship Tournament</td>
-                        <td>2023-10-15</td>
-                        <td class="warning">Pending</td>
-                        <td class="primary">View</td>
-                    </tr>
-                    <tr>
-                        <td>Championship Tournament</td>
-                        <td>2023-10-15</td>
-                        <td class="warning">Pending</td>
-                        <td class="primary">View</td>
-                    </tr>
-                    <tr>
-                        <td>Championship Tournament</td>
-                        <td>2023-10-15</td>
-                        <td class="warning">Pending</td>
-                        <td class="primary">View</td>
-                    </tr>
-                    <tr>
-                        <td>Championship Tournament</td>
-                        <td>2023-10-15</td>
-                        <td class="warning">Pending</td>
-                        <td class="primary">View</td>
-                    </tr>
-                    <tr>
-                        <td>Championship Tournament</td>
-                        <td>2023-10-15</td>
-                        <td class="warning">Pending</td>
-                        <td class="primary">View</td>
-                    </tr>
+
+                    @if (Model.RecentEvents != null &&
+                         Model.RecentEvents.Any())
+                    {
+
+                        foreach (var e in Model.RecentEvents)
+                        {
+
+                            <tr>
+
+                                <td>
+                                    @e.Name
+                                </td>
+
+                                <td>
+                                    @e.StartDate.ToString("dd/MM/yyyy")
+                                </td>
+
+                                <td class="warning">
+                                    @e.Status
+                                </td>
+
+                                <td class="primary">
+
+                                    <a asp-controller="Event"
+                                       asp-action="EventIndividual"
+                                       asp-route-id="@e.Id">
+
+                                        View
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    }
+                    else
+                    {
+
+                        <tr>
+
+                            <td colspan="4">
+                                No tournaments found.
+                            </td>
+
+                        </tr>
+
+                    }
+
                 </tbody>
+
             </table>
+
         </div>
+
     </main>
 
+
+    <!-- ==========================
+         RIGHT SIDE
+         ========================== -->
+
     <div class="right">
+
         <div class="top">
+
             <button id="menu_bar">
+
                 <span>☰</span>
+
             </button>
+
+
             <div class="theme-toggler">
+
                 <span class="active">☀️</span>
+
                 <span>🌙</span>
+
             </div>
+
 
             <div class="profile">
+
                 <div class="info">
+
                     <h3>John</h3>
+
                     <p>Admin</p>
+
                     <small class="text-muted"></small>
+
                 </div>
+
+
                 <div class="profile-photo">
-                    <img src="/images/Admin/kelvin.jpg" alt="Kelvin">
+
+                    <img src="/images/Admin/kelvin.jpg"
+                         alt="Kelvin">
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- Replaced Audit Log with Sales Analysis -->
+
+        <!-- ==========================
+             TICKET SALES ANALYSIS
+             ========================== -->
+
         <h2>Ticket Sales Analysis</h2>
+
+
         <div class="sales_analytics">
+
             <div class="sal_box">
+
+
+                <!-- General Tickets -->
+
                 <div class="item online">
+
                     <div class="icon">
+
                         <span>🎫</span>
+
                     </div>
+
+
                     <div class="right_content">
+
                         <div class="info">
+
                             <h3>General Tickets</h3>
-                            <small class="text-muted">Last 24 Hours</small>
+
+                            <small class="text-muted">
+                                Total Sold
+                            </small>
+
                         </div>
-                        <h5 class="success">+39%</h5>
-                        <h3>RM 3,849</h3>
+
+
+                        <h3>
+                            @Model.RecentEvents
+                        </h3>
+
                     </div>
+
                 </div>
+
+
+                <!-- VIP Tickets -->
 
                 <div class="item offline">
+
                     <div class="icon">
+
                         <span>🎟️</span>
+
                     </div>
+
+
                     <div class="right_content">
+
                         <div class="info">
+
                             <h3>VIP Tickets</h3>
-                            <small class="text-muted">Last 24 Hours</small>
+
+                            <small class="text-muted">
+                                Ticket Sales
+                            </small>
+
                         </div>
-                        <h5 class="danger">-17%</h5>
-                        <h3>RM 1,100</h3>
+
+
+                        <h3>
+                            Coming Soon
+                        </h3>
+
                     </div>
+
                 </div>
+
+
+                <!-- Total Revenue -->
 
                 <div class="item customers">
+
                     <div class="icon">
+
                         <span>💰</span>
+
                     </div>
+
+
                     <div class="right_content">
+
                         <div class="info">
+
                             <h3>Total Revenue</h3>
-                            <small class="text-muted">Last 24 Hours</small>
+
+                            <small class="text-muted">
+                                All Payments
+                            </small>
+
                         </div>
-                        <h5 class="success">+25%</h5>
-                        <h3>RM 84,250</h3>
+
+
+                        <h3>
+                            RM @Model.TotalRevenue.ToString("N2")
+                        </h3>
+
                     </div>
+
                 </div>
+
+
             </div>
+
         </div>
-        <!-- End of Sales Analysis -->
 
     </div>
+
 </div>
