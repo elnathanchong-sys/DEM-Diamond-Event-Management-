@@ -14,6 +14,7 @@ public class DB(DbContextOptions options) : DbContext(options)
     public DbSet<Member> Member { get; set; }
     public DbSet<Admin> Admin { get; set; }
     public DbSet<Event> Event { get; set; }
+    public DbSet<IndexBanner> IndexBanner { get; set; }
     public DbSet<Registration> Registration { get; set; }
     public DbSet<Player> Player { get; set; }
     public DbSet<Category> Category { get; set; }
@@ -56,6 +57,7 @@ public class Member : User
 {
     [MaxLength(100)]
     public string Country { get; set; }
+
     [MaxLength(100)]
     public string State { get; set; }
 
@@ -67,6 +69,12 @@ public class Member : User
 
     [MaxLength(100)]
     public string Address { get; set; }
+
+    // Membership information
+    [MaxLength(20)]
+    public string MembershipLevel { get; set; } = "Silver";
+
+    public int RewardPoints { get; set; } = 0;
 }
 
 public class Admin : User
@@ -119,6 +127,16 @@ public class Event
     public Category Category { get; set; }
     public Venue Venue { get; set; }
     public List<Registration> Registrations { get; set; } = [];
+}
+
+public class IndexBanner
+{
+    [Key, MaxLength(6)]
+    public string Id { get; set; }
+    [MaxLength(100)]
+    public string Name { get; set; }
+    [MaxLength(100)]
+    public string IndexBannerImg { get; set; }
 }
 
 public class Registration
@@ -189,6 +207,9 @@ public class Venue
     public string? Description { get; set; }
 
     public List<Event> Events { get; set; } = [];
+
+    [Range(1, 100000)]
+    public int VenueCapacity { get; set; }
 }
 
 public class Payment

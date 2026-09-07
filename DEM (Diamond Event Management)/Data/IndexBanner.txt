@@ -1,0 +1,10 @@
+IB001	CS2 Major Championship 2026	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB002	Valorant Masters Asia	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB003	LoL Worlds Regional Qualifier	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB004	Dota 2 Open Invitational	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB005	MLBB MPL Season Playoffs	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB006	PUBG Mobile Global Showdown	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB007	HoK Mid-Season Cup	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB008	CS2 Challenger Cup	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB009	Valorant Game Changers	5d4ccc4c8ed047b38a316c816e9cacb2.jpg
+IB010	LoL Campus Championship	5d4ccc4c8ed047b38a316c816e9cacb2.jpg

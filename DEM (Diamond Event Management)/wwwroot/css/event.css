@@ -42,6 +42,9 @@
 }
 
 .event-record-amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     color: var(--text-primary);
     margin: 0px 35px;
 }
@@ -61,6 +64,7 @@
 .event-info-row {
     display: flex;
     justify-content: space-between;
+    gap: 20px;
     align-items: center;
     background-color: var(--bg-layer-2);
     border-radius: 10px;
@@ -75,8 +79,19 @@
 
 .event-action-btns {
     display: flex;
-    gap: 10px;
+    gap: 400px;
     color: var(--text-primary);
+    align-items: center;
+}
+
+.event-action-btns span{
+    padding: 8px 12px;
+    background: var(--text-secondary);
+    color: var(--black);
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    text-decoration: none;
 }
 
 .btn-update {

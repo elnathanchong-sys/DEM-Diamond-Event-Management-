@@ -61,9 +61,18 @@
                 <button type="button" class="theme-toggle">
                     <i class="bx bx-moon"></i>
                 </button>
-                <a href="/Account/Login" class="user-icon">
-                    <i class="bx bx-user"></i>
-                </a>
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a href="/User/CusProfile" class="user-icon">
+                        <i class="bx bx-user"></i>
+                    </a>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="user-icon">
+                        <i class="bx bx-user"></i>
+                    </a>
+                }
             </div>
 
         </nav>
