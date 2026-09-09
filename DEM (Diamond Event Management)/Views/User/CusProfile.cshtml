@@ -44,6 +44,13 @@
 
             <small>Member since @Model.CreationDate.Year</small>
 
+            <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="logout-button">
+                    <i class="bx bx-log-out"></i> Logout
+                </button>
+            </form>
+
         </div>
 
     </div>
@@ -68,6 +75,12 @@
             <div class="icon">❤️</div>
             <h3>Favourites</h3>
             <p>Saved games</p>
+        </a>
+
+        <a class="quick-card" href="/User/EditProfile">
+            <div class="icon">✏️</div>
+            <h3>Edit Profile</h3>
+            <p>Update your details</p>
         </a>
 
         <a class="quick-card" href="/Profile/Settings">

@@ -2,12 +2,97 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace DEM__Diamond_Event_Management_.Controllers;
 
 [Authorize(Roles = "Admin")]
 public class AdminController(DB db, Helper hp) : Controller
 {
+    private const string SuperAdminEmail = "admin@domain.com";
+
+    private bool IsSuperAdmin()
+    {
+        return hp.IsSuperAdmin();
+    }
+
+    private IActionResult? RequireSuperAdmin(string? returnAction = null)
+    {
+        if (!IsSuperAdmin())
+        {
+            TempData["Error"] = "Only the Super Admin can add, update, or delete admin accounts.";
+            return RedirectToAction(nameof(ReadAdmin));
+        }
+
+        return null;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditMyProfile()
+    {
+        var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(email))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var admin = await db.Admin
+            .FirstOrDefaultAsync(a => a.Email == email);
+
+        if (admin == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var model = new AdminEditViewModel
+        {
+            Email = admin.Email,
+            Name = admin.Name,
+            Gender = admin.Gender,
+            Phone = admin.Phone,
+            NewPassword = string.Empty
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditMyProfile(AdminEditViewModel model)
+    {
+        var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(email))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var admin = await db.Admin
+            .FirstOrDefaultAsync(a => a.Email == email);
+
+        if (admin == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        admin.Name = model.Name;
+        admin.Gender = model.Gender;
+        admin.Phone = model.Phone ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(model.NewPassword))
+        {
+            admin.HashedPassword = hp.HashPassword(model.NewPassword);
+        }
+
+        await db.SaveChangesAsync();
+        TempData["Info"] = "Your profile has been updated.";
+        return RedirectToAction(nameof(Index));
+    }
+
     // In-memory list to persist custom announcements while the application is running
     private static readonly List<AnnouncementItem> _announcements = [];
 
@@ -23,6 +108,9 @@ public class AdminController(DB db, Helper hp) : Controller
     [HttpGet]
     public IActionResult CreateAdmin()
     {
+        var gate = RequireSuperAdmin();
+        if (gate != null) return gate;
+
         return View();
     }
 
@@ -31,6 +119,9 @@ public class AdminController(DB db, Helper hp) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateAdmin(AdminCreateViewModel model)
     {
+        var gate = RequireSuperAdmin();
+        if (gate != null) return gate;
+
         if (db.User.Any(u => u.Email == model.Email))
         {
             ModelState.AddModelError("Email", "An account with this email address already exists.");
@@ -65,6 +156,9 @@ public class AdminController(DB db, Helper hp) : Controller
     [HttpGet]
     public IActionResult UpdateAdmin(string email)
     {
+        var gate = RequireSuperAdmin();
+        if (gate != null) return gate;
+
         if (string.IsNullOrEmpty(email)) return NotFound();
 
         var admin = db.Admin.Find(email);
@@ -86,6 +180,9 @@ public class AdminController(DB db, Helper hp) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateAdmin(AdminEditViewModel model)
     {
+        var gate = RequireSuperAdmin();
+        if (gate != null) return gate;
+
         if (!ModelState.IsValid) return View(model);
 
         var admin = db.Admin.Find(model.Email);
@@ -109,12 +206,16 @@ public class AdminController(DB db, Helper hp) : Controller
     [HttpGet]
     public IActionResult DeleteAdmin(string email)
     {
+        var gate = RequireSuperAdmin();
+        if (gate != null) return gate;
+
         if (string.IsNullOrEmpty(email)) return NotFound();
 
         var admin = db.Admin.Find(email);
         if (admin == null) return NotFound();
 
-        if (User.Identity?.Name == email)
+        var currentUserEmail = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.Equals(currentUserEmail, email, StringComparison.OrdinalIgnoreCase))
         {
             TempData["Error"] = "You cannot delete your own admin account.";
             return RedirectToAction(nameof(ReadAdmin));
@@ -128,7 +229,11 @@ public class AdminController(DB db, Helper hp) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteAdminConfirmed(string email)
     {
-        if (User.Identity?.Name == email)
+        var gate = RequireSuperAdmin();
+        if (gate != null) return gate;
+
+        var currentUserEmail = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.Equals(currentUserEmail, email, StringComparison.OrdinalIgnoreCase))
         {
             TempData["Error"] = "You cannot delete your own admin account.";
             return RedirectToAction(nameof(ReadAdmin));

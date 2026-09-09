@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     /// <inheritdoc />
-    public partial class DEMDB : Migration
+    public partial class DEM_DB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -103,7 +103,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    VenueCapacity = table.Column<int>(type: "int", maxLength: 100, nullable: false)
+                    VenueCapacity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

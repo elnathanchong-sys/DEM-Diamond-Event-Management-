@@ -57,12 +57,20 @@ public class AccountController(DB db, Helper hp) : Controller
         return View(model);
     }
 
+    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout(string? returnURL)
     {
         TempData["Info"] = "Logout successful!";
 
-        //Sign out
+        // Sign out
         await hp.SignOut();
+
+        if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
+        {
+            return Redirect(returnURL);
+        }
 
         return RedirectToAction("Index", "Home");
     }

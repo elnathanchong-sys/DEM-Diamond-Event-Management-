@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     [DbContext(typeof(DB))]
-<<<<<<<< HEAD:DEM (Diamond Event Management)/Migrations/20260904133026_DEMDB.Designer.cs
-    [Migration("20260904133026_DEMDB")]
-    partial class DEMDB
-========
-    [Migration("20260905025102_DEM_DB")]
+    [Migration("20260909020006_DEM_DB")]
     partial class DEM_DB
->>>>>>>> 63de8294724e2f4ecd4e9e410ea46cf0e3289a8a:DEM (Diamond Event Management)/Migrations/20260905025102_DEM_DB.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -412,7 +407,6 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-<<<<<<<< HEAD:DEM (Diamond Event Management)/Migrations/20260904133026_DEMDB.Designer.cs
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -422,11 +416,8 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("VenueCapacity")
-                        .HasMaxLength(100)
                         .HasColumnType("int");
 
-========
->>>>>>>> 63de8294724e2f4ecd4e9e410ea46cf0e3289a8a:DEM (Diamond Event Management)/Migrations/20260905025102_DEM_DB.Designer.cs
                     b.Property<string>("VenueName")
                         .IsRequired()
                         .HasMaxLength(100)

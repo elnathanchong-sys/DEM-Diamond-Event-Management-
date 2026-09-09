@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace DEM__Diamond_Event_Management_.Controllers;
 
-public class UserController(DB db) : Controller
+public class UserController(DB db, Helper hp) : Controller
 {
     public IActionResult Profile()
     {
@@ -20,6 +20,95 @@ public class UserController(DB db) : Controller
     public IActionResult Settings()
     {
         return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditProfile()
+    {
+        var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(email))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var member = await db.Member
+            .FirstOrDefaultAsync(m => m.Email == email);
+
+        if (member == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var model = new EditProfileViewModel
+        {
+            Email = member.Email,
+            Name = member.Name,
+            Phone = member.Phone,
+            Gender = member.Gender,
+            Country = member.Country,
+            State = member.State,
+            City = member.City,
+            HouseNo = member.HouseNo,
+            Address = member.Address,
+            UserImg = member.UserImg
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditProfile(EditProfileViewModel model, IFormFile? userPhoto)
+    {
+        var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(email))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var member = await db.Member
+            .FirstOrDefaultAsync(m => m.Email == email);
+
+        if (member == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        member.Name = model.Name;
+        member.Phone = model.Phone;
+        member.Gender = model.Gender;
+        member.Country = model.Country;
+        member.State = model.State;
+        member.City = model.City;
+        member.HouseNo = model.HouseNo;
+        member.Address = model.Address;
+
+        if (userPhoto != null && userPhoto.Length > 0)
+        {
+            var photoError = hp.ValidatePhoto(userPhoto);
+            if (!string.IsNullOrEmpty(photoError))
+            {
+                ModelState.AddModelError("", photoError);
+                return View(model);
+            }
+
+            var newPhoto = hp.SavePhoto(userPhoto, "images");
+            if (!string.IsNullOrEmpty(member.UserImg))
+            {
+                hp.DeletePhoto(member.UserImg, "images");
+            }
+
+            member.UserImg = newPhoto;
+        }
+
+        await db.SaveChangesAsync();
+        TempData["Info"] = "Profile updated successfully.";
+        return RedirectToAction(nameof(CusProfile));
     }
 
     // Customer Profile
