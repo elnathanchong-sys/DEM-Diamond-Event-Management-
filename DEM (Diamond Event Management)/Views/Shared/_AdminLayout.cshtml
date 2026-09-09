@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@inject DB db
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -64,16 +67,13 @@
                     <span class="text">Categories</span>
                 </a>
             </li>
-
-            @if (User.IsInRole("Admin"))
-            {
-                <li>
-                    <a href="/Venue/Index">
-                        <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
-                        <span class="text">Manage Venues</span>
-                    </a>
-                </li>
-            }
+           
+            <li>
+                <a href="/Venue/Index">
+                    <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <span class="text">Manage Venues</span>
+                </a>
+            </li>
 
             <ul>
                 <li>
@@ -123,6 +123,24 @@
                 </form>
             </li>
         </ul>
+
+        <li class="session-view">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    string? sessionEmail = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    var sessionUser = sessionEmail == null ? null : db.User.Find(sessionEmail);
+
+                    <li class="session-info-item">
+                        <div class="session-info">
+                            <span class="icon"><i class="fa-solid fa-circle-user"></i></span>
+                            <span class="text session-info-text">
+                                <span class="session-info-name">@(sessionUser != null ? sessionUser.Name : sessionEmail)</span>
+                                <span class="session-info-role">@User.FindFirst(ClaimTypes.Role)?.Value</span>
+                            </span>
+                        </div>
+                    </li>
+                }
+        </li>
     </div>
 
     <main>
