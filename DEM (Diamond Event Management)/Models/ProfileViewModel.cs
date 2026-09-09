@@ -31,3 +31,17 @@ public class ProfilePurchaseViewModel
     public decimal Amount { get; set; }
     public string Status { get; set; }
 }
+
+public class EditProfileViewModel
+{
+    public string Email { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public string Gender { get; set; } = string.Empty;
+    public string Country { get; set; } = string.Empty;
+    public string State { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public string HouseNo { get; set; } = string.Empty;
+    public string Address { get; set; } = string.Empty;
+    public string UserImg { get; set; } = string.Empty;
+}

@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.Admin>
+@using System.Security.Claims
 @{
     ViewBag.Title = "Manage Admins";
     Layout = "_AdminLayout";
+    var currentUserEmail = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isSuperAdmin = string.Equals(currentUserEmail, "admin@domain.com", StringComparison.OrdinalIgnoreCase);
 }
 
 <link rel="stylesheet" href="~/css/Category.css" />
@@ -9,7 +12,10 @@
 <div class="category-container">
     <div class="category-header">
         <h2 class="category-title">Admin Management</h2>
-        <a asp-action="CreateAdmin" class="create-new-btn">+ Add New Admin</a>
+        @if (isSuperAdmin)
+        {
+            <a asp-action="CreateAdmin" class="create-new-btn">+ Add New Admin</a>
+        }
     </div>
 
     <p class="category-record-amount">Total Admins: @Model.Count()</p>
@@ -39,10 +45,13 @@
                     <div><strong>Created:</strong> @admin.CreationDate.ToString("yyyy-MM-dd")</div>
                 </div>
                 <div class="category-action-btns">
-                    <a asp-action="UpdateAdmin" asp-route-email="@admin.Email" class="btn-update">Edit</a>
-                    @if (User.Identity?.Name != admin.Email)
+                    @if (isSuperAdmin)
                     {
-                        <a asp-action="DeleteAdmin" asp-route-email="@admin.Email" class="btn-delete" style="background-color: red;">Delete</a>
+                        <a asp-action="UpdateAdmin" asp-route-email="@admin.Email" class="btn-update">Edit</a>
+                        @if (!string.Equals(currentUserEmail, admin.Email, StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a asp-action="DeleteAdmin" asp-route-email="@admin.Email" class="btn-delete" style="background-color: red;">Delete</a>
+                        }
                     }
                 </div>
             </div>

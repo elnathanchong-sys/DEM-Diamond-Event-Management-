@@ -95,13 +95,19 @@ public class Helper(IWebHostEnvironment en, IHttpContextAccessor ct)
         await ct.HttpContext!.SignInAsync(principal, properties);
     }
 
+    public bool IsSuperAdmin()
+    {
+        var email = ct.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+        return string.Equals(email, "admin@domain.com", StringComparison.OrdinalIgnoreCase);
+    }
+
     //Sign out
     public async Task SignOut()
     {
         await ct.HttpContext!.SignOutAsync();
     }
 
-    public string RandomPassword()
+    public string RandomPasswacord()
     {
         string s = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         string password = "";

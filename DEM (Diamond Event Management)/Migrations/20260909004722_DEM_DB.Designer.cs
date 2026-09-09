@@ -12,7 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEM__Diamond_Event_Management_.Migrations
 {
     [DbContext(typeof(DB))]
+<<<<<<<< HEAD:DEM (Diamond Event Management)/Migrations/20260909004722_DEM_DB.Designer.cs
     [Migration("20260909004722_DEM_DB")]
+========
+    [Migration("20260909020006_DEM_DB")]
+>>>>>>>> 14d6de94fce7d0392568b210db9298c53cf82af2:DEM (Diamond Event Management)/Migrations/20260909020006_DEM_DB.Designer.cs
     partial class DEM_DB
     {
         /// <inheritdoc />

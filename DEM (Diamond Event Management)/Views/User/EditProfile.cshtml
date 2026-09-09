@@ -1,0 +1,102 @@
+﻿@model DEM__Diamond_Event_Management_.Models.EditProfileViewModel
+@{
+    ViewBag.Title = "Edit Profile";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/user.css" />
+
+<div class="profile-container">
+    <div class="profile-hero">
+        <div class="profile-left">
+            @if (!string.IsNullOrEmpty(Model.UserImg))
+            {
+                <img src="~/images/@Model.UserImg" class="profile-avatar" />
+            }
+            else
+            {
+                <img src="~/images/profile.jpg" class="profile-avatar" />
+            }
+
+            <div>
+                <h1>@Model.Name</h1>
+                <p>@Model.Email</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="edit-profile-card">
+        <h2>Edit Your Profile</h2>
+
+        @if (TempData["Info"] != null)
+        {
+            <div class="profile-success-message">@TempData["Info"]</div>
+        }
+
+        <form asp-action="EditProfile" asp-controller="User" method="post" enctype="multipart/form-data" class="profile-edit-form">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+            <div class="form-grid">
+                <div class="form-field">
+                    <label asp-for="Name">Full Name</label>
+                    <input asp-for="Name" />
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" readonly />
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Phone">Phone</label>
+                    <input asp-for="Phone" />
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Gender">Gender</label>
+                    <select asp-for="Gender">
+                        <option value="">Select</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Country">Country</label>
+                    <input asp-for="Country" />
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="State">State</label>
+                    <input asp-for="State" />
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="City">City</label>
+                    <input asp-for="City" />
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="HouseNo">House No</label>
+                    <input asp-for="HouseNo" />
+                </div>
+
+                <div class="form-field full-width">
+                    <label asp-for="Address">Address</label>
+                    <textarea asp-for="Address" rows="4"></textarea>
+                </div>
+
+                <div class="form-field full-width">
+                    <label for="userPhoto">Profile Photo</label>
+                    <input type="file" name="userPhoto" accept="image/jpeg,image/png,image/jpg" />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="save-button">Save Changes</button>
+                <a href="/User/CusProfile" class="cancel-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
