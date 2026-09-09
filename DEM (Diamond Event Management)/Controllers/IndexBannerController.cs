@@ -67,7 +67,7 @@ public class IndexBannerController(DB db, Helper hp) : Controller
 
         var banner = new IndexBanner
         {
-            Id = vm.Id,
+            Id = newBannerId,
             Name = vm.Name,
             IndexBannerImg = hp.SavePhoto(indexBannerFile!, "uploads", 3840, 1200)
         };
