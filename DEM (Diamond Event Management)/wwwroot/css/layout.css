@@ -130,7 +130,7 @@ nav {
         transform: translateY(-1px);
     }
 
-.search-input {
+.search-input {      
     border-radius: 10px;
     position: relative;
     padding: 10px 50px;
