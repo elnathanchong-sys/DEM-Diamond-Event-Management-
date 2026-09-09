@@ -58,6 +58,34 @@ nav {
     margin: 1px 0px;
 }
 
+.session-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.session-info .bx {
+    font-size: 30px;
+}
+
+.session-info-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.session-info-name {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: "Bree Serif", serif;
+    color: var(--text-primary);
+}
+
+.session-info-role {
+    font-size: 0.8rem;
+    color: var(--text-muted); 
+}
+
 .theme-toggle {
     display: flex;
     align-items: center;

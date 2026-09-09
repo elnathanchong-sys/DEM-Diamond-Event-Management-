@@ -512,4 +512,40 @@ main .recent_tournament a {
                     color: #ff0000;
                 }
 
-               
+.session-info-item {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25.5rem;
+    margin-left: auto;
+    border-top: 1px solid var(--border-subtle);
+    align-items: flex-start;
+}
+
+.sidebar .session-info-item .session-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: var(--text-primary);
+}
+
+.session-info-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.session-info-name {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.session-info-role {
+    font-size: 0.75rem;
+    color: var(--text-muted); 
+}
+
+.sidebar.close .session-info-item .session-info {
+    justify-content: center;
+    padding: 12px 0;
+}          

@@ -412,6 +412,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("VenueCapacity")
+                        .HasColumnType("int");
+
                     b.Property<string>("VenueName")
                         .IsRequired()
                         .HasMaxLength(100)

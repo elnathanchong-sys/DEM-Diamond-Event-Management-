@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@inject DB db
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -31,8 +34,9 @@
                 <a href="/Home/About" class="no-underlined">About Us</a>
             </div>
 
-    @*        
+      
             <div class="right-icon">
+    @*  
                 <div class="hpsearch-wrapper">
                     <a href="#" id="hpsearchIconBtn"><img src="/images/icon/search icon.png" width="20" alt="Search"></a>
 
@@ -44,7 +48,7 @@
                     </div>
                 </div>
             </div>
-    *@
+
             <div class="right-icon">
                 <div class="search-section">
                     <form method="get" action="/Event/EventRead">
@@ -53,26 +57,36 @@
                                class="search-input"
                                placeholder="Search event..."
                                value="@Context.Request.Query["name"]" />
-                    </form> @*copied from HO's eventcreate search bar function not added yet*@
+                    </form> @*copied from HO's eventcreate search bar function not added yet
                 </div>
-                <a href="/Account/Login" class="user-icon">
-                    <i class="bx bx-cart"></i>
-                </a>
+    *@
                 <button type="button" class="theme-toggle">
                     <i class="bx bx-moon"></i>
                 </button>
+
                 @if (User.Identity != null && User.Identity.IsAuthenticated)
                 {
-                    <a href="/User/CusProfile" class="user-icon">
-                        <i class="bx bx-user"></i>
+                    string? sessionEmail = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    var sessionUser = sessionEmail == null ? null : db.User.Find(sessionEmail);
+
+                    <a href="/User/CusProfile" class="session-info">
+                        <i class="bx bx-user-circle"></i>
+                        <span class="session-info-text">
+                            <span class="session-info-name">@(sessionUser != null ? sessionUser.Name : sessionEmail)</span>
+                            <span class="session-info-role">@User.FindFirst(ClaimTypes.Role)?.Value</span>
+                        </span>
                     </a>
                 }
                 else
                 {
-                    <a href="/Account/Login" class="user-icon">
-                        <i class="bx bx-user"></i>
+                    <a href="/Account/Login" class="session-info">
+                        <i class="bx bx-user-circle"></i>
+                        <span class="session-info-text">
+                            <span class="session-info-name">Register <br /> Now</span>
+                        </span>
                     </a>
                 }
+
             </div>
 
         </nav>
