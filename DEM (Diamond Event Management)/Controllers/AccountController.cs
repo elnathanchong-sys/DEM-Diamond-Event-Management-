@@ -28,6 +28,12 @@ public class AccountController(DB db, Helper hp) : Controller
             ModelState.AddModelError("", "Login failed. Please check your email and password.");
         }
 
+        if (u != null && u.IsBlocked)
+        {
+            TempData["Error"] = "This account has been blocked by the administrator.";
+            return RedirectToAction(nameof(AccessDenied));
+        }
+
         if (ModelState.IsValid)
         {
             TempData["Info"] = "Login successful!";

@@ -36,6 +36,11 @@ public class ProfileController(DB db) : Controller
             .OrderByDescending(r => r.RegDate)
             .ToListAsync();
 
+        var paidRegistrationIds = await db.Payment
+            .Select(p => p.RegistrationId)
+            .Distinct()
+            .ToListAsync();
+
         // Create ViewModel
         var model = new ProfileViewModel
         {
@@ -48,27 +53,29 @@ public class ProfileController(DB db) : Controller
             RewardPoints = member.RewardPoints,
 
             UpcomingEvents = registrations
-        .Where(r => r.Event.StartDate >= DateOnly.FromDateTime(DateTime.Now))
-        .Select(r => new ProfileEventViewModel
-        {
-            EventName = r.Event.Name,
-            StartDate = r.Event.StartDate,
-            StartTime = r.Event.StartTime,
-            Venue = r.Event.VenueId,
-            PosterImg = r.Event.PosterImg,
-            RegistrationId = r.Id
-        })
-        .ToList(),
+                .Where(r => r.Event.StartDate >= DateOnly.FromDateTime(DateTime.Now))
+                .Select(r => new ProfileEventViewModel
+                {
+                    EventName = r.Event.Name,
+                    StartDate = r.Event.StartDate,
+                    StartTime = r.Event.StartTime,
+                    Venue = r.Event.VenueId,
+                    PosterImg = r.Event.PosterImg,
+                    RegistrationId = r.Id
+                })
+                .ToList(),
 
             Purchases = registrations
-        .Select(r => new ProfilePurchaseViewModel
-        {
-            EventName = r.Event.Name,
-            RegistrationDate = r.RegDate,
-            Amount = r.Event.Price,
-            Status = r.Status
-        })
-        .ToList()
+                .Select(r => new ProfilePurchaseViewModel
+                {
+                    EventName = r.Event.Name,
+                    RegistrationDate = r.RegDate,
+                    Amount = r.Event.Price,
+                    Status = r.Status,
+                    RegistrationId = r.Id,
+                    HasPayment = paidRegistrationIds.Contains(r.Id)
+                })
+                .ToList()
         };
 
         return View(model);

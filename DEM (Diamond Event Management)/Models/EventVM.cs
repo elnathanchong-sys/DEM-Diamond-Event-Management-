@@ -52,7 +52,9 @@ namespace DEM__Diamond_Event_Management_.Models
         public int TotalPending { get; set; }
 
         public decimal TotalRevenue { get; set; }
+        public int RegisteredPeople { get; set; }
 
         public List<EventVM> RecentEvents { get; set; } = [];
+        public List<EventVM> TrendingEvents { get; set; } = [];
     }
 }

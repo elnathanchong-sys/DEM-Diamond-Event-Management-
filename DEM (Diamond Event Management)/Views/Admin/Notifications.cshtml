@@ -22,7 +22,8 @@
     <!-- Post New Announcement -->
     <div class="registration-list-container section-spacer">
         <h2 class="admin-section-title">Post New Announcement</h2>
-        <form method="post" action="/AdminNotifications/PostAnnouncement" class="announcement-form">
+        <form asp-controller="Admin" asp-action="PostAnnouncement" method="post" class="announcement-form">
+            @Html.AntiForgeryToken()
             <div class="form-row">
                 <input type="text" name="title" class="registration-search-input form-input-title" placeholder="Title..." required />
                 <select name="type" class="form-select-type">

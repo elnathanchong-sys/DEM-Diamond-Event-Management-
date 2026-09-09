@@ -41,6 +41,11 @@ public class PaymentController : Controller
             return View("Rejected", registration);
         }
 
+        if (registration.Status != "Approved")
+        {
+            return View("Pending", registration);
+        }
+
         // Check if this registration already has a payment
         var existingPayment = db.Payment
             .FirstOrDefault(p => p.RegistrationId == registrationId);
@@ -82,6 +87,22 @@ public class PaymentController : Controller
             return NotFound("Registration not found.");
         }
 
+        if (registration.Status == "Pending")
+        {
+            return View("Pending", registration);
+        }
+
+        if (registration.Status == "Rejected" || registration.Status == "Denied")
+        {
+            return View("Rejected", registration);
+        }
+
+        if (registration.Status != "Approved")
+        {
+            TempData["Error"] = "Please pay only after your registration has been approved.";
+            return View("Pending", registration);
+        }
+
         // Prevent duplicate payment
         var existingPayment = db.Payment
             .FirstOrDefault(p => p.RegistrationId == registrationId);
@@ -102,9 +123,11 @@ public class PaymentController : Controller
         };
 
         db.Payment.Add(payment);
+        registration.Status = "Paid";
 
         await db.SaveChangesAsync();
 
+        TempData["Info"] = "Payment complete. Your successful payment is now shown in your profile.";
         return View("Success", payment);
     }
 }

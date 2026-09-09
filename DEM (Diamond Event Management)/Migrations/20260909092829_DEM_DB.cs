@@ -12,11 +12,28 @@ namespace DEM__Diamond_Event_Management_.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Announcement",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PostedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcement", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    CategoryName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    CategoryName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,6 +97,7 @@ namespace DEM__Diamond_Event_Management_.Migrations
                     CreationDate = table.Column<DateOnly>(type: "DATE", nullable: false),
                     OngoingEvent = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UpcomingEvent = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsBlocked = table.Column<bool>(type: "bit", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
@@ -306,6 +324,9 @@ namespace DEM__Diamond_Event_Management_.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Announcement");
+
             migrationBuilder.DropTable(
                 name: "IndexBanner");
 

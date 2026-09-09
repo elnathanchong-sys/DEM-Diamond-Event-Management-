@@ -7,12 +7,8 @@
 <link rel="stylesheet" href="~/css/user.css" />
 
 <div class="profile-container">
-
-    <!-- Hero -->
-    <div class="profile-hero">
-
+    <section class="profile-hero">
         <div class="profile-left">
-
             @if (!string.IsNullOrEmpty(Model.UserImg))
             {
                 <img src="~/images/@Model.UserImg" class="profile-avatar" />
@@ -22,26 +18,20 @@
                 <img src="~/images/profile.jpg" class="profile-avatar" />
             }
 
-            <div>
-
+            <div class="profile-title-wrap">
+                <span class="profile-kicker">Member Dashboard</span>
                 <h1>@Model.Name</h1>
-
                 <p>@Model.Email</p>
 
                 <span class="member-badge">
-                    ★ @Model.MembershipLevel Member
+                    <i class="bx bx-shield-quarter"></i> @Model.MembershipLevel Member
                 </span>
-
             </div>
-
         </div>
 
-        <div class="reward-box">
-
+        <aside class="reward-box">
+            <span class="reward-label">Reward Points</span>
             <h2>@Model.RewardPoints</h2>
-
-            <span>Reward Points</span>
-
             <small>Member since @Model.CreationDate.Year</small>
 
             <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
@@ -50,133 +40,132 @@
                     <i class="bx bx-log-out"></i> Logout
                 </button>
             </form>
+        </aside>
+    </section>
 
-        </div>
-
-    </div>
-
-    <!-- Quick Actions -->
-
-    <div class="quick-actions">
-
-        <a class="quick-card" href="/Profile/UpcomingEvents">
-            <div class="icon">🎫</div>
+    <section class="quick-actions">
+        <a class="quick-card" href="#upcoming-events">
+            <span class="icon"><i class="bx bx-calendar-event"></i></span>
             <h3>Upcoming</h3>
-            <p>Your event tickets</p>
+            <p>@Model.UpcomingEvents.Count Events</p>
         </a>
 
-        <a class="quick-card" href="/Profile/PurchaseHistory">
-            <div class="icon">🧾</div>
-            <h3>History</h3>
-            <p>Past purchases</p>
-        </a>
-
-        <a class="quick-card" href="/Profile/Favourites">
-            <div class="icon">❤️</div>
-            <h3>Favourites</h3>
-            <p>Saved games</p>
+        <a class="quick-card" href="#event-history">
+            <span class="icon"><i class="bx bx-receipt"></i></span>
+            <h3>Event History</h3>
+            <p>@Model.Purchases.Count Records</p>
         </a>
 
         <a class="quick-card" href="/User/EditProfile">
-            <div class="icon">✏️</div>
+            <span class="icon"><i class="bx bx-edit"></i></span>
             <h3>Edit Profile</h3>
-            <p>Update your details</p>
+            <p>Update account</p>
         </a>
 
-        <a class="quick-card" href="/Profile/Settings">
-            <div class="icon">⚙️</div>
+        <a class="quick-card" href="#">
+            <span class="icon"><i class="bx bx-cog"></i></span>
             <h3>Settings</h3>
             <p>Manage account</p>
         </a>
+    </section>
 
-    </div>
+    <section class="profile-content-grid">
+        <section class="profile-section-card" id="upcoming-events">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">Registered Events</span>
+                    <h2>Upcoming Events</h2>
+                </div>
+                <a class="view-all-link" href="@Url.Action("EventList", "Home")">
+                    <i class="bx bx-grid-alt"></i> Explore All
+                </a>
+            </div>
 
-    <!-- Upcoming Events -->
-
-    <div class="section-header">
-        <h2>Upcoming Events</h2>
-    </div>
-
-    <div class="upcoming-slider">
-
-        @if (Model.UpcomingEvents.Any())
-        {
-            foreach (var item in Model.UpcomingEvents)
+            @if (Model.UpcomingEvents.Any())
             {
-                <div class="event-card">
+                <div class="upcoming-slider">
+                    @foreach (var item in Model.UpcomingEvents)
+                    {
+                        <article class="event-card">
+                            <div class="event-card-image">
+                                <img src="~/images/@item.PosterImg" alt="@item.EventName" />
+                            </div>
 
-                    <img src="~/images/@item.PosterImg" />
-
-                    <div class="event-content">
-
-                        <h3>@item.EventName</h3>
-
-                        <p>@item.StartDate.ToString("dd MMM yyyy")</p>
-
-                        <p>@item.StartTime.ToString("hh:mm tt")</p>
-
-                        <p>@item.Venue</p>
-
-                        <a class="ticket-btn" href="/Profile/Ticket/@item.RegistrationId">
-                            View Ticket
-                        </a>
-
-                    </div>
-
+                            <div class="event-content">
+                                <div class="event-title-line">
+                                    <h3>@item.EventName</h3>
+                                </div>
+                                <div class="event-meta-list">
+                                    <span><i class="bx bx-calendar"></i> @item.StartDate.ToString("dd MMM yyyy")</span>
+                                    <span><i class="bx bx-time-five"></i> @item.StartTime.ToString("hh:mm tt")</span>
+                                    <span><i class="bx bx-map"></i> @item.Venue</span>
+                                </div>
+                                <a class="ticket-btn" href="/Profile/Ticket/@item.RegistrationId">
+                                    <i class="bx bx-download"></i> View Ticket
+                                </a>
+                            </div>
+                        </article>
+                    }
                 </div>
             }
-        }
-        else
-        {
-            <p>No upcoming events.</p>
-        }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bx bx-calendar-x"></i>
+                    <p>No upcoming events registered yet.</p>
+                </div>
+            }
+        </section>
 
-    </div>
+        <section class="profile-section-card" id="event-history">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">Registration Activity</span>
+                    <h2>Event History</h2>
+                </div>
+            </div>
 
-    <!-- Purchase History -->
-
-    <div class="section-header">
-        <h2>Purchase History</h2>
-    </div>
-
-    <div class="history-card">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Event</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                @foreach (var purchase in Model.Purchases)
-                {
-                    <tr>
-
-                        <td>@purchase.EventName</td>
-
-                        <td>@purchase.RegistrationDate.ToString("dd MMM yyyy")</td>
-
-                        <td>RM @purchase.Amount.ToString("0.00")</td>
-
-                        <td>
-                            <span class="status-paid">@purchase.Status</span>
-                        </td>
-
-                    </tr>
-                }
-
-            </tbody>
-
-        </table>
-
-    </div>
-
+            @if (Model.Purchases.Any())
+            {
+                <div class="history-card">
+                    @foreach (var purchase in Model.Purchases)
+                    {
+                        <div class="history-row">
+                            <div class="history-primary">
+                                <span class="history-event-name">@purchase.EventName</span>
+                                <span class="history-date">@purchase.RegistrationDate.ToString("dd MMM yyyy")</span>
+                            </div>
+                            <div class="history-secondary">
+                                <span class="history-amount">RM @purchase.Amount.ToString("0.00")</span>
+                                @if (purchase.Status == "Pending")
+                                {
+                                    <span class="status-pending">Waiting for admin approval</span>
+                                }
+                                else if (purchase.Status == "Approved" && purchase.HasPayment)
+                                {
+                                    <span class="status-paid">Paid</span>
+                                }
+                                else if (purchase.Status == "Approved")
+                                {
+                                    <span class="status-paid">Approved</span>
+                                    <a class="ticket-btn" href="/Payment/Index?registrationId=@purchase.RegistrationId">Pay Now</a>
+                                }
+                                else
+                                {
+                                    <span class="status-paid">@purchase.Status</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bx bx-receipt"></i>
+                    <p>No event history available.</p>
+                </div>
+            }
+        </section>
+    </section>
 </div>

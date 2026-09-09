@@ -136,8 +136,14 @@ public class UserController(DB db, Helper hp) : Controller
         // Get the member's registrations
         var registrations = await db.Registration
             .Include(r => r.Event)
+            .ThenInclude(e => e.Venue)
             .Where(r => r.UserEmail == email)
             .OrderByDescending(r => r.RegDate)
+            .ToListAsync();
+
+        var paidRegistrationIds = await db.Payment
+            .Select(p => p.RegistrationId)
+            .Distinct()
             .ToListAsync();
 
         // Put database data into ProfileViewModel
@@ -153,28 +159,64 @@ public class UserController(DB db, Helper hp) : Controller
 
             UpcomingEvents = registrations
                 .Where(r => r.Event.StartDate >= DateOnly.FromDateTime(DateTime.Now))
+                .OrderBy(r => r.Event.StartDate)
                 .Select(r => new ProfileEventViewModel
                 {
                     EventName = r.Event.Name,
                     StartDate = r.Event.StartDate,
                     StartTime = r.Event.StartTime,
-                    Venue = r.Event.VenueId,
+                    Venue = r.Event.Venue != null ? r.Event.Venue.VenueName : r.Event.VenueId,
                     PosterImg = r.Event.PosterImg,
                     RegistrationId = r.Id
                 })
                 .ToList(),
 
             Purchases = registrations
+                .OrderByDescending(r => r.RegDate)
                 .Select(r => new ProfilePurchaseViewModel
                 {
                     EventName = r.Event.Name,
                     RegistrationDate = r.RegDate,
                     Amount = r.Event.Price,
-                    Status = r.Status
+                    Status = r.Status,
+                    RegistrationId = r.Id,
+                    HasPayment = paidRegistrationIds.Contains(r.Id)
                 })
                 .ToList()
         };
 
         return View(model);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> MyRegisteredEvents()
+    {
+        var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(email))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var registrations = await db.Registration
+            .Include(r => r.Event)
+            .ThenInclude(e => e.Venue)
+            .Where(r => r.UserEmail == email)
+            .OrderBy(r => r.Event.StartDate)
+            .ToListAsync();
+
+        var model = registrations
+            .Select(r => new ProfileEventViewModel
+            {
+                EventName = r.Event.Name,
+                StartDate = r.Event.StartDate,
+                StartTime = r.Event.StartTime,
+                Venue = r.Event.Venue != null ? r.Event.Venue.VenueName : r.Event.VenueId,
+                PosterImg = r.Event.PosterImg,
+                RegistrationId = r.Id
+            })
+            .ToList();
+
+        return View("MyRegisteredEvents", model);
     }
 }

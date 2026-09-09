@@ -10,7 +10,7 @@ namespace DEM__Diamond_Event_Management_.Models;
 
 public class DB(DbContextOptions options) : DbContext(options)
 {
-    public DbSet<User> User{ get; set; }
+    public DbSet<User> User { get; set; }
     public DbSet<Member> Member { get; set; }
     public DbSet<Admin> Admin { get; set; }
     public DbSet<Event> Event { get; set; }
@@ -23,6 +23,7 @@ public class DB(DbContextOptions options) : DbContext(options)
     public DbSet<Tournament> Tournament { get; set; }
     public DbSet<TournamentRegistration> TournamentRegistration { get; set; }
     public DbSet<Venue> Venue { get; set; }
+    public DbSet<Announcement> Announcement { get; set; }
 }
 
 public class User
@@ -48,6 +49,9 @@ public class User
     public string OngoingEvent { get; set; }
     [MaxLength(100)]
     public string UpcomingEvent { get; set; }
+
+    // Blocked flag used by account access control
+    public bool IsBlocked { get; set; } = false;
 
     // Navigation
     public List<Registration> Registrations { get; set; } = [];
@@ -139,6 +143,23 @@ public class IndexBanner
     public string IndexBannerImg { get; set; }
 }
 
+public class Announcement
+{
+    [Key]
+    public int Id { get; set; }
+
+    [Required, MaxLength(100)]
+    public string Title { get; set; } = string.Empty;
+
+    [Required, MaxLength(500)]
+    public string Message { get; set; } = string.Empty;
+
+    [MaxLength(50)]
+    public string Type { get; set; } = "General";
+
+    public DateTime PostedAt { get; set; } = DateTime.Now;
+}
+
 public class Registration
 {
     // Column
@@ -183,6 +204,8 @@ public class Category
     public string Id { get; set; }
     [MaxLength(100)]
     public string CategoryName { get; set; }
+    [MaxLength(10)]
+    public string Status { get; set; } = "Visible";
 
     // Navigation
     public List<Event> Events { get; set; } = [];
@@ -218,7 +241,7 @@ public class Payment
     public string Id { get; set; }
     [MaxLength(100)]
     public string PaymentMethod { get; set; }
-    [Precision (10, 2)]
+    [Precision(10, 2)]
     public decimal AmountPaid { get; set; }
     [Column(TypeName = "DATE")]
     public DateOnly PaymentDate { get; set; }

@@ -22,13 +22,13 @@ nav {
     display: flex;
     align-items: center;
     flex: 0;
-    gap: 10px; 
+    gap: 10px;
     font-size: 1.2rem;
 }
 
-.left-icon img{
-    width: 30px;
-}
+    .left-icon img {
+        width: 30px;
+    }
 
 .navigation-bar {
     display: flex;
@@ -40,51 +40,50 @@ nav {
     font-size: 1.2rem;
 }
 
-.right-icon{
+.right-icon {
     display: flex;
     flex-direction: row;
-    gap: 50px;
+    align-items: center;
+    gap: 14px;
 }
 
-.right-icon .bx{
-    font-size: 25px;
-    margin: 10px 0px;
-}
+    .right-icon .bx {
+        font-size: 25px;
+        line-height: 1;
+        margin: 0;
+    }
 
-.search-input {
-    border-radius: 10px;
-    position: relative;
-    padding: 10px 50px;
-    margin: 1px 0px;
-}
+    .right-icon a,
+    .right-icon button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        min-height: 40px;
+        color: var(--text-primary);
+        text-decoration: none;
+    }
 
-.session-info {
+        .right-icon a:hover,
+        .right-icon button:hover {
+            color: var(--button-1);
+        }
+
+.user-icon,
+.bell-icon {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-}
-
-.session-info .bx {
-    font-size: 30px;
-}
-
-.session-info-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.15;
-}
-
-.session-info-name {
-    font-size: 1rem;
-    font-weight: bold;
-    font-family: "Bree Serif", serif;
+    justify-content: center;
     color: var(--text-primary);
+    text-decoration: none;
+    font-size: 25px;
+    line-height: 1;
 }
 
-.session-info-role {
-    font-size: 0.8rem;
-    color: var(--text-muted); 
-}
+    .bell-icon:hover,
+    .user-icon:hover {
+        color: var(--button-1);
+    }
 
 .theme-toggle {
     display: flex;
@@ -99,11 +98,16 @@ nav {
     transition: color 0.2s ease;
 }
 
-.theme-toggle:hover {
-    transform: translateY(-1px);
+    .theme-toggle:hover {
+        transform: translateY(-1px);
+    }
+
+.search-input {
+    border-radius: 10px;
+    position: relative;
+    padding: 10px 50px;
+    margin: 1px 0px;
 }
-
-
 
 nav a {
     display: flex;
@@ -138,17 +142,12 @@ nav a {
     z-index: 900;
 }
 
-.back-to-top-btn.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
+    .back-to-top-btn.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 
-.back-to-top-btn:hover {
-    background: var(--bg-muted);
-}
-
-
-
-
-
+    .back-to-top-btn:hover {
+        background: var(--bg-muted);
+    }

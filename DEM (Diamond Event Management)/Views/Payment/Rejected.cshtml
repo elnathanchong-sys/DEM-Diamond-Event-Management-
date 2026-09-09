@@ -1,0 +1,40 @@
+﻿@model DEM__Diamond_Event_Management_.Models.Registration
+
+@{
+    ViewBag.Title = "Registration Rejected";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/pay.css" />
+
+<div class="payment-status-container">
+    <div class="payment-status-card">
+        <div class="status-icon">⚠️</div>
+        <h1>Registration Rejected</h1>
+        <p class="status-message">Your registration was not approved.</p>
+        <p class="status-description">
+            Please contact the administrator for more information.
+        </p>
+
+        <div class="status-info">
+            <div class="status-row">
+                <span>Event</span>
+                <strong>@Model.Event.Name</strong>
+            </div>
+            <div class="status-row">
+                <span>Team</span>
+                <strong>@Model.TeamName</strong>
+            </div>
+            <div class="status-row">
+                <span>Registration ID</span>
+                <strong>@Model.Id</strong>
+            </div>
+            <div class="status-row">
+                <span>Status</span>
+                <strong class="denied-text">@Model.Status</strong>
+            </div>
+        </div>
+
+        <a href="/" class="back-button">Back to Home</a>
+    </div>
+</div>

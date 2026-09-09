@@ -1,0 +1,65 @@
+﻿@model List<DEM__Diamond_Event_Management_.Models.Announcement>
+
+@{
+    ViewData["Title"] = "Announcements";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/announcements.css" />
+
+<div class="announcement-page">
+    <div class="announcement-page-shell">
+        <section class="announcement-hero">
+            <span class="announcement-kicker">Diamond Event Management</span>
+            <h1>Announcements</h1>
+            <p>Stay informed with the latest updates, event reminders, and official notices from the DEM team.</p>
+
+            <div class="announcement-meta-strip">
+                <div class="announcement-meta-left">
+                    <span class="announcement-meta-chip">
+                        <i class="bx bx-calendar-event"></i>
+                        Event Updates
+                    </span>
+                    <span class="announcement-meta-chip">
+                        <i class="bx bx-bullhorn"></i>
+                        Community News
+                    </span>
+                </div>
+
+                <div class="announcement-count">
+                    <span class="announcement-count-number">@Model.Count</span>
+                    <span>Posted</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="announcement-list-panel">
+            @if (!Model.Any())
+            {
+                <div class="empty-announcement">
+                    <p>No announcements posted yet.</p>
+                </div>
+            }
+            else
+            {
+                <div class="announcement-list">
+                    @foreach (var ann in Model)
+                    {
+                        <article class="announcement-card">
+                            <div class="announcement-card-head">
+                                <h2 class="announcement-card-title">@ann.Title</h2>
+                                <span class="announcement-type">@ann.Type</span>
+                            </div>
+
+                            <p class="announcement-message">@ann.Message</p>
+                            <small class="announcement-date">
+                                <i class="bx bx-time-five"></i>
+                                Posted on @ann.PostedAt.ToString("dd MMM yyyy, HH:mm")
+                            </small>
+                        </article>
+                    }
+                </div>
+            }
+        </section>
+    </div>
+</div>

@@ -93,9 +93,6 @@ public class AdminController(DB db, Helper hp) : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // In-memory list to persist custom announcements while the application is running
-    private static readonly List<AnnouncementItem> _announcements = [];
-
     // READ: Display all admins
     [HttpGet]
     public IActionResult ReadAdmin()
@@ -202,52 +199,157 @@ public class AdminController(DB db, Helper hp) : Controller
         return RedirectToAction(nameof(ReadAdmin));
     }
 
-    // DELETE: GET
+    // USER CRUD: list members
     [HttpGet]
-    public IActionResult DeleteAdmin(string email)
+    public IActionResult ReadUser()
     {
-        var gate = RequireSuperAdmin();
-        if (gate != null) return gate;
-
-        if (string.IsNullOrEmpty(email)) return NotFound();
-
-        var admin = db.Admin.Find(email);
-        if (admin == null) return NotFound();
-
-        var currentUserEmail = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.Equals(currentUserEmail, email, StringComparison.OrdinalIgnoreCase))
-        {
-            TempData["Error"] = "You cannot delete your own admin account.";
-            return RedirectToAction(nameof(ReadAdmin));
-        }
-
-        return View(admin);
+        var members = db.Member.OrderBy(m => m.Name).ToList();
+        return View(members);
     }
 
-    // DELETE: POST
-    [HttpPost, ActionName("DeleteAdmin")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteAdminConfirmed(string email)
+    // USER CRUD: create GET
+    [HttpGet]
+    public IActionResult CreateUser()
     {
-        var gate = RequireSuperAdmin();
-        if (gate != null) return gate;
+        var model = new AdminUserEditViewModel();
+        return View(model);
+    }
 
-        var currentUserEmail = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.Equals(currentUserEmail, email, StringComparison.OrdinalIgnoreCase))
+    // USER CRUD: create POST
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateUser(AdminUserEditViewModel model)
+    {
+        if (!ModelState.IsValid)
         {
-            TempData["Error"] = "You cannot delete your own admin account.";
-            return RedirectToAction(nameof(ReadAdmin));
+            return View(model);
         }
 
-        var admin = db.Admin.Find(email);
-        if (admin != null)
+        if (db.User.Any(u => u.Email == model.Email))
         {
-            db.Admin.Remove(admin);
-            await db.SaveChangesAsync();
-            TempData["Info"] = "Admin account deleted successfully.";
+            ModelState.AddModelError("Email", "An account with this email address already exists.");
+            return View(model);
         }
 
-        return RedirectToAction(nameof(ReadAdmin));
+        var member = new Member
+        {
+            Email = model.Email,
+            HashedPassword = hp.HashPassword(model.Password ?? "Member123"),
+            Name = model.Name,
+            Gender = model.Gender,
+            Phone = model.Phone ?? string.Empty,
+            CreationDate = DateOnly.FromDateTime(DateTime.Now),
+            UserImg = string.Empty,
+            OngoingEvent = string.Empty,
+            UpcomingEvent = string.Empty,
+            Country = model.Country ?? string.Empty,
+            State = model.State ?? string.Empty,
+            City = model.City ?? string.Empty,
+            HouseNo = model.HouseNo ?? string.Empty,
+            Address = model.Address ?? string.Empty,
+            MembershipLevel = model.MembershipLevel ?? "Silver",
+            RewardPoints = 0,
+            IsBlocked = false
+        };
+
+        db.Member.Add(member);
+        await db.SaveChangesAsync();
+
+        TempData["Info"] = "Member account created successfully.";
+        return RedirectToAction(nameof(ReadUser));
+    }
+
+    // USER CRUD: update GET
+    [HttpGet]
+    public IActionResult UpdateUser(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email)) return NotFound();
+
+        var member = db.Member.Find(email);
+        if (member == null) return NotFound();
+
+        var model = new AdminUserEditViewModel
+        {
+            Email = member.Email,
+            Name = member.Name,
+            Gender = member.Gender,
+            Phone = member.Phone,
+            Country = member.Country,
+            State = member.State,
+            City = member.City,
+            HouseNo = member.HouseNo,
+            Address = member.Address,
+            MembershipLevel = member.MembershipLevel,
+            IsBlocked = member.IsBlocked
+        };
+
+        return View(model);
+    }
+
+    // USER CRUD: update POST
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateUser(AdminUserEditViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var member = db.Member.Find(model.Email);
+        if (member == null) return NotFound();
+
+        member.Name = model.Name;
+        member.Gender = model.Gender;
+        member.Phone = model.Phone ?? string.Empty;
+        member.Country = model.Country ?? string.Empty;
+        member.State = model.State ?? string.Empty;
+        member.City = model.City ?? string.Empty;
+        member.HouseNo = model.HouseNo ?? string.Empty;
+        member.Address = model.Address ?? string.Empty;
+        member.MembershipLevel = model.MembershipLevel ?? member.MembershipLevel;
+
+        if (!string.IsNullOrWhiteSpace(model.Password))
+        {
+            member.HashedPassword = hp.HashPassword(model.Password);
+        }
+
+        await db.SaveChangesAsync();
+        TempData["Info"] = "Member account updated successfully.";
+        return RedirectToAction(nameof(ReadUser));
+    }
+
+    // USER CRUD: block/unblock is the delete replacement
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> BlockUser(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email)) return NotFound();
+
+        var member = db.Member.Find(email);
+        if (member == null) return NotFound();
+
+        member.IsBlocked = true;
+        await db.SaveChangesAsync();
+        TempData["Info"] = $"Member '{member.Name}' has been blocked.";
+
+        return RedirectToAction(nameof(ReadUser));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UnblockUser(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email)) return NotFound();
+
+        var member = db.Member.Find(email);
+        if (member == null) return NotFound();
+
+        member.IsBlocked = false;
+        await db.SaveChangesAsync();
+        TempData["Info"] = $"Member '{member.Name}' has been unblocked.";
+
+        return RedirectToAction(nameof(ReadUser));
     }
 
     [HttpGet]
@@ -283,13 +385,31 @@ public class AdminController(DB db, Helper hp) : Controller
             })
             .ToList();
 
+        // Rank tournaments by the number of people in active registrations.
+        var trendingEvents = db.Event
+            .Select(e => new EventVM
+            {
+                Id = e.Id,
+                Name = e.Name,
+                StartDate = e.StartDate,
+                Status = e.Status,
+                RegisteredPeople = e.Registrations
+                    .Where(r => r.Status != "Cancelled")
+                    .SelectMany(r => r.Players)
+                    .Count()
+            })
+            .OrderByDescending(e => e.RegisteredPeople)
+            .Take(5)
+            .ToList();
+
         var model = new EventVM
         {
             TotalEvents = totalEvents,
             TotalOngoing = totalOngoing,
             TotalPending = totalPending,
             TotalRevenue = totalRevenue,
-            RecentEvents = recentEvents
+            RecentEvents = recentEvents,
+            TrendingEvents = trendingEvents
         };
 
         return View(model);
@@ -301,9 +421,17 @@ public class AdminController(DB db, Helper hp) : Controller
     {
         var model = new AdminNotificationDashboardVM();
 
-        // 1. Fetch posted in-memory announcements
-        model.Announcements = _announcements
+        // 1. Fetch posted announcements from the database
+        model.Announcements = db.Announcement
             .OrderByDescending(a => a.PostedAt)
+            .Select(a => new AnnouncementItem
+            {
+                Id = a.Id,
+                Title = a.Title,
+                Message = a.Message,
+                Type = a.Type,
+                PostedAt = a.PostedAt
+            })
             .ToList();
 
         // 2. Fetch event schedule timings directly from DB[cite: 10]
@@ -361,14 +489,15 @@ public class AdminController(DB db, Helper hp) : Controller
     {
         if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(message))
         {
-            _announcements.Add(new AnnouncementItem
+            db.Announcement.Add(new Announcement
             {
-                Id = _announcements.Count + 1,
                 Title = title,
                 Message = message,
                 Type = type,
                 PostedAt = DateTime.Now
             });
+
+            db.SaveChanges();
 
             TempData["Info"] = "Announcement successfully posted!";
         }

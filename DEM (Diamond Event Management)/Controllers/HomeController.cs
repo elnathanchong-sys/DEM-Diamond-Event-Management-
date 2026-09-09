@@ -25,6 +25,11 @@ public class HomeController(DB db) : Controller
                          })
                          .ToList();
 
+        ViewBag.Announcements = db.Announcement
+            .OrderByDescending(a => a.PostedAt)
+            .Take(5)
+            .ToList();
+
         ViewBag.Status = db.Event
                            .Where(e => e.Status != "Hidden") // Keep status with the Hidden status out of the list
                            .Select(e => e.Status) // Instead of fetching all atrributes it fetches only the status attribute
@@ -50,10 +55,25 @@ public class HomeController(DB db) : Controller
         return View(model);
     }
 
-    public IActionResult EventList(string[] statuses, string[] categories)
+    public IActionResult Announcements()
+    {
+        var model = db.Announcement
+            .OrderByDescending(a => a.PostedAt)
+            .ToList();
+
+        return View(model);
+    }
+
+    public IActionResult FAQ()
+    {
+        return View();
+    }
+
+    public IActionResult EventList(string? name, string[] statuses, string[] categories)
     {
         ViewBag.SelectedStatuses = statuses ?? Array.Empty<string>();
         ViewBag.SelectedCategories = categories ?? Array.Empty<string>();
+        ViewBag.SearchName = name;
 
         //Status with event counts
         var statusNames = new[] { "Ongoing", "Upcoming", "Completed" };
@@ -64,15 +84,22 @@ public class HomeController(DB db) : Controller
         }).ToList();
 
         //Categories with event counts
-        ViewBag.Category = db.Category.Select(c => new
-        {
-            Id = c.Id,
-            Name = c.CategoryName,
-            Count = db.Event.Count(e => e.CategoryId == c.Id && e.Status != "Hidden")
-        }).ToList();
+        ViewBag.Category = db.Category
+            .Where(c => c.Status != "Hidden")
+            .Select(c => new
+            {
+                Id = c.Id,
+                Name = c.CategoryName,
+                Count = db.Event.Count(e => e.CategoryId == c.Id && e.Status != "Hidden")
+            }).ToList();
 
         // Filter
         var query = db.Event.Where(e => e.Status != "Hidden");
+
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            query = query.Where(e => e.Name.Contains(name));
+        }
 
         if (statuses != null && statuses.Length > 0)
         {

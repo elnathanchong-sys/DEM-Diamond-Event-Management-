@@ -3,386 +3,66 @@
 @{
     ViewBag.Title = "Dashboard";
     Layout = "_AdminLayout";
+    var activeRate = Model.TotalEvents > 0 ? (double)Model.TotalOngoing / Model.TotalEvents * 100 : 0;
+    var pendingRate = Model.TotalEvents > 0 ? (double)Model.TotalPending / Model.TotalEvents * 100 : 0;
 }
 
-<div class="container">
+<link rel="stylesheet" href="~/css/admin-dashboard.css" />
 
-    <main>
-
-        <h1>Dashboard</h1>
-
-        <div class="date">
-            <input type="date">
+<div class="admin-dashboard">
+    <header class="dashboard-header">
+        <div>
+            <p class="dashboard-kicker"><i class="fa-solid fa-chart-line"></i> Operations overview</p>
+            <h1>Good day, Admin</h1>
+            <p class="dashboard-subtitle">Monitor tournament activity, registration momentum, and revenue at a glance.</p>
         </div>
-
-
-        <!-- ==========================
-             DASHBOARD STATISTICS
-             ========================== -->
-
-        <div class="insights">
-
-            <!-- Total Tournament -->
-            <div class="event">
-
-                <span>🏆</span>
-
-                <div class="middle">
-
-                    <div class="left">
-
-                        <h3>Total tournament</h3>
-
-                        <h1>@Model.TotalEvents</h1>
-
-                    </div>
-
-                    <div class="progress">
-
-                        <svg>
-                            <circle r="30" cy="40" cx="40"></circle>
-                        </svg>
-
-                        <div class="number">
-                            100%
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <small>All Events</small>
-
-            </div>
-
-
-            <!-- Total Ongoing -->
-            <div class="ongoing">
-
-                <span>🎮</span>
-
-                <div class="middle">
-
-                    <div class="left">
-
-                        <h3>Total ongoing</h3>
-
-                        <h1>@Model.TotalOngoing</h1>
-
-                    </div>
-
-                    <div class="progress">
-
-                        <svg>
-                            <circle r="30" cy="40" cx="40"></circle>
-                        </svg>
-
-                        <div class="number">
-                            @(Model.TotalEvents > 0
-                                ? ((double)Model.TotalOngoing / Model.TotalEvents * 100).ToString("0") + "%"
-                                : "0%")
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <small>Current Events</small>
-
-            </div>
-
-
-            <!-- Total Pending -->
-            <div class="pending">
-
-                <span>📝</span>
-
-                <div class="middle">
-
-                    <div class="left">
-
-                        <h3>Total pending</h3>
-
-                        <h1>@Model.TotalPending</h1>
-
-                    </div>
-
-                    <div class="progress">
-
-                        <svg>
-                            <circle r="30" cy="40" cx="40"></circle>
-                        </svg>
-
-                        <div class="number">
-                            @(Model.TotalEvents > 0
-                                ? ((double)Model.TotalPending / Model.TotalEvents * 100).ToString("0") + "%"
-                                : "0%")
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <small>Pending Events</small>
-
-            </div>
-
-        </div>
-
-
-        <!-- ==========================
-             RECENT TOURNAMENTS
-             ========================== -->
-
-        <div class="recent_tournament">
-
-            <h1>Recent Tournaments</h1>
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Tournament Name</th>
-
-                        <th>Date</th>
-
-                        <th>Status</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    @if (Model.RecentEvents != null &&
-                         Model.RecentEvents.Any())
+        <div class="dashboard-date"><i class="fa-regular fa-calendar"></i> @DateTime.Now.ToString("dddd, dd MMM yyyy")</div>
+    </header>
+
+    <section class="dashboard-metrics" aria-label="Dashboard summary">
+        <article class="dashboard-metric metric-blue"><div class="metric-icon"><i class="fa-solid fa-trophy"></i></div><div><span>Total tournaments</span><strong>@Model.TotalEvents</strong><small>All scheduled events</small></div></article>
+        <article class="dashboard-metric metric-green"><div class="metric-icon"><i class="fa-solid fa-bolt"></i></div><div><span>Ongoing now</span><strong>@Model.TotalOngoing</strong><small>@activeRate.ToString("0")% of all tournaments</small></div></article>
+        <article class="dashboard-metric metric-amber"><div class="metric-icon"><i class="fa-solid fa-hourglass-half"></i></div><div><span>Pending review</span><strong>@Model.TotalPending</strong><small>@pendingRate.ToString("0")% awaiting action</small></div></article>
+        <article class="dashboard-metric metric-purple"><div class="metric-icon"><i class="fa-solid fa-wallet"></i></div><div><span>Total revenue</span><strong>RM @Model.TotalRevenue.ToString("N2")</strong><small>Recorded payments</small></div></article>
+    </section>
+
+    <div class="dashboard-grid">
+        <section class="dashboard-panel recent-panel">
+            <div class="panel-heading"><div><p class="panel-eyebrow">Schedule</p><h2>Recent tournaments</h2></div><a asp-controller="Event" asp-action="EventRead" class="panel-link">View all <i class="fa-solid fa-arrow-right"></i></a></div>
+            @if (Model.RecentEvents.Any())
+            {
+                <div class="tournament-list">
+                    @foreach (var tournament in Model.RecentEvents)
                     {
-
-                        foreach (var e in Model.RecentEvents)
-                        {
-
-                            <tr>
-
-                                <td>
-                                    @e.Name
-                                </td>
-
-                                <td>
-                                    @e.StartDate.ToString("dd/MM/yyyy")
-                                </td>
-
-                                <td class="warning">
-                                    @e.Status
-                                </td>
-
-                                <td class="primary">
-
-                                    <a asp-controller="Event"
-                                       asp-action="EventIndividual"
-                                       asp-route-id="@e.Id">
-
-                                        View
-
-                                    </a>
-
-                                </td>
-
-                            </tr>
-
-                        }
-
+                        <a class="tournament-row" asp-controller="Event" asp-action="EventIndividual" asp-route-id="@tournament.Id">
+                            <span class="tournament-mark"><i class="fa-solid fa-gamepad"></i></span><span class="tournament-details"><strong>@tournament.Name</strong><small>@tournament.StartDate.ToString("dd MMM yyyy")</small></span><span class="dashboard-status status-@tournament.Status.ToLowerInvariant()">@tournament.Status</span><i class="fa-solid fa-chevron-right row-arrow"></i>
+                        </a>
                     }
-                    else
+                </div>
+            }
+            else
+            {
+                <div class="dashboard-empty"><i class="fa-regular fa-calendar-xmark"></i><p>No tournaments found.</p></div>
+            }
+        </section>
+
+        <section class="dashboard-panel trending-panel">
+            <div class="panel-heading"><div><p class="panel-eyebrow">Registration activity</p><h2>Trending tournaments</h2></div><span class="trend-badge"><i class="fa-solid fa-arrow-trend-up"></i> Top 5</span></div>
+            @if (Model.TrendingEvents.Any())
+            {
+                <div class="trending-list">
+                    @foreach (var tournament in Model.TrendingEvents)
                     {
-
-                        <tr>
-
-                            <td colspan="4">
-                                No tournaments found.
-                            </td>
-
-                        </tr>
-
+                        <a class="trending-row" asp-controller="Event" asp-action="EventIndividual" asp-route-id="@tournament.Id">
+                            <span class="trend-rank">@(Model.TrendingEvents.IndexOf(tournament) + 1)</span><span class="trend-details"><strong>@tournament.Name</strong><small>@tournament.RegisteredPeople @(tournament.RegisteredPeople == 1 ? "person" : "people") registered</small></span><strong class="trend-percent">@tournament.RegisteredPeople</strong>
+                        </a>
                     }
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </main>
-
-
-    <!-- ==========================
-         RIGHT SIDE
-         ========================== -->
-
-    <div class="right">
-
-        <div class="top">
-
-            <button id="menu_bar">
-
-                <span>☰</span>
-
-            </button>
-
-
-            <div class="theme-toggler">
-
-                <span class="active">☀️</span>
-
-                <span>🌙</span>
-
-            </div>
-
-
-            <div class="profile">
-
-                <div class="info">
-
-                    <h3>John</h3>
-
-                    <p>Admin</p>
-
-                    <small class="text-muted"></small>
-
                 </div>
-
-
-                <div class="profile-photo">
-
-                    <img src="/images/Admin/kelvin.jpg"
-                         alt="Kelvin">
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ==========================
-             TICKET SALES ANALYSIS
-             ========================== -->
-
-        <h2>Ticket Sales Analysis</h2>
-
-
-        <div class="sales_analytics">
-
-            <div class="sal_box">
-
-
-                <!-- General Tickets -->
-
-                <div class="item online">
-
-                    <div class="icon">
-
-                        <span>🎫</span>
-
-                    </div>
-
-
-                    <div class="right_content">
-
-                        <div class="info">
-
-                            <h3>General Tickets</h3>
-
-                            <small class="text-muted">
-                                Total Sold
-                            </small>
-
-                        </div>
-
-
-                        <h3>
-                            @Model.RecentEvents
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <!-- VIP Tickets -->
-
-                <div class="item offline">
-
-                    <div class="icon">
-
-                        <span>🎟️</span>
-
-                    </div>
-
-
-                    <div class="right_content">
-
-                        <div class="info">
-
-                            <h3>VIP Tickets</h3>
-
-                            <small class="text-muted">
-                                Ticket Sales
-                            </small>
-
-                        </div>
-
-
-                        <h3>
-                            Coming Soon
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Total Revenue -->
-
-                <div class="item customers">
-
-                    <div class="icon">
-
-                        <span>💰</span>
-
-                    </div>
-
-
-                    <div class="right_content">
-
-                        <div class="info">
-
-                            <h3>Total Revenue</h3>
-
-                            <small class="text-muted">
-                                All Payments
-                            </small>
-
-                        </div>
-
-
-                        <h3>
-                            RM @Model.TotalRevenue.ToString("N2")
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
+            }
+            else
+            {
+                <div class="dashboard-empty"><i class="fa-solid fa-chart-simple"></i><p>No registration activity yet.</p></div>
+            }
+        </section>
     </div>
-
 </div>

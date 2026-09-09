@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="~/css/user.css" />
 
 <div class="profile-container">
-    <div class="profile-hero">
+    <section class="profile-hero edit-profile-hero">
         <div class="profile-left">
             @if (!string.IsNullOrEmpty(Model.UserImg))
             {
@@ -18,15 +18,30 @@
                 <img src="~/images/profile.jpg" class="profile-avatar" />
             }
 
-            <div>
+            <div class="profile-title-wrap">
+                <span class="profile-kicker">Account Settings</span>
                 <h1>@Model.Name</h1>
                 <p>@Model.Email</p>
             </div>
         </div>
-    </div>
 
-    <div class="edit-profile-card">
-        <h2>Edit Your Profile</h2>
+        <aside class="reward-box compact-reward">
+            <span class="reward-label">Account</span>
+            <h2>Profile</h2>
+            <small>Member details</small>
+        </aside>
+    </section>
+
+    <section class="edit-profile-card">
+        <div class="edit-profile-card-header">
+            <div>
+                <span class="section-kicker">Member Information</span>
+                <h2>Edit Your Profile</h2>
+            </div>
+            <a href="/User/CusProfile" class="back-link">
+                <i class="bx bx-arrow-back"></i> Back to Profile
+            </a>
+        </div>
 
         @if (TempData["Info"] != null)
         {
@@ -40,17 +55,17 @@
             <div class="form-grid">
                 <div class="form-field">
                     <label asp-for="Name">Full Name</label>
-                    <input asp-for="Name" />
+                    <input asp-for="Name" placeholder="Enter your full name" />
                 </div>
 
                 <div class="form-field">
-                    <label asp-for="Email">Email</label>
+                    <label asp-for="Email">Email Address</label>
                     <input asp-for="Email" readonly />
                 </div>
 
                 <div class="form-field">
-                    <label asp-for="Phone">Phone</label>
-                    <input asp-for="Phone" />
+                    <label asp-for="Phone">Phone Number</label>
+                    <input asp-for="Phone" placeholder="Enter your phone number" />
                 </div>
 
                 <div class="form-field">
@@ -64,39 +79,52 @@
 
                 <div class="form-field">
                     <label asp-for="Country">Country</label>
-                    <input asp-for="Country" />
+                    <input asp-for="Country" placeholder="Country" />
                 </div>
 
                 <div class="form-field">
                     <label asp-for="State">State</label>
-                    <input asp-for="State" />
+                    <input asp-for="State" placeholder="State" />
                 </div>
 
                 <div class="form-field">
                     <label asp-for="City">City</label>
-                    <input asp-for="City" />
+                    <input asp-for="City" placeholder="City" />
                 </div>
 
                 <div class="form-field">
                     <label asp-for="HouseNo">House No</label>
-                    <input asp-for="HouseNo" />
+                    <input asp-for="HouseNo" placeholder="House number" />
                 </div>
 
                 <div class="form-field full-width">
                     <label asp-for="Address">Address</label>
-                    <textarea asp-for="Address" rows="4"></textarea>
+                    <textarea asp-for="Address" rows="4" placeholder="Enter your address"></textarea>
                 </div>
 
                 <div class="form-field full-width">
                     <label for="userPhoto">Profile Photo</label>
-                    <input type="file" name="userPhoto" accept="image/jpeg,image/png,image/jpg" />
+                    <div class="file-drop">
+                        <input id="userPhoto" type="file" name="userPhoto" accept="image/jpeg,image/png,image/jpg" class="file-input" />
+                        <label for="userPhoto" class="file-drop-label">
+                            <span class="file-drop-icon"><i class="bx bx-cloud-upload"></i></span>
+                            <span class="file-drop-text">
+                                <span class="file-drop-title">Drop photo here</span>
+                                <span class="file-drop-subtitle">or click to browse</span>
+                            </span>
+                            <span class="file-drop-button">Choose Image</span>
+                        </label>
+                        <span class="file-helper">Upload JPG, PNG, or JPEG image</span>
+                    </div>
                 </div>
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="save-button">Save Changes</button>
                 <a href="/User/CusProfile" class="cancel-button">Cancel</a>
+                <button type="submit" class="save-button">
+                    <i class="bx bx-save"></i> Save Changes
+                </button>
             </div>
         </form>
-    </div>
+    </section>
 </div>

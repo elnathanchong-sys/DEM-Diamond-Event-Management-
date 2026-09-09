@@ -11,22 +11,22 @@ namespace DEM__Diamond_Event_Management_.Models
         [StringLength(100)]
         [EmailAddress]
         [Remote("CheckEmail", "Account", ErrorMessage = "Duplicated {0}.")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [StringLength(100, MinimumLength = 5)]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
         [StringLength(100, MinimumLength = 5)]
         [Compare("Password")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
-        public string Confirm { get; set; }
+        public string Confirm { get; set; } = string.Empty;
 
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public string Gender { get; set; }
+        public string Gender { get; set; } = string.Empty;
 
         public IFormFile? Photo { get; set; }
     }

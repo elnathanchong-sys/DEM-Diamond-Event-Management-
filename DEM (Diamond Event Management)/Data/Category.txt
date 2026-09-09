@@ -1,7 +1,7 @@
-C001	Counter-Strike 2
-C002	Valorant
-C003	League of Legends
-C004	Dota 2
-C005	Mobile Legends: Bang Bang
-C006	PUBG Mobile
-C007	Honor of Kings	
+C001	Counter-Strike 2	Visible
+C002	Valorant	Visible
+C003	League of Legends	Visible
+C004	Dota 2	Visible
+C005	Mobile Legends: Bang Bang	Visible
+C006	PUBG Mobile	Visible
+C007	Honor of Kings	Visible

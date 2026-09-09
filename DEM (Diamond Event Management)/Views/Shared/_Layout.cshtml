@@ -1,7 +1,4 @@
-﻿@using System.Security.Claims
-@inject DB db
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -30,13 +27,12 @@
             <div class="navigation-bar">
                 <a href="/Event/EventRead" class="no-underlined">Home</a>
                 <a href="/Home/EventList" class="no-underlined">Events</a>
-                <a href="/page/contactus.php" class="no-underlined">FAQs</a>
+                <a asp-controller="Home" asp-action="FAQ" class="no-underlined">FAQs</a>
                 <a href="/Home/About" class="no-underlined">About Us</a>
             </div>
 
-      
+            @*        
             <div class="right-icon">
-    @*  
                 <div class="hpsearch-wrapper">
                     <a href="#" id="hpsearchIconBtn"><img src="/images/icon/search icon.png" width="20" alt="Search"></a>
 
@@ -48,45 +44,38 @@
                     </div>
                 </div>
             </div>
-
+    *@
             <div class="right-icon">
                 <div class="search-section">
-                    <form method="get" action="/Event/EventRead">
+                    <form method="get" action="/Home/EventList">
                         <input type="search"
                                name="name"
                                class="search-input"
                                placeholder="Search event..."
                                value="@Context.Request.Query["name"]" />
-                    </form> @*copied from HO's eventcreate search bar function not added yet
+                    </form> @*copied from HO's eventcreate search bar function not added yet*@
                 </div>
-    *@
+                <a href="/Account/Login" class="user-icon">
+                    <i class="bx bx-cart"></i>
+                </a>
+                <a href="/Home/Announcements" class="bell-icon" aria-label="View announcements">
+                    <i class="bx bx-bell"></i>
+                </a>
                 <button type="button" class="theme-toggle">
                     <i class="bx bx-moon"></i>
                 </button>
-
                 @if (User.Identity != null && User.Identity.IsAuthenticated)
                 {
-                    string? sessionEmail = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                    var sessionUser = sessionEmail == null ? null : db.User.Find(sessionEmail);
-
-                    <a href="/User/CusProfile" class="session-info">
-                        <i class="bx bx-user-circle"></i>
-                        <span class="session-info-text">
-                            <span class="session-info-name">@(sessionUser != null ? sessionUser.Name : sessionEmail)</span>
-                            <span class="session-info-role">@User.FindFirst(ClaimTypes.Role)?.Value</span>
-                        </span>
+                    <a href="@(User.IsInRole("Admin") ? "/Admin/EditMyProfile" : "/User/CusProfile")" class="user-icon" aria-label="View profile">
+                        <i class="bx bx-user"></i>
                     </a>
                 }
                 else
                 {
-                    <a href="/Account/Login" class="session-info">
-                        <i class="bx bx-user-circle"></i>
-                        <span class="session-info-text">
-                            <span class="session-info-name">Register <br /> Now</span>
-                        </span>
+                    <a href="/Account/Login" class="user-icon">
+                        <i class="bx bx-user"></i>
                     </a>
                 }
-
             </div>
 
         </nav>

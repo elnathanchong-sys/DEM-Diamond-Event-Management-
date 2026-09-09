@@ -7,26 +7,26 @@ namespace DEM__Diamond_Event_Management_.Models
         [StringLength(100)]
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email format.")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
     }
 
     public class ResetPasswordViewModel
     {
         [Required]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [Required]
-        public string Token { get; set; }
+        public string Token { get; set; } = string.Empty;
 
         [StringLength(100, MinimumLength = 5, ErrorMessage = "Password must be at least 5 characters.")]
         [Required(ErrorMessage = "New Password is required.")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Please confirm your new password.")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         [Display(Name = "Confirm Password")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

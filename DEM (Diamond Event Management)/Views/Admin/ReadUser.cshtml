@@ -1,0 +1,185 @@
+﻿@model IEnumerable<DEM__Diamond_Event_Management_.Models.Member>
+@{
+    ViewBag.Title = "Member List";
+    Layout = "_AdminLayout";
+}
+
+<link rel="stylesheet" href="~/css/admin.css" />
+<link rel="stylesheet" href="~/css/manage-users.css" />
+
+<div class="manage-users-page">
+    <header class="manage-users-header">
+        <div>
+            <p class="page-kicker"><i class="fa-solid fa-users"></i> Account directory</p>
+            <h1>Manage members</h1>
+            <p class="page-description">Review member accounts, update details, and control access from one place.</p>
+        </div>
+        <a asp-action="CreateUser" class="manage-users-primary-action">
+            <i class="fa-solid fa-user-plus"></i>
+            <span>Add member</span>
+        </a>
+    </header>
+
+    <section class="member-stat-grid" aria-label="Member summary">
+        <div class="member-stat-card">
+            <span class="member-stat-icon"><i class="fa-solid fa-users"></i></span>
+            <div>
+                <span class="member-stat-label">Total members</span>
+                <strong>@Model.Count()</strong>
+            </div>
+        </div>
+        <div class="member-stat-card">
+            <span class="member-stat-icon member-stat-icon-success"><i class="fa-solid fa-user-check"></i></span>
+            <div>
+                <span class="member-stat-label">Active accounts</span>
+                <strong>@Model.Count(member => !member.IsBlocked)</strong>
+            </div>
+        </div>
+        <div class="member-stat-card">
+            <span class="member-stat-icon member-stat-icon-danger"><i class="fa-solid fa-user-lock"></i></span>
+            <div>
+                <span class="member-stat-label">Blocked accounts</span>
+                <strong>@Model.Count(member => member.IsBlocked)</strong>
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["Info"] != null)
+    {
+        <div class="manage-users-alert" role="status">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>@TempData["Info"]</span>
+        </div>
+    }
+
+    <section class="member-list-panel">
+        <div class="member-list-toolbar">
+            <div>
+                <h2>All members</h2>
+                <p>Use the search and status filter to find an account quickly.</p>
+            </div>
+            <div class="member-list-filters">
+                <label class="member-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span class="sr-only">Search members</span>
+                    <input id="memberSearch" type="search" placeholder="Search name or email" autocomplete="off" />
+                </label>
+                <label class="member-filter">
+                    <span class="sr-only">Filter by status</span>
+                    <select id="memberStatusFilter">
+                        <option value="all">All statuses</option>
+                        <option value="active">Active</option>
+                        <option value="blocked">Blocked</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="member-empty-state">
+                <span><i class="fa-solid fa-user-group"></i></span>
+                <h3>No members yet</h3>
+                <p>Create the first member account to start building your directory.</p>
+                <a asp-action="CreateUser" class="manage-users-secondary-action">Add first member</a>
+            </div>
+        }
+        else
+        {
+            <div class="member-table-wrap">
+                <table class="member-table">
+                    <caption class="sr-only">Member accounts</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Member</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Membership</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" class="member-actions-heading">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="memberTableBody">
+                        @foreach (var member in Model)
+                        {
+                            var status = member.IsBlocked ? "blocked" : "active";
+                            <tr data-member-row data-status="@status" data-search="@member.Name @member.Email">
+                                <td data-label="Member">
+                                    <div class="member-identity">
+                                        <span class="member-avatar">@(string.IsNullOrWhiteSpace(member.Name) ? "?" : member.Name[..1].ToUpperInvariant())</span>
+                                        <span>
+                                            <strong>@member.Name</strong>
+                                            <small>@member.Email</small>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Phone">@(string.IsNullOrWhiteSpace(member.Phone) ? "Not provided" : member.Phone)</td>
+                                <td data-label="Gender">@(member.Gender == "M" ? "Male" : "Female")</td>
+                                <td data-label="Membership"><span class="membership-label">@member.MembershipLevel</span></td>
+                                <td data-label="Status">
+                                    <span class="member-status member-status-@status">
+                                        <span class="status-dot"></span>
+                                        @(member.IsBlocked ? "Blocked" : "Active")
+                                    </span>
+                                </td>
+                                <td data-label="Actions">
+                                    <div class="member-actions">
+                                        <a asp-action="UpdateUser" asp-route-email="@member.Email" class="member-action member-action-edit">
+                                            <i class="fa-solid fa-pen"></i><span>Edit</span>
+                                        </a>
+                                        @if (member.IsBlocked)
+                                        {
+                                            <form asp-action="UnblockUser" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="email" value="@member.Email" />
+                                                <button type="submit" class="member-action member-action-unblock"><i class="fa-solid fa-unlock"></i><span>Unblock</span></button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form asp-action="BlockUser" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="email" value="@member.Email" />
+                                                <button type="submit" class="member-action member-action-block"><i class="fa-solid fa-lock"></i><span>Block</span></button>
+                                            </form>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p id="memberNoResults" class="member-no-results" hidden>No members match your search.</p>
+            </div>
+        }
+    </section>
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            const search = document.getElementById('memberSearch');
+            const statusFilter = document.getElementById('memberStatusFilter');
+            const rows = [...document.querySelectorAll('[data-member-row]')];
+            const noResults = document.getElementById('memberNoResults');
+
+            function filterMembers() {
+                const query = (search?.value || '').trim().toLowerCase();
+                const status = statusFilter?.value || 'all';
+                let visible = 0;
+
+                rows.forEach(row => {
+                    const matchesQuery = row.dataset.search.toLowerCase().includes(query);
+                    const matchesStatus = status === 'all' || row.dataset.status === status;
+                    row.hidden = !(matchesQuery && matchesStatus);
+                    if (!row.hidden) visible++;
+                });
+
+                if (noResults) noResults.hidden = visible !== 0;
+            }
+
+            search?.addEventListener('input', filterMembers);
+            statusFilter?.addEventListener('change', filterMembers);
+        })();
+    </script>
+}

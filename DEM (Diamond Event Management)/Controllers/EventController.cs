@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace DEM__Diamond_Event_Management_.Controllers;
 
-public class EventController(DB db, 
+public class EventController(DB db,
                             IWebHostEnvironment en,
                             Helper hp) : Controller
 {
@@ -76,7 +76,7 @@ public class EventController(DB db,
             string? userEmail = User.FindFirstValue(ClaimTypes.NameIdentifier); //get user email from the logged in user visiting the page.
             alreadyRegistered = db.Registration.Any(r => r.EventId == id &&
                                                          r.UserEmail == userEmail &&
-                                                         r.Status != "Cancelled"); 
+                                                         r.Status != "Cancelled");
             // then check if the user has already registered for the current events
         }
         ViewBag.AlreadyRegistered = alreadyRegistered; //temp storage for cshtml
@@ -87,7 +87,7 @@ public class EventController(DB db,
     //-----------------------------End Event individual page-------------------------
     //-----------------------------Registration-------------------------
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "Member")]
     public IActionResult RegisterTeam(RegistrationVM vm)
     {
         //Check if the user is logged in and get the email of the logged in user
@@ -168,7 +168,7 @@ public class EventController(DB db,
             Id = regId,
             TeamName = teamName,
             RegDate = DateOnly.FromDateTime(DateTime.Now),
-            Status = "In Cart", // not sure yet, could be in cart, pending, or something else
+            Status = "Pending",
             UserEmail = userEmail,
             EventId = vm.EventId
         };
@@ -200,7 +200,7 @@ public class EventController(DB db,
 
         db.SaveChanges();
 
-        TempData["Info"] = "Team registered! It has been added to your cart.";
+        TempData["Info"] = "Team registered. Please wait for the admin to approve your registration before payment.";
         return RedirectToAction("EventIndividual", new { id = vm.EventId });
     }    //-----------------------------End of Registration-------------------------
     // GET: Home/CheckEventId 
@@ -227,7 +227,7 @@ public class EventController(DB db,
     public IActionResult EventCreate()
     {
         ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
-        ViewBag.CategoryList = new SelectList(db.Category, "Id", "CategoryName");
+        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status != "Hidden"), "Id", "CategoryName");
         return View();
 
     }
@@ -301,7 +301,7 @@ public class EventController(DB db,
         }
 
         ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id", vm.VenueId);
-        ViewBag.CategoryList = new SelectList(db.Category, "Id", "CategoryName", vm.CategoryId);
+        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status != "Hidden"), "Id", "CategoryName", vm.CategoryId);
         return View(vm);
     }
     //----------------------------End Event Create---------------------------------------------
@@ -339,7 +339,7 @@ public class EventController(DB db,
         };
 
         ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
-        ViewBag.CategoryList = new SelectList(db.Category, "Id", "CategoryName");
+        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status != "Hidden"), "Id", "CategoryName");
         return View(vm);
 
     }
@@ -423,7 +423,7 @@ public class EventController(DB db,
         }
 
         ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
-        ViewBag.CategoryList = new SelectList(db.Category, "Id", "CategoryName");
+        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status != "Hidden"), "Id", "CategoryName");
         return View(vm);
     }
 
@@ -445,11 +445,11 @@ public class EventController(DB db,
     }
 
     // GET: Home/Demo
-//    public IActionResult Demo()
-//    {
-//        var model = db.Event;
-//        return View(model);
-//    }
+    //    public IActionResult Demo()
+    //    {
+    //        var model = db.Event;
+    //        return View(model);
+    //    }
 
 
     // POST: Home/DeleteMany

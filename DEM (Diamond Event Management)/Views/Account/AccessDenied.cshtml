@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/pay.css" />
+
+<div class="payment-status-container">
+    <div class="payment-status-card">
+        <div class="status-icon">⛔</div>
+        <h1>Access Denied</h1>
+        <p class="status-message">
+            This account is blocked.
+        </p>
+        <p class="status-description">
+            Please contact the administrator to regain access.
+        </p>
+
+        <div class="status-info">
+            <div class="status-row">
+                <span>Message</span>
+                <strong class="denied-text">Your member account is currently blocked.</strong>
+            </div>
+        </div>
+
+        <a href="/" class="back-button">Back to Home</a>
+    </div>
+</div>

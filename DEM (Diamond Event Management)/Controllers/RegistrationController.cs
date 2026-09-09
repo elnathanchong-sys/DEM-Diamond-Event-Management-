@@ -14,12 +14,14 @@ public class RegistrationController(DB db) : Controller
         ViewBag.SelectedCategories = categories ?? Array.Empty<string>();
 
         // Category list filter dropdown
-        ViewBag.CategoryList = db.Category.Select(c => new
-        {
-            Id = c.Id,
-            Name = c.CategoryName,
-            Count = db.Event.Count(e => e.CategoryId == c.Id)
-        }).ToList();
+        ViewBag.CategoryList = db.Category
+            .Where(c => c.Status != "Hidden")
+            .Select(c => new
+            {
+                Id = c.Id,
+                Name = c.CategoryName,
+                Count = db.Event.Count(e => e.CategoryId == c.Id)
+            }).ToList();
 
         var query = db.Event.AsQueryable();
 
@@ -123,6 +125,19 @@ public class RegistrationController(DB db) : Controller
         if (r != null && (status == "Approved" || status == "Denied" || status == "Pending"))
         {
             r.Status = status;
+
+            if (status == "Approved")
+            {
+                var eventName = db.Event.Find(r.EventId)?.Name ?? "your event";
+                db.Announcement.Add(new Announcement
+                {
+                    Title = "Registration approved",
+                    Message = $"Your team '{r.TeamName}' is approved for '{eventName}'. Please pay now after approval.",
+                    Type = "Registration",
+                    PostedAt = DateTime.Now
+                });
+            }
+
             db.SaveChanges();
 
             TempData["Info"] = $"Team '{r.TeamName}' marked as {status}.";

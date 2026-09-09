@@ -7,12 +7,12 @@ body {
     background: var(--bg-page);
 }
 
-.small{
+.small {
     font-size: 0.75rem;
 }
 
-.text-muted{
-    color : var(--text-muted);
+.text-muted {
+    color: var(--text-muted);
 }
 
 .profile-photo {
@@ -38,38 +38,67 @@ body {
     z-index: 100;
     overflow: hidden; /*Keep the text position fixed*/
     white-space: nowrap; /*Keep the text position fixed*/
-
 }
 
-.sidebar span{
-    color: var(--text-primary);
-}
+    .sidebar span {
+        color: var(--text-primary);
+    }
 
-.sidebar ul {
-    list-style: none;
-    padding: 0;
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: #a2a3b7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+            .sidebar ul li a:hover {
+                background-color: var(--bg-page);
+                color: var(--text-primary);
+            }
+
+            .sidebar ul li a span {
+                opacity: 1;
+                transition: opacity 0.3s ease;
+            }
+
+.sidebar-logout-form {
     margin: 0;
 }
 
-.sidebar ul li a {
+.sidebar-logout {
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 100%;
     padding: 12px 16px;
+    background: transparent;
+    border: 0;
     color: #a2a3b7;
-    text-decoration: none;
+    font: inherit;
     font-size: 0.9rem;
+    text-align: left;
+    cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
 
-.sidebar ul li a:hover {
-    background-color: var(--bg-page);
-    color: var(--text-primary);
-}
+    .sidebar-logout:hover {
+        background-color: var(--bg-page);
+        color: var(--text-primary);
+    }
 
-.sidebar ul li a span {
-    opacity: 1;
-    transition: opacity 0.3s ease;
+.sidebar.close .sidebar-logout {
+    justify-content: center;
+    padding: 12px 0;
 }
 
 
@@ -92,18 +121,18 @@ main {
     width: 60px;
 }
 
-/* Hide the text when collapsed */
-.sidebar.close .text {
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-}
+    /* Hide the text when collapsed */
+    .sidebar.close .text {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+    }
 
-/* Center the icons */
-.sidebar.close a {
-    justify-content: center;
-    padding: 12px 0;
-}
+    /* Center the icons */
+    .sidebar.close a {
+        justify-content: center;
+        padding: 12px 0;
+    }
 
 .menu-button {
     position: fixed;
@@ -122,9 +151,9 @@ main {
     z-index: 9999;
 }
 
-.menu-button.move {
-    left: 80px;
-}
+    .menu-button.move {
+        left: 80px;
+    }
 
 .sidebar-header {
     display: flex;
@@ -151,173 +180,172 @@ main {
     width: auto;
 }
 
-main input {
+    main input {
+        border: 0;
+        outline: 0;
+        color: #000000;
+    }
 
-    border: 0;
-    outline: 0;
-    color:#000000;
-}
+    main .date {
+        display: inline-block;
+        background-color: #ffffff;
+        border-radius: 0.4rem;
+        margin-top: 1rem;
+        padding: 0.5rem 1.6rem;
+    }
 
-main .date {
-    display: inline-block;
-    background-color: #ffffff;
-    border-radius: 0.4rem;
-    margin-top: 1rem;
-    padding: 0.5rem 1.6rem;
-}
+    main .insights {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
 
-main .insights {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-}
+        main .insights > div {
+            background-color: #ffffff;
+            padding: 1.8rem;
+            border-radius: 2rem;
+            margin-top: 1rem;
+            box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+            transition: all .3s ease;
+        }
 
-main .insights > div {
-    background-color: #ffffff;
-    padding: 1.8rem;
-    border-radius: 2rem;
-    margin-top: 1rem;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
-    transition: all .3s ease;
-}
+            main .insights > div:hover {
+                transform: translateY(-5px);
+                box-shadow: none;
+            }
 
-main .insights > div:hover {
-    transform: translateY(-5px);
-    box-shadow: none;
-}
+            main .insights > div span {
+                background: coral;
+                padding: 0.5rem;
+                border-radius: 50%;
+                color: #ffffff;
+                font-size: 2rem;
+            }
 
-main .insights > div span {
-    background: coral;
-    padding: 0.5rem;
-    border-radius: 50%;
-    color: #ffffff;
-    font-size: 2rem;
-}
+            main .insights > div.ongoing span {
+                background: #49ff00;
+            }
 
-main .insights > div.ongoing span {
-    background: #49ff00;
-}
+            main .insights > div.pending span {
+                background: #ff0000;
+            }
 
-main .insights > div.pending span {
-    background: #ff0000;
-}
+            main .insights > div .middle {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
 
-main .insights > div .middle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+                main .insights > div .middle h1 {
+                    font-size: 1.6rem;
+                }
 
-main .insights > div .middle h1 {
-    font-size: 1.6rem;
-}
+    main h1 {
+        color: #ffffff;
+    }
 
-main h1 {
-    color: #ffffff;
-}
+    main .insights h1 {
+        color: #000000;
+    }
 
-main .insights h1 {
-    color: #000000;
-}
+    main .insights h3 {
+        color: #000000;
+    }
 
-main .insights h3 {
-    color: #000000;
-}
+    main .insights p {
+        color: #000000;
+    }
 
-main .insights p {
-    color: #000000;
-}
+    main .insights .progress {
+        position: relative;
+        height: 68px;
+        width: 68px;
+        border-radius: 50px;
+    }
 
-main .insights .progress {
-    position: relative;
-    height: 68px;
-    width: 68px;
-    border-radius: 50px;
-}
+    main .insights svg {
+        height: 150px;
+        width: 150px;
+        position: absolute;
+        top: 0;
+    }
 
-main .insights svg {
-    height: 150px;
-    width: 150px;
-    position: absolute;
-    top:0;
-}
+        main .insights svg circle {
+            fill: none;
+            stroke-width: 5px;
+            stroke: #00c1ff;
+            transform: rotate(270,80,80)
+        }
 
-main .insights svg circle {
-    fill: none;
-    stroke-width: 5px;
-    stroke: #00c1ff;
-    transform: rotate(270,80,80)
-}
+    main .insights .event svg circle {
+        stroke-dashoffset: 10;
+        stroke-dasharray: 150;
+    }
 
-main .insights .event svg circle{
-    stroke-dashoffset: 10;
-    stroke-dasharray: 150;
-}
+    main .insights .ongoing svg circle {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 150;
+    }
 
-main .insights .ongoing svg circle {
-    stroke-dashoffset: 0;
-    stroke-dasharray: 150;
-}
+    main .insights .pending svg circle {
+        stroke: #ff0000;
+    }
 
-main .insights .pending svg circle {
-    stroke: #ff0000;
-}
+    main .insights .progress .number {
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-main .insights .progress .number {
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    main .recent_tournament {
+        margin-top: 2rem;
+    }
 
-main .recent_tournament {
-    margin-top: 2rem;
-}
+        main .recent_tournament h2 {
+            color: #000000;
+        }
 
-main .recent_tournament h2 {
-    color: #000000;
-}
+        main .recent_tournament table {
+            background-color: #ffffff;
+            width: 100%;
+            border-radius: 2rem;
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+            transition: all .3s ease;
+            color: #000000;
+        }
 
-main .recent_tournament table {
-    background-color: #ffffff;
-    width: 100%;
-    border-radius: 2rem;
-    padding: 1.8rem;
-    text-align: center;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
-    transition: all .3s ease;
-    color: #000000;
-}
+            main .recent_tournament table:hover {
+                transform: translateY(-5px);
+                box-shadow: none;
+            }
 
-main .recent_tournament table:hover {
-    transform: translateY(-5px);
-    box-shadow: none;
-}
+    main table tbody tr {
+        height: 3.8rem;
+        border-bottom: 1px solid #FFFFFF;
+        color: #677483;
+    }
 
-main table tbody tr {
-    height: 3.8rem;
-    border-bottom: 1px solid #FFFFFF;
-    color: #677483;
-}
+    main table tbody td {
+        height: 3.8rem;
+        border-bottom: 1px solid #FFFFFF;
+    }
 
-main table tbody td {
-    height: 3.8rem;
-    border-bottom: 1px solid #FFFFFF;
-}
+    main table tbody tr:last-child td {
+        border: none;
+    }
 
-main table tbody tr:last-child td{
-    border: none;
-}
-
-main .recent_tournament a {
-    text-align: center;
-    display: block;
-    margin: 1.0rem;
-}
+    main .recent_tournament a {
+        text-align: center;
+        display: block;
+        margin: 1.0rem;
+    }
 
 /*right*/
 
@@ -325,92 +353,89 @@ main .recent_tournament a {
     margin-top: 1.4rem;
 }
 
-.right h2{
-    color: #ffffff;
-}
+    .right h2 {
+        color: #ffffff;
+    }
 
-.right .top {
-    display: flex;
-    gap: 2rem;
-    justify-content: start;
+    .right .top {
+        display: flex;
+        gap: 2rem;
+        justify-content: start;
+    }
 
-}
+        .right .top button {
+            display: none;
+        }
 
-.right .top button{
-    display:none;
-}
+    .right .theme-toggler {
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        height: 1.6rem;
+        width: 4.2rem;
+        cursor: pointer;
+        border-radius: 1rem;
+    }
 
-.right .theme-toggler {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    height: 1.6rem;
-    width: 4.2rem;
-    cursor: pointer;
-    border-radius: 1rem;
-}
+        .right .theme-toggler span {
+            font-size: 1.2rem;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.right .theme-toggler span {
-    font-size: 1.2rem;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+            .right .theme-toggler span.active {
+                background-color: #a2a3b7;
+                color: #ffffff;
+            }
 
-.right .theme-toggler span.active {
-    background-color: #a2a3b7;
-    color: #ffffff;
-}
+    .right .top .profile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
 
-.right .top .profile {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
+    .right .info h3 {
+        color: #ffffff;
+        margin: 0;
+    }
 
-.right .info h3 {
-    color: #ffffff;
-    margin: 0;
-}
+    .right .item h3 {
+        color: #ffffff;
+    }
 
-.right .item h3 {
-    color: #ffffff;
-}
+    /*recent updates*/
 
-/*recent updates*/
+    .right .recent-updates {
+        margin-top: 1rem;
+        margin-left: -20px;
+    }
 
-.right .recent-updates {
-    margin-top: 1rem;
-    margin-left: -20px;
-}
+    .right .recent_updates .updates {
+        background-color: #ffffff;
+        padding: 1.8rem;
+        border-radius: 2rem;
+        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+        transition: all .3s ease;
+    }
 
-.right .recent_updates .updates {
-    background-color: #ffffff;
-    padding: 1.8rem;
-    border-radius: 2rem;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
-    transition: all .3s ease;
-}
+        .right .recent_updates .updates:hover {
+            transform: translateY(-5px);
+            box-shadow: none;
+        }
 
-.right .recent_updates .updates:hover {
-    transform: translateY(-5px);
-    box-shadow: none;
-}
+    .right .recent_updates .update {
+        display: grid;
+        grid-template-columns: 0rem auto;
+        gap: 3rem;
+        margin-top: 1rem;
+    }
 
-.right .recent_updates .update {
-    display: grid;
-    grid-template-columns: 0rem auto;
-    gap: 3rem;
-    margin-top: 1rem;
-    
-}
-
-.right .recent_updates .update .profile-photo {
-    margin-top: 1rem;
-    
-}
+        .right .recent_updates .update .profile-photo {
+            margin-top: 1rem;
+        }
 
     /* ================= Sales Analytics ================= */
     .right .sales_analytics {
@@ -439,113 +464,73 @@ main .recent_tournament a {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            background-color:#ffffff;
+            background-color: #ffffff;
         }
 
-            /* Hover effect matching your other cards */
-            .right .sales_analytics .item:hover {
-                transform: translateY(-5px);
-                box-shadow: none;
-            }
+        /* Hover effect matching your other cards */
+        .right .sales_analytics .item:hover {
+            transform: translateY(-5px);
+            box-shadow: none;
+        }
 
-            /* Icon Container */
-            .right .sales_analytics .item .icon {
-                padding: 0.6rem;
-                border-radius: 50%;
-                color: #ffffff;
-                display: flex;
-                font-size: 1.2rem;
-                justify-content: center;
-                align-items: center;
-                width: 40px;
-                height: 40px;
-            }
+        /* Icon Container */
+        .right .sales_analytics .item .icon {
+            padding: 0.6rem;
+            border-radius: 50%;
+            color: #ffffff;
+            display: flex;
+            font-size: 1.2rem;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+        }
 
-            /* Match colors to your existing insights theme */
-            .right .sales_analytics .item.online .icon {
-                background: coral;
-            }
+        /* Match colors to your existing insights theme */
+        .right .sales_analytics .item.online .icon {
+            background: coral;
+        }
 
-            .right .sales_analytics .item.offline .icon {
-                background: #ff0000;
-            }
+        .right .sales_analytics .item.offline .icon {
+            background: #ff0000;
+        }
 
-            .right .sales_analytics .item.customers .icon {
-                background: #49ff00;
-            }
+        .right .sales_analytics .item.customers .icon {
+            background: #49ff00;
+        }
 
-            /* Text & Content Layout */
+        /* Text & Content Layout */
         .right .sales_analytics .item .right_content {
-            
-            
             justify-content: space-between;
             align-items: center;
             margin: 0;
             width: 100%;
         }
 
-                .right .sales_analytics .item .right_content .info h3 {
-                    color: #000000;
-                    margin-bottom: 0.2rem;
-                }
-
-                .right .sales_analytics .item .right_content .info small {
-                    color: #677483;
-                }
-
-                .right .sales_analytics .item .right_content > h3 {
-                    color: #000000;
-                    font-size: 1.2rem;
-                }
-
-            /* Percentage Indicators */
-            .right .sales_analytics .item h5 {
-                font-size: 0.85rem;
-                font-weight: bold;
+            .right .sales_analytics .item .right_content .info h3 {
+                color: #000000;
+                margin-bottom: 0.2rem;
             }
 
-                .right .sales_analytics .item h5.success {
-                    color: #49ff00;
-                }
+            .right .sales_analytics .item .right_content .info small {
+                color: #677483;
+            }
 
-                .right .sales_analytics .item h5.danger {
-                    color: #ff0000;
-                }
+            .right .sales_analytics .item .right_content > h3 {
+                color: #000000;
+                font-size: 1.2rem;
+            }
 
-.session-info-item {
-    display: flex;
-    flex-direction: column;
-    margin-top: 25.5rem;
-    margin-left: auto;
-    border-top: 1px solid var(--border-subtle);
-    align-items: flex-start;
-}
+        /* Percentage Indicators */
+        .right .sales_analytics .item h5 {
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
 
-.sidebar .session-info-item .session-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    color: var(--text-primary);
-}
+            .right .sales_analytics .item h5.success {
+                color: #49ff00;
+            }
 
-.session-info-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-}
-
-.session-info-name {
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-
-.session-info-role {
-    font-size: 0.75rem;
-    color: var(--text-muted); 
-}
-
-.sidebar.close .session-info-item .session-info {
-    justify-content: center;
-    padding: 12px 0;
-}          
+            .right .sales_analytics .item h5.danger {
+                color: #ff0000;
+            }

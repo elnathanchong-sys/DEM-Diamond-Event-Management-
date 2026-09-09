@@ -8,9 +8,6 @@ namespace DEM__Diamond_Event_Management_.Controllers
     {
         private readonly DB _db;
 
-        // Temporary in-memory storage for custom announcements
-        private static readonly List<AnnouncementItem> _announcements = new();
-
         public AdminNotificationsController(DB db)
         {
             _db = db;
@@ -21,8 +18,18 @@ namespace DEM__Diamond_Event_Management_.Controllers
         {
             var model = new AdminNotificationDashboardVM();
 
-            // 1. Posted Announcements
-            model.Announcements = _announcements.OrderByDescending(a => a.PostedAt).ToList();
+            // 1. Posted Announcements from the database
+            model.Announcements = _db.Announcement
+                .OrderByDescending(a => a.PostedAt)
+                .Select(a => new AnnouncementItem
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                    Message = a.Message,
+                    Type = a.Type,
+                    PostedAt = a.PostedAt
+                })
+                .ToList();
 
             // 2. Schedule Changes & Event Timings from Event table
             model.ScheduleUpdates = _db.Event
@@ -76,14 +83,15 @@ namespace DEM__Diamond_Event_Management_.Controllers
         {
             if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(message))
             {
-                _announcements.Add(new AnnouncementItem
+                _db.Announcement.Add(new Announcement
                 {
-                    Id = _announcements.Count + 1,
                     Title = title,
                     Message = message,
                     Type = type,
                     PostedAt = DateTime.Now
                 });
+
+                _db.SaveChanges();
 
                 TempData["Info"] = "Announcement successfully posted!";
             }
