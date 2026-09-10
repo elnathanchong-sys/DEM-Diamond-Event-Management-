@@ -57,9 +57,18 @@
                             </div>
 
                             <div class="registered-event-actions">
-                                <a class="ticket-btn" href="/Profile/Ticket/@item.RegistrationId">
-                                    <i class="bx bx-download"></i>View Ticket
-                                </a>
+                                @if (item.HasPayment)
+                                {
+                                    <a class="ticket-btn" href="@Url.Action("Receipt", "Profile", new { id = item.RegistrationId })">
+                                        <i class="bx bx-printer"></i> Print Receipt
+                                    </a>
+                                }
+                                else
+                                {
+                                    <div class="unpaid-event-message">
+                                        <i class="bx bx-info-circle"></i> You didn't pay for this event yet.
+                                    </div>
+                                }
                             </div>
                         </div>
                     </article>

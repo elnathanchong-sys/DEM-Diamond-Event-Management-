@@ -167,7 +167,8 @@ public class UserController(DB db, Helper hp) : Controller
                     StartTime = r.Event.StartTime,
                     Venue = r.Event.Venue != null ? r.Event.Venue.VenueName : r.Event.VenueId,
                     PosterImg = r.Event.PosterImg,
-                    RegistrationId = r.Id
+                    RegistrationId = r.Id,
+                    HasPayment = paidRegistrationIds.Contains(r.Id)
                 })
                 .ToList(),
 
@@ -205,6 +206,12 @@ public class UserController(DB db, Helper hp) : Controller
             .OrderBy(r => r.Event.StartDate)
             .ToListAsync();
 
+        var paidRegistrationIds = await db.Payment
+            .Where(p => registrations.Select(r => r.Id).Contains(p.RegistrationId))
+            .Select(p => p.RegistrationId)
+            .Distinct()
+            .ToListAsync();
+
         var model = registrations
             .Select(r => new ProfileEventViewModel
             {
@@ -213,7 +220,8 @@ public class UserController(DB db, Helper hp) : Controller
                 StartTime = r.Event.StartTime,
                 Venue = r.Event.Venue != null ? r.Event.Venue.VenueName : r.Event.VenueId,
                 PosterImg = r.Event.PosterImg,
-                RegistrationId = r.Id
+                RegistrationId = r.Id,
+                HasPayment = paidRegistrationIds.Contains(r.Id)
             })
             .ToList();
 

@@ -28,7 +28,7 @@
             </div>
 
             <div class="navigation-bar">
-                <a href="/Event/EventRead" class="no-underlined">Home</a>
+                <a href="/Home/Index" class="no-underlined">Home</a>
                 <a href="/Home/EventList" class="no-underlined">Events</a>
                 <a asp-controller="Home" asp-action="FAQ" class="no-underlined">FAQs</a>
                 <a href="/Home/About" class="no-underlined">About Us</a>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-
+            *@
             <div class="right-icon">
                 <div class="search-section">
                     <form method="get" action="/Home/EventList">
@@ -57,12 +57,12 @@
                                class="search-input"
                                placeholder="Search event..."
                                value="@Context.Request.Query["name"]" />
-                    </form> @*copied from HO's eventcreate search bar function not added yet
+                    </form> 
                 </div>
                 <a href="/Account/Login" class="user-icon">
                     <i class="bx bx-cart"></i>
                 </a>
-            *@
+
                 <a href="/Home/Announcements" class="bell-icon" aria-label="View announcements">
                     <i class="bx bx-bell"></i>
                 </a>

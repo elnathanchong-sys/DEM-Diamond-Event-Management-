@@ -1,0 +1,38 @@
+﻿@model DEM__Diamond_Event_Management_.Models.Payment
+
+@{
+    ViewBag.Title = "Payment Receipt";
+    Layout = "_Layout";
+    var registration = Model.Registration;
+    var eventDetails = registration?.Event;
+    var venue = eventDetails?.Venue?.VenueName ?? eventDetails?.VenueId ?? "-";
+}
+
+<link rel="stylesheet" href="~/css/receipt.css" />
+
+<main class="receipt-page">
+    <article class="receipt-card">
+        <div class="receipt-mark"><i class="bx bx-check"></i></div>
+        <span class="receipt-kicker">Diamond Event Management</span>
+        <h1>Payment Successful</h1>
+        <p class="receipt-subtitle">Your payment has been successfully recorded.</p>
+
+        <div class="receipt-divider"></div>
+
+        <dl class="receipt-details">
+            <div><dt>Payment ID</dt><dd>@Model.Id</dd></div>
+            <div><dt>Registration ID</dt><dd>@Model.RegistrationId</dd></div>
+            <div><dt>Event</dt><dd>@(eventDetails?.Name ?? "-")</dd></div>
+            <div><dt>Event Date</dt><dd>@(eventDetails?.StartDate.ToString("dd MMM yyyy") ?? "-")</dd></div>
+            <div><dt>Venue</dt><dd>@venue</dd></div>
+            <div><dt>Payment Method</dt><dd>@Model.PaymentMethod</dd></div>
+            <div><dt>Payment Date</dt><dd>@Model.PaymentDate.ToString("dd/MM/yyyy")</dd></div>
+            <div class="receipt-total"><dt>Amount Paid</dt><dd>RM @Model.AmountPaid.ToString("0.00")</dd></div>
+        </dl>
+
+        <div class="receipt-actions no-print">
+            <a asp-controller="Profile" asp-action="Cusprofile" class="receipt-back">Back to Profile</a>
+            <button type="button" class="receipt-print" onclick="window.print()"><i class="bx bx-printer"></i> Print / Save PDF</button>
+        </div>
+    </article>
+</main>

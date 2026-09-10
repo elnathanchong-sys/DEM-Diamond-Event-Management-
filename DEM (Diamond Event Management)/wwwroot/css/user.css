@@ -300,14 +300,32 @@ body {
     text-align: center;
 }
 
-    .empty-state i {
-        font-size: 2rem;
-        color: var(--text-primary);
+.unpaid-event-message {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 16px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background: var(--bg-page);
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+}
+
+    .unpaid-event-message i {
+        color: var(--accent-600);
+        font-size: 1rem;
     }
 
-    .empty-state p {
-        margin: 0;
-    }
+.empty-state i {
+    font-size: 2rem;
+    color: var(--text-primary);
+}
+
+.empty-state p {
+    margin: 0;
+}
 
 .history-card {
     background: var(--bg-layer-2);

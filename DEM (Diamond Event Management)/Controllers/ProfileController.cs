@@ -50,7 +50,8 @@ public class ProfileController(DB db) : Controller
                 StartTime = r.Event.StartTime,
                 Venue = r.Event.VenueId,
                 PosterImg = r.Event.PosterImg,
-                RegistrationId = r.Id
+                RegistrationId = r.Id,
+                HasPayment = paidRegistrationIds.Contains(r.Id)
             })
             .ToList();
 
@@ -87,5 +88,23 @@ public class ProfileController(DB db) : Controller
         };
 
         return View(model);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Receipt(string id)
+    {
+        var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(email))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var payment = await db.Payment
+            .Include(p => p.Registration)
+            .ThenInclude(r => r.Event)
+            .ThenInclude(e => e.Venue)
+            .FirstOrDefaultAsync(p => p.RegistrationId == id && p.Registration.UserEmail == email);
+
+        return payment == null ? NotFound() : View(payment);
     }
 }

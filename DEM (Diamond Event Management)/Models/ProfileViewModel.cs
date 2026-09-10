@@ -22,6 +22,7 @@ public class ProfileEventViewModel
     public string Venue { get; set; } = string.Empty;
     public string PosterImg { get; set; } = string.Empty;
     public string RegistrationId { get; set; } = string.Empty;
+    public bool HasPayment { get; set; }
 }
 
 public class ProfilePurchaseViewModel

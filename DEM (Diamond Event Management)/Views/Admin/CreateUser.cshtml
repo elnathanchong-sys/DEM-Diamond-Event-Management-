@@ -4,84 +4,93 @@
     Layout = "_AdminLayout";
 }
 
-<link rel="stylesheet" href="~/css/admin.css" />
+<link rel="stylesheet" href="~/css/edit-forms.css" />
 
-<div class="admin-wrapper">
-    <div class="admin-header">
-        <h1>Create Member</h1>
-        <a asp-action="ReadUser" class="category-create-btn-return">← Back to List</a>
-    </div>
+<div class="edit-screen edit-screen--wide">
+    <header class="edit-screen-header">
+        <div>
+            <span class="edit-screen-kicker"><i class="fa-solid fa-user-plus"></i> Member management</span>
+            <h1>Add Member</h1>
+            <p class="edit-screen-subtitle">Create a new member account and set their profile details.</p>
+        </div>
+        <a asp-action="ReadUser" class="edit-screen-back"><i class="fa-solid fa-arrow-left"></i> Member list</a>
+    </header>
 
-    <form asp-action="CreateUser" method="post" class="category-create-body">
+    <form asp-action="CreateUser" method="post" class="edit-screen-card edit-screen-form">
         @Html.AntiForgeryToken()
-        <div asp-validation-summary="All" class="text-danger"></div>
+        <div asp-validation-summary="All" class="edit-screen-validation"></div>
 
-        <div class="form-group">
-            <label asp-for="Email">Email</label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+        <div class="edit-screen-grid">
+            <div class="edit-screen-field">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" placeholder="Email address" />
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" placeholder="Create a password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="Name">Full Name</label>
+                <input asp-for="Name" placeholder="Enter the member's full name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="Gender">Gender</label>
+                <select asp-for="Gender">
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+                <span asp-validation-for="Gender"></span>
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="Phone">Phone</label>
+                <input asp-for="Phone" placeholder="Phone number" />
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="Country">Country</label>
+                <input asp-for="Country" placeholder="Country" />
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="State">State</label>
+                <input asp-for="State" placeholder="State" />
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="City">City</label>
+                <input asp-for="City" placeholder="City" />
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="HouseNo">House No</label>
+                <input asp-for="HouseNo" placeholder="House number" />
+            </div>
+
+            <div class="edit-screen-field edit-screen-field--full">
+                <label asp-for="Address">Address</label>
+                <textarea asp-for="Address" rows="3" placeholder="Street address"></textarea>
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="MembershipLevel">Membership Level</label>
+                <select asp-for="MembershipLevel">
+                    <option>Silver</option>
+                    <option>Gold</option>
+                    <option>Platinum</option>
+                </select>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label asp-for="Password">Password</label>
-            <input asp-for="Password" class="form-control" type="password" />
-            <span asp-validation-for="Password" class="text-danger"></span>
+        <div class="edit-screen-actions">
+            <a asp-action="ReadUser" class="edit-screen-cancel">Cancel</a>
+            <button type="submit" class="edit-screen-submit"><i class="fa-solid fa-check"></i> Save Member</button>
         </div>
-
-        <div class="form-group">
-            <label asp-for="Name">Full Name</label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Gender">Gender</label>
-            <select asp-for="Gender" class="form-control">
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-            </select>
-            <span asp-validation-for="Gender" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Phone">Phone</label>
-            <input asp-for="Phone" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Country">Country</label>
-            <input asp-for="Country" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="State">State</label>
-            <input asp-for="State" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="City">City</label>
-            <input asp-for="City" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="HouseNo">House No</label>
-            <input asp-for="HouseNo" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Address">Address</label>
-            <input asp-for="Address" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="MembershipLevel">Membership Level</label>
-            <select asp-for="MembershipLevel" class="form-control">
-                <option>Silver</option>
-                <option>Gold</option>
-                <option>Platinum</option>
-            </select>
-        </div>
-
-        <button type="submit" class="category-create-btn-submit">Save Member</button>
     </form>
 </div>
