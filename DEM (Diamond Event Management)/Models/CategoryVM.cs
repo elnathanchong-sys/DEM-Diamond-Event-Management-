@@ -16,7 +16,5 @@ namespace DEM__Diamond_Event_Management_.Models
         [StringLength(100)]
         public string Name { get; set; }
 
-        [StringLength(100)]
-        public string Description { get; set; }
     }
 }

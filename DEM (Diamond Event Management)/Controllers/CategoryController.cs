@@ -69,7 +69,6 @@ namespace DEM__Diamond_Event_Management_.Controllers
             {
                 Id = category.Id,
                 Name = category.CategoryName,
-                Description = ""
             };
 
             return View(vm);
