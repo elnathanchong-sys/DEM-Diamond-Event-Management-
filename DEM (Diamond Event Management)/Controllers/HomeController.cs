@@ -85,7 +85,7 @@ public class HomeController(DB db) : Controller
 
         //Categories with event counts
         ViewBag.Category = db.Category
-            .Where(c => c.Status != "Hidden")
+            .Where(c => c.Status.Trim().ToUpper() != "HIDDEN")
             .Select(c => new
             {
                 Id = c.Id,

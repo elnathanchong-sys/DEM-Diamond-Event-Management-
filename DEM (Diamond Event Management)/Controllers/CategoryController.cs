@@ -100,7 +100,6 @@ namespace DEM__Diamond_Event_Management_.Controllers
         public IActionResult CatRead(string search)
         {
             var categories = db.Category
-                .Where(c => c.Status != "Hidden")
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(search))
@@ -112,6 +111,7 @@ namespace DEM__Diamond_Event_Management_.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CatDelete(string id)
         {
             var category = db.Category.Find(id);
@@ -122,6 +122,23 @@ namespace DEM__Diamond_Event_Management_.Controllers
             }
 
             category.Status = "Hidden";
+            db.SaveChanges();
+
+            return RedirectToAction("CatRead");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CatUnhide(string id)
+        {
+            var category = db.Category.Find(id);
+
+            if (category == null)
+            {
+                return RedirectToAction("CatRead");
+            }
+
+            category.Status = "Visible";
             db.SaveChanges();
 
             return RedirectToAction("CatRead");

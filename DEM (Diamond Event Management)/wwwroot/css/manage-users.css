@@ -42,7 +42,7 @@
 .member-list-toolbar p {
     margin: 10px 0 0;
     color: var(--text-secondary);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: 0.92rem;
 }
 
@@ -57,7 +57,7 @@
     padding: 12px 18px;
     background: var(--accent-600);
     color: var(--accent-text-on-light);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: 0.88rem;
     font-weight: 700;
     text-decoration: none;
@@ -118,7 +118,7 @@
     display: block;
     margin-bottom: 3px;
     color: var(--text-secondary);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: 0.78rem;
 }
 
@@ -137,7 +137,7 @@
     padding: 12px 15px;
     background: rgba(40, 167, 69, 0.12);
     color: #67d787;
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: 0.9rem;
 }
 
@@ -190,7 +190,7 @@
         border-radius: 7px;
         background: var(--bg-layer-2);
         color: var(--text-primary);
-        font-family: Arial, sans-serif;
+        font-family: "Bree Serif", serif;
         font-size: 0.84rem;
         outline: none;
     }
@@ -218,7 +218,7 @@
 .member-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
 }
 
     .member-table th {
@@ -338,7 +338,7 @@
     padding: 0 10px;
     background: transparent;
     color: var(--text-secondary);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: 0.76rem;
     font-weight: 700;
     text-decoration: none;
@@ -367,7 +367,7 @@
 .member-no-results,
 .member-empty-state {
     color: var(--text-secondary);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     text-align: center;
 }
 

@@ -7,7 +7,7 @@ namespace DEM__Diamond_Event_Management_.Controllers;
 
 public class ProfileController(DB db) : Controller
 {
-    public async Task<IActionResult> Cusprofile()
+    public async Task<IActionResult> Cusprofile(bool showAllUpcoming = false, bool showAllHistory = false)
     {
         // Get email of the currently logged-in user
         var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -41,6 +41,36 @@ public class ProfileController(DB db) : Controller
             .Distinct()
             .ToListAsync();
 
+        var upcomingEvents = registrations
+            .Where(r => r.Event.StartDate >= DateOnly.FromDateTime(DateTime.Now))
+            .Select(r => new ProfileEventViewModel
+            {
+                EventName = r.Event.Name,
+                StartDate = r.Event.StartDate,
+                StartTime = r.Event.StartTime,
+                Venue = r.Event.VenueId,
+                PosterImg = r.Event.PosterImg,
+                RegistrationId = r.Id
+            })
+            .ToList();
+
+        var purchases = registrations
+            .Select(r => new ProfilePurchaseViewModel
+            {
+                EventName = r.Event.Name,
+                RegistrationDate = r.RegDate,
+                Amount = r.Event.Price,
+                Status = r.Status,
+                RegistrationId = r.Id,
+                HasPayment = paidRegistrationIds.Contains(r.Id)
+            })
+            .ToList();
+
+        ViewBag.ShowAllUpcoming = showAllUpcoming;
+        ViewBag.ShowAllHistory = showAllHistory;
+        ViewBag.HasMoreUpcoming = upcomingEvents.Count > 4;
+        ViewBag.HasMorePurchases = purchases.Count > 4;
+
         // Create ViewModel
         var model = new ProfileViewModel
         {
@@ -52,30 +82,8 @@ public class ProfileController(DB db) : Controller
             MembershipLevel = member.MembershipLevel,
             RewardPoints = member.RewardPoints,
 
-            UpcomingEvents = registrations
-                .Where(r => r.Event.StartDate >= DateOnly.FromDateTime(DateTime.Now))
-                .Select(r => new ProfileEventViewModel
-                {
-                    EventName = r.Event.Name,
-                    StartDate = r.Event.StartDate,
-                    StartTime = r.Event.StartTime,
-                    Venue = r.Event.VenueId,
-                    PosterImg = r.Event.PosterImg,
-                    RegistrationId = r.Id
-                })
-                .ToList(),
-
-            Purchases = registrations
-                .Select(r => new ProfilePurchaseViewModel
-                {
-                    EventName = r.Event.Name,
-                    RegistrationDate = r.RegDate,
-                    Amount = r.Event.Price,
-                    Status = r.Status,
-                    RegistrationId = r.Id,
-                    HasPayment = paidRegistrationIds.Contains(r.Id)
-                })
-                .ToList()
+            UpcomingEvents = showAllUpcoming ? upcomingEvents : upcomingEvents.Take(4).ToList(),
+            Purchases = showAllHistory ? purchases : purchases.Take(4).ToList()
         };
 
         return View(model);

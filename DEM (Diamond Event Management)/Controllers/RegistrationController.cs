@@ -15,7 +15,7 @@ public class RegistrationController(DB db) : Controller
 
         // Category list filter dropdown
         ViewBag.CategoryList = db.Category
-            .Where(c => c.Status != "Hidden")
+            .Where(c => c.Status.Trim().ToUpper() != "HIDDEN")
             .Select(c => new
             {
                 Id = c.Id,

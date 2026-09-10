@@ -3,7 +3,7 @@ body {
     display: flex;
     min-height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     background: var(--bg-page);
 }
 
@@ -527,13 +527,13 @@ main {
             font-weight: bold;
         }
 
-.right .sales_analytics .item h5.success {
-    color: #49ff00;
-}
+            .right .sales_analytics .item h5.success {
+                color: #49ff00;
+            }
 
-.right .sales_analytics .item h5.danger {
-    color: #ff0000;
-}
+            .right .sales_analytics .item h5.danger {
+                color: #ff0000;
+            }
 
 .session-info-item {
     display: flex;

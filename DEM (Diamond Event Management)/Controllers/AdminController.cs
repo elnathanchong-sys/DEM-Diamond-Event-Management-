@@ -20,7 +20,7 @@ public class AdminController(DB db, Helper hp) : Controller
     {
         if (!IsSuperAdmin())
         {
-            TempData["Error"] = "Only the Super Admin can add, update, or delete admin accounts.";
+            TempData["Error"] = "Only the Super Admin can manage admin accounts.";
             return RedirectToAction(nameof(ReadAdmin));
         }
 
@@ -97,8 +97,62 @@ public class AdminController(DB db, Helper hp) : Controller
     [HttpGet]
     public IActionResult ReadAdmin()
     {
-        var admins = db.Admin.ToList();
+        var admins = db.Admin
+            .OrderBy(a => a.Name)
+            .ToList();
         return View(admins);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> BlockAdmin(string email)
+    {
+        var gate = RequireSuperAdmin();
+        if (gate != null) return gate;
+
+        if (string.IsNullOrWhiteSpace(email)) return NotFound();
+
+        var currentEmail = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.Equals(email, currentEmail, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(email, SuperAdminEmail, StringComparison.OrdinalIgnoreCase))
+        {
+            TempData["Error"] = "The Super Admin account cannot be blocked.";
+            return RedirectToAction(nameof(ReadAdmin));
+        }
+
+        var admin = await db.Admin.FirstOrDefaultAsync(a => a.Email == email);
+        if (admin == null) return NotFound();
+
+        if (!admin.IsBlocked)
+        {
+            admin.IsBlocked = true;
+            await db.SaveChangesAsync();
+        }
+
+        TempData["Info"] = $"Admin '{admin.Name}' has been blocked.";
+        return RedirectToAction(nameof(ReadAdmin));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UnblockAdmin(string email)
+    {
+        var gate = RequireSuperAdmin();
+        if (gate != null) return gate;
+
+        if (string.IsNullOrWhiteSpace(email)) return NotFound();
+
+        var admin = await db.Admin.FirstOrDefaultAsync(a => a.Email == email);
+        if (admin == null) return NotFound();
+
+        if (admin.IsBlocked)
+        {
+            admin.IsBlocked = false;
+            await db.SaveChangesAsync();
+        }
+
+        TempData["Info"] = $"Admin '{admin.Name}' has been unblocked.";
+        return RedirectToAction(nameof(ReadAdmin));
     }
 
     // CREATE: GET

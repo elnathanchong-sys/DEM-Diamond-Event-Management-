@@ -43,14 +43,31 @@
                     <div><strong>Gender:</strong> @(admin.Gender == "M" ? "Male" : "Female")</div>
                     <div><strong>Phone:</strong> @(string.IsNullOrEmpty(admin.Phone) ? "-" : admin.Phone)</div>
                     <div><strong>Created:</strong> @admin.CreationDate.ToString("yyyy-MM-dd")</div>
+                    <div><strong>Status:</strong> @(admin.IsBlocked ? "Blocked" : "Active")</div>
                 </div>
                 <div class="category-action-btns">
                     @if (isSuperAdmin)
                     {
                         <a asp-action="UpdateAdmin" asp-route-email="@admin.Email" class="btn-update">Edit</a>
-                        @if (!string.Equals(currentUserEmail, admin.Email, StringComparison.OrdinalIgnoreCase))
+                        @if (!string.Equals(currentUserEmail, admin.Email, StringComparison.OrdinalIgnoreCase) &&
+                             !string.Equals(admin.Email, "admin@domain.com", StringComparison.OrdinalIgnoreCase))
                         {
-                            <a asp-action="DeleteAdmin" asp-route-email="@admin.Email" class="btn-delete" style="background-color: red;">Delete</a>
+                            @if (admin.IsBlocked)
+                            {
+                                <form asp-action="UnblockAdmin" method="post" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="email" value="@admin.Email" />
+                                    <button type="submit" class="btn-update">Unblock</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="BlockAdmin" method="post" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="email" value="@admin.Email" />
+                                    <button type="submit" class="btn-delete" style="background-color: red;">Block</button>
+                                </form>
+                            }
                         }
                     }
                 </div>

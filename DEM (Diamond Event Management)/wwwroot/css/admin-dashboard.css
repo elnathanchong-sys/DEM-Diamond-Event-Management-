@@ -27,7 +27,7 @@
 .dashboard-kicker, .panel-eyebrow {
     margin: 0 0 8px;
     color: var(--accent-600);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: .75rem;
     font-weight: 700;
     letter-spacing: .1em;
@@ -39,7 +39,7 @@
     }
 
 .dashboard-subtitle, .dashboard-metric span, .dashboard-metric small, .tournament-details small, .trend-details small {
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
 }
 
 .dashboard-subtitle {
@@ -57,7 +57,7 @@
     padding: 10px 13px;
     background: var(--bg-layer-1);
     color: var(--text-secondary);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: .8rem;
     white-space: nowrap;
 }
@@ -164,7 +164,7 @@
 }
 
 .panel-link, .trend-badge {
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: .76rem;
     font-weight: 700;
 }
@@ -255,7 +255,7 @@
 .dashboard-status {
     border-radius: 999px;
     padding: 5px 9px;
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: .68rem;
     font-weight: 700;
     text-transform: capitalize;
@@ -294,7 +294,7 @@
     border-radius: 50%;
     background: var(--bg-layer-2);
     color: var(--text-secondary);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: .75rem;
     font-weight: 700;
 }
@@ -317,14 +317,14 @@
 
 .trend-percent {
     color: var(--accent-600);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     font-size: .78rem;
 }
 
 .dashboard-empty {
     padding: 52px 20px;
     color: var(--text-muted);
-    font-family: Arial, sans-serif;
+    font-family: "Bree Serif", serif;
     text-align: center;
 }
 

@@ -51,23 +51,23 @@
             </li>
             <li>
                 <a href="/IndexBanner/IndexBannerRead">
-                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span class="icon"><i class="fa-solid fa-image"></i></span>
                     <span class="text">Index Banner</span>
                 </a>
             </li>
             <li>
                 <a href="/Event/EventRead">
-                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
                     <span class="text">Manage Events</span>
                 </a>
             </li>
             <li>
                 <a href="/Category/CatRead">
-                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span class="icon"><i class="fa-solid fa-tags"></i></span>
                     <span class="text">Categories</span>
                 </a>
             </li>
-           
+
             <li>
                 <a href="/Venue/Index">
                     <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
@@ -78,25 +78,25 @@
             <ul>
                 <li>
                     <a href="/Admin/ReadUser">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="icon"><i class="fa-solid fa-users"></i></span>
                         <span class="text">Manage Users</span>
                     </a>
                 </li>
                 <li>
                     <a href="/Registration/RegistrationEvents">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="icon"><i class="fa-solid fa-clipboard-check"></i></span>
                         <span class="text">Team Approvals</span>
                     </a>
                 </li>
                 <li>
                     <a href="/Admin/Notifications">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="icon"><i class="fa-solid fa-bell"></i></span>
                         <span class="text">Notifications</span>
                     </a>
                 </li>
                 <li>
                     <a href="/Admin/ReadAdmin">
-                        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="icon"><i class="fa-solid fa-user-shield"></i></span>
                         <span class="text">Administrators</span>
                     </a>
                 </li>
@@ -126,20 +126,20 @@
 
         <li class="session-view">
             @if (User.Identity != null && User.Identity.IsAuthenticated)
-                {
-                    string? sessionEmail = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                    var sessionUser = sessionEmail == null ? null : db.User.Find(sessionEmail);
+            {
+                string? sessionEmail = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var sessionUser = sessionEmail == null ? null : db.User.Find(sessionEmail);
 
-                    <li class="session-info-item">
-                        <div class="session-info">
-                            <span class="icon"><i class="fa-solid fa-circle-user"></i></span>
-                            <span class="text session-info-text">
-                                <span class="session-info-name">@(sessionUser != null ? sessionUser.Name : sessionEmail)</span>
-                                <span class="session-info-role">@User.FindFirst(ClaimTypes.Role)?.Value</span>
-                            </span>
-                        </div>
-                    </li>
-                }
+                <li class="session-info-item">
+                    <div class="session-info">
+                        <span class="icon"><i class="fa-solid fa-circle-user"></i></span>
+                        <span class="text session-info-text">
+                            <span class="session-info-name">@(sessionUser != null ? sessionUser.Name : sessionEmail)</span>
+                            <span class="session-info-role">@User.FindFirst(ClaimTypes.Role)?.Value</span>
+                        </span>
+                    </div>
+                </li>
+            }
         </li>
     </div>
 

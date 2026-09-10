@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "My Profile";
+    var showAllUpcoming = ViewBag.ShowAllUpcoming == true;
+    var showAllHistory = ViewBag.ShowAllHistory == true;
+    var hasMoreUpcoming = ViewBag.HasMoreUpcoming == true;
+    var hasMorePurchases = ViewBag.HasMorePurchases == true;
 }
 
 <link rel="stylesheet" href="~/css/user.css" />
@@ -79,6 +83,13 @@
                 <a class="view-all-link" href="@Url.Action("EventList", "Home")">
                     <i class="bx bx-grid-alt"></i> Explore All
                 </a>
+                @if (hasMoreUpcoming || showAllUpcoming)
+                {
+                    <a class="view-all-link" href="@Url.Action("Cusprofile", "Profile", new { showAllUpcoming = !showAllUpcoming, showAllHistory = showAllHistory })#upcoming-events">
+                        <i class="bx @(showAllUpcoming ? "bx-chevron-up" : "bx-list-ul")"></i>
+                        @(showAllUpcoming ? "Show less" : "Show all")
+                    </a>
+                }
             </div>
 
             @if (Model.UpcomingEvents.Any())
@@ -88,7 +99,14 @@
                     {
                         <article class="event-card">
                             <div class="event-card-image">
-                                <img src="~/images/@item.PosterImg" alt="@item.EventName" />
+                                @if (!string.IsNullOrWhiteSpace(item.PosterImg))
+                                {
+                                    <img src="~/uploads/@item.PosterImg" alt="@item.EventName" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/diamond.png" alt="@item.EventName" />
+                                }
                             </div>
 
                             <div class="event-content">
@@ -123,6 +141,13 @@
                     <span class="section-kicker">Registration Activity</span>
                     <h2>Event History</h2>
                 </div>
+                @if (hasMorePurchases || showAllHistory)
+                {
+                    <a class="view-all-link" href="@Url.Action("Cusprofile", "Profile", new { showAllHistory = !showAllHistory, showAllUpcoming = showAllUpcoming })#event-history">
+                        <i class="bx @(showAllHistory ? "bx-chevron-up" : "bx-list-ul")"></i>
+                        @(showAllHistory ? "Show less" : "Show all")
+                    </a>
+                }
             </div>
 
             @if (Model.Purchases.Any())

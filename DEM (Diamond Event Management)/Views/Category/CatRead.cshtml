@@ -37,11 +37,27 @@
                 <div class="category-info">
                     <strong>@c.Id</strong>
                     @c.CategoryName
+                    <span style="margin-left: 12px; color: @(c.Status == "Hidden" ? "#ffb4b4" : "#b8f2c8");">
+                        (@c.Status)
+                    </span>
                 </div>
 
                 <div class="category-action-btns">
                     <a href="/Category/CatUpdate/@c.Id" class="btn-update">Update</a>
-                    <button data-post="/Category/CatDelete/@c.Id" class="btn-delete">Hide</button>
+                    @if (string.Equals(c.Status?.Trim(), "Hidden", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <form action="/Category/CatUnhide/@c.Id" method="post" style="display: inline;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn-update">Unhide</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="/Category/CatDelete/@c.Id" method="post" style="display: inline;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn-delete">Hide for Members</button>
+                        </form>
+                    }
                 </div>
             </div>
         }

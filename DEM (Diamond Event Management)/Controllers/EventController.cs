@@ -227,7 +227,7 @@ public class EventController(DB db,
     public IActionResult EventCreate()
     {
         ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
-        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status != "Hidden"), "Id", "CategoryName");
+        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status.Trim().ToUpper() != "HIDDEN"), "Id", "CategoryName");
         return View();
 
     }
@@ -307,7 +307,7 @@ public class EventController(DB db,
         }
 
         ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id", vm.VenueId);
-        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status != "Hidden"), "Id", "CategoryName", vm.CategoryId);
+        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status.Trim().ToUpper() != "HIDDEN"), "Id", "CategoryName", vm.CategoryId);
         return View(vm);
     }
     //----------------------------End Event Create---------------------------------------------
@@ -345,7 +345,7 @@ public class EventController(DB db,
         };
 
         ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
-        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status != "Hidden"), "Id", "CategoryName");
+        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status.Trim().ToUpper() != "HIDDEN"), "Id", "CategoryName");
         return View(vm);
 
     }
@@ -429,7 +429,7 @@ public class EventController(DB db,
         }
 
         ViewBag.VenueList = new SelectList(db.Venue, "Id", "Id");
-        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status != "Hidden"), "Id", "CategoryName");
+        ViewBag.CategoryList = new SelectList(db.Category.Where(c => c.Status.Trim().ToUpper() != "HIDDEN"), "Id", "CategoryName");
         return View(vm);
     }
 
