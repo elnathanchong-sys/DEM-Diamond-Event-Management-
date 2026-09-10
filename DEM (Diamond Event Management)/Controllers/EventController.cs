@@ -234,18 +234,24 @@ public class EventController(DB db,
 
     // POST: Home/EventCreate
     [HttpPost]
-    public IActionResult EventCreate(EventVM vm, IFormFile PosterImg, IFormFile BannerImg)
+
+    public IActionResult EventCreate(EventVM vm, IFormFile posterFile, IFormFile bannerFile)
     {
+        if (vm == null)
+        {
+            vm = new EventVM();
+            ModelState.AddModelError("", "Something went wrong reading your submission. Please try again.");
+        }
 
         if (ModelState.IsValid("PosterImg"))
         {
-            var p = hp.ValidatePhoto(PosterImg);
+            var p = hp.ValidatePhoto(posterFile);
             if (p != "") ModelState.AddModelError("PosterImg", p);
         }
 
         if (ModelState.IsValid("BannerImg"))
         {
-            var b = hp.ValidatePhoto(BannerImg);
+            var b = hp.ValidatePhoto(bannerFile);
             if (b != "") ModelState.AddModelError("BannerImg", b);
         }
 
@@ -264,8 +270,8 @@ public class EventController(DB db,
 
         if (ModelState.IsValid)
         {
-            string posterFilename = hp.SavePhoto(PosterImg, "uploads", 300, 425);
-            string bannerFilename = hp.SavePhoto(BannerImg, "uploads", 7680, 2400);
+            string posterFilename = hp.SavePhoto(posterFile, "uploads", 300, 425);
+            string bannerFilename = hp.SavePhoto(bannerFile, "uploads", 7680, 2400);
 
             int nextEventNumber = db.Event
                          .AsEnumerable()

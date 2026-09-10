@@ -299,6 +299,29 @@
     cursor: pointer;
     text-decoration: none;
 }
+
+.event-create-body .field-validation-error {
+    color: #ea868f;
+    font-size: 13px;
+    margin-top: 6px;
+    display: block;
+    font-weight: 500;
+}
+
+.event-create-body .validation-summary-errors {
+    color: #ea868f;
+    background-color: #2c1517;
+    border: 1px solid #842029;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.event-create-body .validation-summary-errors ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
 /*-------------------------------------Event Create End----------------------------------*/
 
 /*------------------------------------Event Update---------------------------*/
@@ -480,4 +503,27 @@
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
+}
+
+.event-update-body .field-validation-error {
+    color: #ea868f;
+    font-size: 13px;
+    margin-top: 6px;
+    display: block;
+    font-weight: 500;
+}
+
+.event-update-body .validation-summary-errors {
+    color: #ea868f;
+    background-color: #2c1517;
+    border: 1px solid #842029;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.event-update-body .validation-summary-errors ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
 }

@@ -10,7 +10,7 @@
     <h1 class="event-update-title">Add New Events</h1>
     <div class="event-update-body">
         <form method="post" class="form" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly"></div>
+            <div asp-validation-summary="All"></div>
 
             <div class="event-update-body-row-one">
                 <div class="event-update-input-box">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="event-update-input-box">
                     <label asp-for="Price"></label>
-                    <input asp-for="Price"  data-trim />
+                    <input asp-for="Price" data-trim />
                     <span asp-validation-for="Price"></span>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                         <input type="file" name="posterFile" accept="image/jpeg,image/png,image/jpg" hidden>
                         <img src="~/uploads/@Model.PosterImg">
                     </label>
-                    @Html.ValidationMessage("posterFile")
+                    @Html.ValidationMessage("PosterImg")
                 </div>
                 <div class="event-update-input-box">
                     <label>Banner</label>
@@ -94,7 +94,7 @@
                         <input type="file" name="bannerFile" accept="image/jpeg,image/png,image/jpg" hidden>
                         <img src="~/uploads/@Model.BannerImg">
                     </label>
-                    @Html.ValidationMessage("bannerFile")
+                    @Html.ValidationMessage("BannerImg")
                 </div>
             </div>
             <div class="event-create-body-row-four">

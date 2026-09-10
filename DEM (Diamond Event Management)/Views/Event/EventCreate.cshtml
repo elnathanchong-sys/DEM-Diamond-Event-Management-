@@ -3,17 +3,17 @@
 @{
     ViewBag.Title = "Events";
     Layout = "_AdminLayout";
-    
+
 }
 
 <div class="event-create-container">
     <h1 class="event-create-title">Add New Events</h1>
     <div class="event-create-body">
         <form method="post" class="form" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly"></div>
+            <div asp-validation-summary="All"></div>
 
             <div class="event-create-body-row-one">
-@*
+                @*
                 <div class="event-create-input-box">
                     <label asp-for="Id"></label>
                     <input asp-for="Id" data-upper autofocus placeholder="Enter event ID... E.g., E001" />
@@ -83,17 +83,17 @@
 
             <div class="event-create-body-row-three">
                 <div class="event-create-input-box">
-                        <label>Poster (300px x 425px)</label>
-                        <label class="event-create-poster-upload upload">
-                            <input type="file" name="PosterImg" accept="image/jpeg,image/png,image/jpg" hidden>
-                            <img src="/images/icon/image-poster-upload.jpg">
-                        </label>
-                        @Html.ValidationMessage("PosterImg")
+                    <label>Poster (300px x 425px)</label>
+                    <label class="event-create-poster-upload upload">
+                        <input type="file" name="posterFile" accept="image/jpeg,image/png,image/jpg" hidden>
+                        <img src="/images/icon/image-poster-upload.jpg">
+                    </label>
+                    @Html.ValidationMessage("PosterImg")
                 </div>
                 <div class="event-create-input-box">
                     <label>Banner (3840px x 1200x)</label>
                     <label class="event-create-banner-upload upload">
-                        <input type="file" name="BannerImg" accept="image/jpeg,image/png,image/jpg" hidden>
+                        <input type="file" name="bannerFile" accept="image/jpeg,image/png,image/jpg" hidden>
                         <img src="/images/icon/image-banner-upload.jpg">
                     </label>
                     @Html.ValidationMessage("BannerImg")
@@ -129,7 +129,7 @@
             </div>
 
             <section>
-                <button class="event-create-btn-submit">Submit</button>
+                <button type="submit" class="event-create-btn-submit">Submit</button>
                 <button type="reset" class="event-create-btn-reset">Reset</button>
             </section>
         </form>

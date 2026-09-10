@@ -11,7 +11,7 @@ namespace DEM__Diamond_Event_Management_.Models
     public class EventVM
     {
         [StringLength(6)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
         [StringLength(100)]
         public string Name { get; set; }
         [StringLength(100)]
