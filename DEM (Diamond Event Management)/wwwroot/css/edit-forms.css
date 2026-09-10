@@ -69,11 +69,11 @@
     font-weight: 400;
 }
 
-    .edit-screen-back:hover,
-    .edit-screen-cancel:hover,
-    .edit-screen-submit:hover {
-        transform: translateY(-1px);
-    }
+.edit-screen-back:hover,
+.edit-screen-cancel:hover,
+.edit-screen-submit:hover {
+    transform: translateY(-1px);
+}
 
 .edit-screen-back:hover,
 .edit-screen-cancel:hover {
@@ -137,22 +137,128 @@
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.edit-file-drop {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    border: 1px dashed var(--border-subtle);
+    border-radius: 10px;
+    background: var(--bg-layer-2);
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-file-drop.is-dragging,
+.edit-file-drop.is-selected {
+    border-color: var(--accent-600);
+    background: var(--bg-layer-1);
+    box-shadow: 0 0 0 3px rgba(171, 196, 255, 0.12);
+}
+
+.edit-screen .profile-image-preview {
+    display: flex;
+    justify-content: center;
+}
+
+.edit-screen .profile-image-preview img {
+    width: 92px;
+    height: 92px;
+    border: 3px solid var(--border-subtle);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.edit-screen .file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.edit-screen .file-drop-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background: var(--bg-layer-1);
+    cursor: pointer;
+}
+
+.edit-screen .file-drop-label:hover {
+    border-color: var(--accent-600);
+    background: var(--bg-page);
+}
+
+.edit-screen .file-drop-label:focus-within,
+.edit-screen .file-drop-label:focus {
+    border-color: var(--accent-600);
+}
+
+.edit-screen .file-drop-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--button-1);
+    color: var(--text-primary);
+}
+
+.edit-screen .file-drop-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.edit-screen .file-drop-title {
+    color: var(--text-primary);
+}
+
+.edit-screen .file-drop-subtitle,
+.edit-screen .file-helper {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+}
+
+.edit-screen .file-drop-button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: var(--button-1);
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.edit-screen .field-validation-error {
+    color: #ff8f8f;
+    font-size: 0.8rem;
+}
+
+.edit-screen [data-file-validation]:empty {
+    display: none;
+}
+
+.edit-screen [data-file-validation].is-visible {
+    display: block;
+}
+
 .edit-screen-field textarea {
     min-height: 104px;
     resize: vertical;
 }
 
-    .edit-screen-field input::placeholder,
-    .edit-screen-field textarea::placeholder {
-        color: var(--text-muted);
-    }
+.edit-screen-field input::placeholder,
+.edit-screen-field textarea::placeholder {
+    color: var(--text-muted);
+}
 
-    .edit-screen-field input:focus,
-    .edit-screen-field select:focus,
-    .edit-screen-field textarea:focus {
-        border-color: var(--accent-600);
-        box-shadow: 0 0 0 3px rgba(171, 196, 255, 0.15);
-    }
+.edit-screen-field input:focus,
+.edit-screen-field select:focus,
+.edit-screen-field textarea:focus {
+    border-color: var(--accent-600);
+    box-shadow: 0 0 0 3px rgba(171, 196, 255, 0.15);
+}
 
 .edit-screen-field input:disabled,
 .edit-screen-field input[readonly] {
@@ -167,9 +273,9 @@
     font-size: 0.8rem;
 }
 
-    .edit-screen-validation:empty {
-        display: none;
-    }
+.edit-screen-validation:empty {
+    display: none;
+}
 
 .edit-screen-actions {
     display: flex;
@@ -201,8 +307,8 @@
         flex-direction: column-reverse;
     }
 
-        .edit-screen-actions a,
-        .edit-screen-actions button {
-            width: 100%;
-        }
+    .edit-screen-actions a,
+    .edit-screen-actions button {
+        width: 100%;
+    }
 }

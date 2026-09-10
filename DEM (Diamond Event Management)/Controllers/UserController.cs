@@ -76,6 +76,7 @@ public class UserController(DB db, Helper hp) : Controller
 
         if (!ModelState.IsValid)
         {
+            model.UserImg = member.UserImg;
             return View(model);
         }
 
@@ -90,10 +91,18 @@ public class UserController(DB db, Helper hp) : Controller
 
         if (userPhoto != null && userPhoto.Length > 0)
         {
+            if (userPhoto.Length > 5 * 1024 * 1024)
+            {
+                ModelState.AddModelError("userPhoto", "Photo size cannot be more than 5 MB.");
+                model.UserImg = member.UserImg;
+                return View(model);
+            }
+
             var photoError = hp.ValidatePhoto(userPhoto);
             if (!string.IsNullOrEmpty(photoError))
             {
-                ModelState.AddModelError("", photoError);
+                ModelState.AddModelError("userPhoto", photoError);
+                model.UserImg = member.UserImg;
                 return View(model);
             }
 

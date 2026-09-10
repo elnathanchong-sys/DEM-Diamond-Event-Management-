@@ -34,10 +34,6 @@
         </div>
 
         <aside class="reward-box">
-            <span class="reward-label">Reward Points</span>
-            <h2>@Model.RewardPoints</h2>
-            <small>Member since @Model.CreationDate.Year</small>
-
             <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
                 @Html.AntiForgeryToken()
                 <button type="submit" class="logout-button">
@@ -66,11 +62,6 @@
             <p>Update account</p>
         </a>
 
-        <a class="quick-card" href="#">
-            <span class="icon"><i class="bx bx-cog"></i></span>
-            <h3>Settings</h3>
-            <p>Manage account</p>
-        </a>
     </section>
 
     <section class="profile-content-grid">
@@ -175,9 +166,12 @@
                                 {
                                     <span class="status-pending">Waiting for admin approval</span>
                                 }
-                                else if (purchase.Status == "Approved" && purchase.HasPayment)
+                                else if (purchase.HasPayment)
                                 {
                                     <span class="status-paid">Paid</span>
+                                    <a class="ticket-btn" href="@Url.Action("Receipt", "Profile", new { id = purchase.RegistrationId })">
+                                        <i class="bx bx-receipt"></i> View Receipt
+                                    </a>
                                 }
                                 else if (purchase.Status == "Approved")
                                 {

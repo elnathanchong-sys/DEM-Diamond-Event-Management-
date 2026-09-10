@@ -38,12 +38,15 @@ namespace DEM__Diamond_Event_Management_.Models
         public string Name { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Gender is required.")]
-        [StringLength(1)] // Adheres to MaxLength(1) on User[cite: 7]
+        [RegularExpression("^(M|F)$", ErrorMessage = "Please select a valid gender.")]
         public string Gender { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Phone number is required.")]
         [Phone(ErrorMessage = "Invalid phone number.")]
         [StringLength(100)]
-        public string? Phone { get; set; }
+        public string Phone { get; set; } = string.Empty;
+
+        public string UserImg { get; set; } = string.Empty;
 
         [DataType(DataType.Password)]
         [StringLength(100, MinimumLength = 5, ErrorMessage = "Password must be at least 5 characters.")]

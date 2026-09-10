@@ -56,16 +56,19 @@
                 <div class="form-field">
                     <label asp-for="Name">Full Name</label>
                     <input asp-for="Name" placeholder="Enter your full name" />
+                    <span asp-validation-for="Name" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="Email">Email Address</label>
                     <input asp-for="Email" readonly />
+                    <span asp-validation-for="Email" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="Phone">Phone Number</label>
                     <input asp-for="Phone" placeholder="Enter your phone number" />
+                    <span asp-validation-for="Phone" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
@@ -75,37 +78,46 @@
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                     </select>
+                    <span asp-validation-for="Gender" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="Country">Country</label>
                     <input asp-for="Country" placeholder="Country" />
+                    <span asp-validation-for="Country" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="State">State</label>
                     <input asp-for="State" placeholder="State" />
+                    <span asp-validation-for="State" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="City">City</label>
                     <input asp-for="City" placeholder="City" />
+                    <span asp-validation-for="City" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field">
                     <label asp-for="HouseNo">House No</label>
                     <input asp-for="HouseNo" placeholder="House number" />
+                    <span asp-validation-for="HouseNo" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field full-width">
                     <label asp-for="Address">Address</label>
                     <textarea asp-for="Address" rows="4" placeholder="Enter your address"></textarea>
+                    <span asp-validation-for="Address" class="field-validation-error"></span>
                 </div>
 
                 <div class="form-field full-width">
                     <label for="userPhoto">Profile Photo</label>
-                    <div class="file-drop">
-                        <input id="userPhoto" type="file" name="userPhoto" accept="image/jpeg,image/png,image/jpg" class="file-input" />
+                    <div class="file-drop" data-file-drop-zone>
+                        <div class="profile-image-preview">
+                            <img id="profileImagePreview" src="@(string.IsNullOrEmpty(Model.UserImg) ? Url.Content("~/images/profile.jpg") : Url.Content("~/images/" + Model.UserImg))" alt="Profile preview" />
+                        </div>
+                        <input id="userPhoto" type="file" name="userPhoto" accept=".jpg,.jpeg,.png,image/jpeg,image/png" class="file-input" data-image-preview="#profileImagePreview" />
                         <label for="userPhoto" class="file-drop-label">
                             <span class="file-drop-icon"><i class="bx bx-cloud-upload"></i></span>
                             <span class="file-drop-text">
@@ -114,7 +126,8 @@
                             </span>
                             <span class="file-drop-button">Choose Image</span>
                         </label>
-                        <span class="file-helper">Upload JPG, PNG, or JPEG image</span>
+                        <span class="file-helper" data-file-status>No new image selected</span>
+                        <span class="field-validation-error" data-file-validation></span>
                     </div>
                 </div>
             </div>
@@ -128,3 +141,7 @@
         </form>
     </section>
 </div>
+
+@section Scripts {
+    <script src="~/js/profile-edit.js"></script>
+}

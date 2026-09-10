@@ -50,6 +50,7 @@ public class AdminController(DB db, Helper hp) : Controller
             Name = admin.Name,
             Gender = admin.Gender,
             Phone = admin.Phone,
+            UserImg = admin.UserImg,
             NewPassword = string.Empty
         };
 
@@ -58,7 +59,7 @@ public class AdminController(DB db, Helper hp) : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditMyProfile(AdminEditViewModel model)
+    public async Task<IActionResult> EditMyProfile(AdminEditViewModel model, IFormFile? userPhoto)
     {
         var email = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(email))
@@ -77,6 +78,31 @@ public class AdminController(DB db, Helper hp) : Controller
         if (!ModelState.IsValid)
         {
             return View(model);
+        }
+
+        if (userPhoto != null && userPhoto.Length > 0)
+        {
+            if (userPhoto.Length > 5 * 1024 * 1024)
+            {
+                ModelState.AddModelError("userPhoto", "Photo size cannot be more than 5 MB.");
+                model.UserImg = admin.UserImg;
+                return View(model);
+            }
+
+            var photoError = hp.ValidatePhoto(userPhoto);
+            if (!string.IsNullOrEmpty(photoError))
+            {
+                ModelState.AddModelError("userPhoto", photoError);
+                return View(model);
+            }
+
+            var newPhoto = hp.SavePhoto(userPhoto, "images");
+            if (!string.IsNullOrEmpty(admin.UserImg))
+            {
+                hp.DeletePhoto(admin.UserImg, "images");
+            }
+
+            admin.UserImg = newPhoto;
         }
 
         admin.Name = model.Name;
@@ -447,12 +473,11 @@ public class AdminController(DB db, Helper hp) : Controller
                 Name = e.Name,
                 StartDate = e.StartDate,
                 Status = e.Status,
-                RegisteredPeople = e.Registrations
-                    .Where(r => r.Status != "Cancelled")
-                    .SelectMany(r => r.Players)
-                    .Count()
+                RegisteredPeople = db.Registration
+                    .Count(r => r.EventId == e.Id && r.Status != "Cancelled")
             })
             .OrderByDescending(e => e.RegisteredPeople)
+            .ThenBy(e => e.Name)
             .Take(5)
             .ToList();
 

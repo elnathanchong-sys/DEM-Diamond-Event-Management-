@@ -16,7 +16,7 @@
         <a asp-action="Index" class="edit-screen-back"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
     </header>
 
-    <form asp-action="EditMyProfile" method="post" class="edit-screen-card edit-screen-form">
+    <form asp-action="EditMyProfile" method="post" enctype="multipart/form-data" class="edit-screen-card edit-screen-form">
         @Html.AntiForgeryToken()
         <div asp-validation-summary="ModelOnly" class="edit-screen-validation"></div>
 
@@ -28,7 +28,7 @@
             <div class="edit-screen-field">
                 <label asp-for="Name">Full Name</label>
                 <input asp-for="Name" placeholder="Enter your full name" />
-                <span asp-validation-for="Name"></span>
+                <span asp-validation-for="Name" class="field-validation-error"></span>
             </div>
 
             <div class="edit-screen-field">
@@ -37,18 +37,38 @@
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                 </select>
-                <span asp-validation-for="Gender"></span>
+                <span asp-validation-for="Gender" class="field-validation-error"></span>
             </div>
             <div class="edit-screen-field">
                 <label asp-for="Phone">Phone Number</label>
                 <input asp-for="Phone" placeholder="Enter your phone number" />
-                <span asp-validation-for="Phone"></span>
+                <span asp-validation-for="Phone" class="field-validation-error"></span>
+            </div>
+
+            <div class="edit-screen-field edit-screen-field--full">
+                <label for="userPhoto">Profile Photo</label>
+                <div class="edit-file-drop" data-file-drop-zone>
+                    <div class="profile-image-preview">
+                        <img id="profileImagePreview" src="@(string.IsNullOrEmpty(Model.UserImg) ? Url.Content("~/images/profile.jpg") : Url.Content("~/images/" + Model.UserImg))" alt="Profile preview" />
+                    </div>
+                    <input id="userPhoto" type="file" name="userPhoto" accept=".jpg,.jpeg,.png,image/jpeg,image/png" class="file-input" data-image-preview="#profileImagePreview" />
+                    <label for="userPhoto" class="file-drop-label">
+                        <span class="file-drop-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+                        <span class="file-drop-text">
+                            <span class="file-drop-title">Choose a profile image</span>
+                            <span class="file-drop-subtitle">JPG, JPEG, or PNG up to 5 MB</span>
+                        </span>
+                        <span class="file-drop-button">Browse</span>
+                    </label>
+                    <span class="file-helper" data-file-status>No new image selected</span>
+                    <span class="field-validation-error" data-file-validation></span>
+                </div>
             </div>
 
             <div class="edit-screen-field edit-screen-field--full">
                 <label asp-for="NewPassword">New Password (leave blank to keep current)</label>
                 <input asp-for="NewPassword" type="password" placeholder="Enter a new password" />
-                <span asp-validation-for="NewPassword"></span>
+                <span asp-validation-for="NewPassword" class="field-validation-error"></span>
             </div>
         </div>
 
@@ -58,3 +78,7 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <script src="~/js/profile-edit.js"></script>
+}

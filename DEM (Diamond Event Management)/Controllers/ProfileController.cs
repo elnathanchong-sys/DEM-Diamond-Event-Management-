@@ -87,7 +87,7 @@ public class ProfileController(DB db) : Controller
             Purchases = showAllHistory ? purchases : purchases.Take(4).ToList()
         };
 
-        return View(model);
+        return View("~/Views/User/CusProfile.cshtml", model);
     }
 
     [HttpGet]
