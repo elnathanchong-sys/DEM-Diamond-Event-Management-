@@ -417,9 +417,9 @@ public class AdminController(DB db, Helper hp) : Controller
         int totalOngoing = db.Event
             .Count(e => e.Status == "Ongoing");
 
-        // Total pending events
-        int totalPending = db.Event
-            .Count(e => e.Status == "Pending");
+        // Total teams waiting for admin approval
+        int totalPending = db.Registration
+            .Count(r => r.Status == "Pending");
 
         // Total revenue from payments
         decimal totalRevenue = db.Payment

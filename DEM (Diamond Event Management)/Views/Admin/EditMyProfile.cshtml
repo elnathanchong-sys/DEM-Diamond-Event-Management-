@@ -4,53 +4,57 @@
     Layout = "_AdminLayout";
 }
 
-<link rel="stylesheet" href="~/css/Category.css" />
+<link rel="stylesheet" href="~/css/edit-forms.css" />
 
-<div class="category-update-container">
-    <a asp-action="Index" class="category-update-btn-return">← Back to Dashboard</a>
-    <h2 class="category-update-title">Edit My Admin Profile</h2>
-
-    <form asp-action="EditMyProfile" method="post" class="category-update-body">
-        @Html.AntiForgeryToken()
-        <div asp-validation-summary="ModelOnly" style="color: #ff6b6b; margin-bottom: 10px;"></div>
-
-        <div class="category-update-body-row-one">
-            <div style="flex: 1;">
-                <label style="display: block; margin-bottom: 5px;">Email (Read Only)</label>
-                <input value="@Model.Email" disabled style="width: 100%; padding: 10px; background-color: #343A40; color: #aaa; border: 1px solid #444; border-radius: 10px;" />
-            </div>
-            <div style="flex: 1;">
-                <label asp-for="Name" style="display: block; margin-bottom: 5px;">Full Name</label>
-                <input asp-for="Name" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px;" />
-                <span asp-validation-for="Name" style="color: #ff6b6b;"></span>
-            </div>
+<div class="edit-screen">
+    <header class="edit-screen-header">
+        <div>
+            <span class="edit-screen-kicker"><i class="fa-solid fa-user-gear"></i> Account settings</span>
+            <h1>Edit My Admin Profile</h1>
+            <p class="edit-screen-subtitle">Keep your administrator details current and secure.</p>
         </div>
+        <a asp-action="Index" class="edit-screen-back"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+    </header>
 
-        <div class="category-update-body-row-one">
-            <div style="flex: 1;">
-                <label asp-for="Gender" style="display: block; margin-bottom: 5px;">Gender</label>
-                <select asp-for="Gender" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px; font-family: 'Bree Serif', serif;">
+    <form asp-action="EditMyProfile" method="post" class="edit-screen-card edit-screen-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="edit-screen-validation"></div>
+
+        <div class="edit-screen-grid">
+            <div class="edit-screen-field">
+                <label>Email (Read Only)</label>
+                <input value="@Model.Email" disabled />
+            </div>
+            <div class="edit-screen-field">
+                <label asp-for="Name">Full Name</label>
+                <input asp-for="Name" placeholder="Enter your full name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="edit-screen-field">
+                <label asp-for="Gender">Gender</label>
+                <select asp-for="Gender">
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                 </select>
-                <span asp-validation-for="Gender" style="color: #ff6b6b;"></span>
+                <span asp-validation-for="Gender"></span>
             </div>
-            <div style="flex: 1;">
-                <label asp-for="Phone" style="display: block; margin-bottom: 5px;">Phone Number</label>
-                <input asp-for="Phone" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px;" />
-                <span asp-validation-for="Phone" style="color: #ff6b6b;"></span>
+            <div class="edit-screen-field">
+                <label asp-for="Phone">Phone Number</label>
+                <input asp-for="Phone" placeholder="Enter your phone number" />
+                <span asp-validation-for="Phone"></span>
+            </div>
+
+            <div class="edit-screen-field edit-screen-field--full">
+                <label asp-for="NewPassword">New Password (leave blank to keep current)</label>
+                <input asp-for="NewPassword" type="password" placeholder="Enter a new password" />
+                <span asp-validation-for="NewPassword"></span>
             </div>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label asp-for="NewPassword" style="display: block; margin-bottom: 5px;">New Password (leave blank to keep current)</label>
-            <input asp-for="NewPassword" type="password" style="width: 100%; padding: 10px; background-color: #495057; color: #fff; border: 1px solid #444; border-radius: 10px;" />
-            <span asp-validation-for="NewPassword" style="color: #ff6b6b;"></span>
-        </div>
-
-        <div>
-            <button type="submit" class="category-update-btn-submit">Update Profile</button>
-            <a asp-action="Index" class="category-update-btn-reset" style="display: inline-block;">Cancel</a>
+        <div class="edit-screen-actions">
+            <a asp-action="Index" class="edit-screen-cancel">Cancel</a>
+            <button type="submit" class="edit-screen-submit"><i class="fa-solid fa-check"></i> Update Profile</button>
         </div>
     </form>
 </div>

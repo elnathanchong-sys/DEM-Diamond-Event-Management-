@@ -1,0 +1,208 @@
+﻿/* Shared edit screens */
+.edit-screen {
+    width: min(100%, 980px);
+    margin: 0 auto;
+    color: var(--text-primary);
+}
+
+.edit-screen--wide {
+    width: min(100%, 1120px);
+}
+
+.edit-screen-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 22px;
+}
+
+.edit-screen-kicker {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent-600);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.edit-screen h1 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+
+.edit-screen-subtitle {
+    margin: 8px 0 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.edit-screen-back,
+.edit-screen-cancel,
+.edit-screen-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.edit-screen-back,
+.edit-screen-cancel {
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-layer-1);
+    color: var(--text-primary);
+}
+
+.edit-screen-submit {
+    border: 1px solid var(--accent-600);
+    background: var(--accent-600);
+    color: var(--accent-text-on-light);
+    font-weight: 400;
+}
+
+    .edit-screen-back:hover,
+    .edit-screen-cancel:hover,
+    .edit-screen-submit:hover {
+        transform: translateY(-1px);
+    }
+
+.edit-screen-back:hover,
+.edit-screen-cancel:hover {
+    background: var(--bg-layer-2);
+    border-color: var(--accent-600);
+}
+
+.edit-screen-submit:hover {
+    background: var(--accent-500);
+}
+
+.edit-screen-card {
+    padding: clamp(22px, 4vw, 36px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    background: var(--bg-layer-1);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+}
+
+.edit-screen-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.edit-screen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.edit-screen-field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.edit-screen-field--full {
+    grid-column: 1 / -1;
+}
+
+.edit-screen-field label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+}
+
+.edit-screen-field input,
+.edit-screen-field select,
+.edit-screen-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 13px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    outline: none;
+    background: var(--bg-layer-2);
+    color: var(--text-primary);
+    font: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-screen-field textarea {
+    min-height: 104px;
+    resize: vertical;
+}
+
+    .edit-screen-field input::placeholder,
+    .edit-screen-field textarea::placeholder {
+        color: var(--text-muted);
+    }
+
+    .edit-screen-field input:focus,
+    .edit-screen-field select:focus,
+    .edit-screen-field textarea:focus {
+        border-color: var(--accent-600);
+        box-shadow: 0 0 0 3px rgba(171, 196, 255, 0.15);
+    }
+
+.edit-screen-field input:disabled,
+.edit-screen-field input[readonly] {
+    background: var(--bg-page);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.edit-screen-validation,
+.edit-screen-field .field-validation-error {
+    color: #ff8f8f;
+    font-size: 0.8rem;
+}
+
+    .edit-screen-validation:empty {
+        display: none;
+    }
+
+.edit-screen-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+@media (max-width: 720px) {
+    .edit-screen-header {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .edit-screen-back {
+        align-self: flex-start;
+    }
+
+    .edit-screen-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-screen-field--full {
+        grid-column: auto;
+    }
+
+    .edit-screen-actions {
+        flex-direction: column-reverse;
+    }
+
+        .edit-screen-actions a,
+        .edit-screen-actions button {
+            width: 100%;
+        }
+}
