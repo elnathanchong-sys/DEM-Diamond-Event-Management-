@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DEM__Diamond_Event_Management_.Models.DB">
+    <Position X="9.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgABAQAAAIAAAAAAAIAAAQAAAgAIAAAAEABAAQAECAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.User">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAIAAICAAAACAEQAAAAQgAAAAAgAAAAAAIAAAEAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Member">
+    <Position X="1.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAABIACAACAAAABAAgAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Admin">
+    <Position X="3.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Event">
+    <Position X="11.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgCAIAEAYAgAgAAAAgAAAQgIgggAAQAAAAAEEAACAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.IndexBanner">
+    <Position X="6" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Announcement">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAgAAAAAAAAAAAQAAIAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Registration">
+    <Position X="13" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAkAAAAAAAAAAAAAAABAgAgAAAAAAAACCAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Player">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAAAAAAAAAAEAAAAAAAAAAAAAAABAAAAAAEAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Category">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAAAAAAAAAAAAAiAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Venue">
+    <Position X="13" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAggAAAAAIAAAACAgAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Payment">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAEAAIAAAAAAAAAAAAAAAQAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Team">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIAAAAAAAAAAAABAAAQAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.Tournament">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAIAAAAAIAAAAAAAAAAUAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DEM__Diamond_Event_Management_.Models.TournamentRegistration">
+    <Position X="14.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgASAAIEAAAAAAAQAAJAAAACAAAEAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DEM__Diamond_Event_Management_.Models.RegistrationStatus">
+    <Position X="7.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
